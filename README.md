@@ -1,4 +1,4 @@
-# Weather.io
+# Weathr.io
 
 (Insert project description here)
 
