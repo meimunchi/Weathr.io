@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start:frontend": "cd frontend && npm run start",
-    "start:backend-venv": "cd backend && .\"/venv/Scripts/python\" app.py",
-    "start:backend-global": "cd backend && py app.py",
+    "start:backend-venv": "cd backend && .\"/venv/Scripts/python\" application.py",
+    "start:backend-global": "cd backend && py application.py",
     "start:dev-venv": "concurrently \"npm run start:frontend\" \"npm run start:backend-venv\"",
     "start:dev-global": "concurrently \"npm run start:frontend\" \"npm run start:backend-global\""
   },
