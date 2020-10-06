@@ -2,7 +2,7 @@ version: 0.2
 
 phases:
   build:
-    -zip -r backend.zip backend
+    - zip -r backend.zip backend
 artifacts:
   files:
     - backend.zip
