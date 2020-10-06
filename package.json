@@ -5,14 +5,17 @@
   "main": "index.js",
   "scripts": {
     "start:frontend": "cd frontend && npm run start",
-    "start:backend-venv": "cd backend && .\"/venv/Scripts/python\" app.py",
-    "start:backend-global": "cd backend && py app.py",
+    "start:backend-venv": "cd backend && .\"/venv/Scripts/python\" application.py",
+    "start:backend-global": "cd backend && py application.py",
     "start:dev-venv": "concurrently \"npm run start:frontend\" \"npm run start:backend-venv\"",
-    "start:dev-global": "concurrently \"npm run start:frontend\" \"npm run start:backend-global\""
+    "start:dev-global": "concurrently \"npm run start:frontend\" \"npm run start:backend-global\"",
+    "prebuild": "cd frontend && npm run build && cd ..",
+    "build": "copyfiles -f frontend/build/* backend/static && copyfiles -f frontend/build/static/css/* backend/static/static/css && copyfiles -f frontend/build/static/js/* backend/static/static/js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^5.3.0"
+    "concurrently": "^5.3.0",
+    "copyfiles": "^2.4.0"
   }
 }
