@@ -2,4 +2,7 @@ version: 0.2
 
 artifacts:
   files:
-    - backend/**/*
+    - backend/.ebextensions/*
+    - backend/.elasticbeanstalk/*
+    - backend/static/*
+    - backend/*
