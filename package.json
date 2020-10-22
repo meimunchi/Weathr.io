@@ -6,6 +6,7 @@
   "scripts": {
     "start:frontend": "cd frontend && npm run start",
     "start:backend-venv": "cd backend && .\"/venv/Scripts/python\" application.py",
+    "start:backend-linux": "cd backend && .\"/venv/bin/python3\" application.py",
     "start:backend-global": "cd backend && py application.py",
     "start:dev-venv": "concurrently \"npm run start:frontend\" \"npm run start:backend-venv\"",
     "start:dev-global": "concurrently \"npm run start:frontend\" \"npm run start:backend-global\"",
