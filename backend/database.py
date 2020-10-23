@@ -3,6 +3,13 @@ import json
 from botocore.exceptions import ClientError
 
 
+# be sure to set up credentials before using :)
+# links:
+# aws cli setup: https://aws.amazon.com/cli/
+# dynamodb api: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dynamodb.html
+dynamodb = boto3.client('dynamodb')
+
+
 # ------------- CREATE FUNCTIONS ------------- #
 
 
@@ -10,8 +17,6 @@ from botocore.exceptions import ClientError
 
 
 def create_movie_table(dynamodb=None):
-    if not dynamodb:
-        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
     table = dynamodb.create_table(
         TableName='Movies',
@@ -45,8 +50,6 @@ def create_movie_table(dynamodb=None):
 
 
 def put_movie(title, year, plot, rating, dynamodb=None):
-    if not dynamodb:
-        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
     table = dynamodb.Table('Movies')
     response = table.put_item(
@@ -64,8 +67,6 @@ def put_movie(title, year, plot, rating, dynamodb=None):
 
 # Example to build off of
 def load_movies(movies, dynamodb=None):
-    if not dynamodb:
-        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
     table = dynamodb.Table('Movies')
     for movie in movies:
@@ -79,8 +80,6 @@ def load_movies(movies, dynamodb=None):
 
 
 def get_movie(title, year, dynamodb=None):
-    if not dynamodb:
-        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
     table = dynamodb.Table('Movies')
 
@@ -94,8 +93,6 @@ def get_movie(title, year, dynamodb=None):
 # ------------- UPDATE FUNCTIONS ------------- #
 
 def update_movie(title, year, rating, plot, actors, dynamodb=None):
-    if not dynamodb:
-        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
     table = dynamodb.Table('Movies')
 
@@ -118,8 +115,6 @@ def update_movie(title, year, rating, plot, actors, dynamodb=None):
 
 
 def delete_underrated_movie(title, year, rating, dynamodb=None):
-    if not dynamodb:
-        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
     table = dynamodb.Table('Movies')
 
