@@ -1,16 +1,15 @@
 import React from 'react';
-import Login from './Login/login';
+import Login from './login'
 
 import './form.css';
-import logo from './cloud logo.png'
+import cloudLogo from '../../assets/cloud-logo.png'
 
 function Form() {
     return (
-        <div className="Form">
-            <img src={logo} />
-            <Login />
+        <div className="form">
+            <img src={cloudLogo} alt="Weathr Logo"/>
+            <Login/>
         </div>
-
     );
 }
 
