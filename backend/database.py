@@ -33,7 +33,7 @@ def put_user(_uid, _email, _password, _name, _phonenum, _admin):
 # ------------- READ FUNCTIONS ------------- #
 
 
-def get_user(_uid, dynamodb=None):
+def get_user(_uid):
 
     table = dynamodb.Table('weathr-data-dev')
 
@@ -47,7 +47,7 @@ def get_user(_uid, dynamodb=None):
 # ------------- UPDATE FUNCTIONS ------------- #
 
 
-def update_user(_uid, _email, _password, _name, _phonenum, _admin, dynamodb=None):
+def update_user(_uid, _email, _password, _name, _phonenum, _admin):
 
     table = dynamodb.Table('weathr-data-dev')
 
@@ -70,7 +70,7 @@ def update_user(_uid, _email, _password, _name, _phonenum, _admin, dynamodb=None
 # ------------- DELETE FUNCTIONS ------------- #
 
 
-def delete_user(_uid, dynamodb=None):
+def delete_user(_uid):
 
     table = dynamodb.Table('weathr-data-dev')
 
