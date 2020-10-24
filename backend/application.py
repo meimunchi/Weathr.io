@@ -16,6 +16,26 @@ def main():
     return 'Hello Weathr!'
 
 
+@application.route('/general')
+def general():
+    return None
+
+
+@application.route('/disaster')
+def disaster():
+    return None
+
+
+@application.route('/news')
+def news():
+    return None
+
+
+@application.route('/educational-blogs')
+def edu_blogs():
+    return None
+
+
 @application.route('/login', methods=['POST'])
 def login():
     req_data = request.get_json()
@@ -33,6 +53,18 @@ def login():
 @application.route('/info')
 def weathr_info():
     return(one_call(request.remote_addr, config_data['APIKEY']))
+
+
+# -------------- SMS RELATED PATHS -------------- #
+
+@application.route('/sms/disaster')
+def sms_disaster():
+    return None
+
+
+@application.route('/sms/general')
+def sms_general():
+    return None
 
 
 if __name__ == "__main__":

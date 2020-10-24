@@ -13,99 +13,55 @@ dynamodb = boto3.client('dynamodb')
 # ------------- CREATE FUNCTIONS ------------- #
 
 
-# Example to build off of
+def put_user(_uid, _email, _password, _name, _phonenum, _admin, dynamodb=None):
 
+    table = dynamodb.Table('weathr-data-dev')
 
-def create_movie_table(dynamodb=None):
-
-    table = dynamodb.create_table(
-        TableName='Movies',
-        KeySchema=[
-            {
-                'AttributeName': 'year',
-                'KeyType': 'HASH'  # Partition key
-            },
-            {
-                'AttributeName': 'title',
-                'KeyType': 'RANGE'  # Sort key
-            }
-        ],
-        AttributeDefinitions=[
-            {
-                'AttributeName': 'year',
-                'AttributeType': 'N'
-            },
-            {
-                'AttributeName': 'title',
-                'AttributeType': 'S'
-            },
-
-        ],
-        ProvisionedThroughput={
-            'ReadCapacityUnits': 10,
-            'WriteCapacityUnits': 10
-        }
-    )
-    return table
-
-
-def put_movie(title, year, plot, rating, dynamodb=None):
-
-    table = dynamodb.Table('Movies')
     response = table.put_item(
-       Item={
-            'year': year,
-            'title': title,
-            'info': {
-                'plot': plot,
-                'rating': rating
-            }
+        Item={
+            'uid': _uid,
+            'email': _email,
+            'password': _password,
+            'name': _name,
+            'phonenum': _phonenum,
+            'admin': _admin
         }
     )
     return response
 
 
-# Example to build off of
-def load_movies(movies, dynamodb=None):
-
-    table = dynamodb.Table('Movies')
-    for movie in movies:
-        year = int(movie['year'])
-        title = movie['title']
-        print("Adding movie:", year, title)
-        table.put_item(Item=movie)
-
-
 # ------------- READ FUNCTIONS ------------- #
 
 
-def get_movie(title, year, dynamodb=None):
+def get_user(_uid, dynamodb=None):
 
-    table = dynamodb.Table('Movies')
+    table = dynamodb.Table('weathr-data-dev')
 
     try:
-        response = table.get_item(Key={'year': year, 'title': title})
-    except ClientError as e:
-        print(e.response['Error']['Message'])
+        response = table.get_item(Key={'uid': _uid})
+    except ClientError as err:
+        print(err.response['Error']['Message'])
     else:
         return response['Item']
 
 # ------------- UPDATE FUNCTIONS ------------- #
 
-def update_movie(title, year, rating, plot, actors, dynamodb=None):
 
-    table = dynamodb.Table('Movies')
+def update_user(_uid, _email, _password, _name, _phonenum, _admin, dynamodb=None):
+
+    table = dynamodb.Table('weathr-data-dev')
 
     response = table.update_item(
         Key={
-            'year': year,
-            'title': title
+            'uid': _uid
         },
-        UpdateExpression="set info.rating=:r, info.plot=:p, info.actors=:a",
+        UpdateExpression="email=:e, password=:p, name=:n, phonenum=:pn, admin=:a",
         ExpressionAttributeValues={
-            ':r': Decimal(rating),
-            ':p': plot,
-            ':a': actors
+            ':e': _email,
+            ':p': _password,
+            ':n': _name,
+            ':pn': _phonenum,
+            ':a': _admin
         },
         ReturnValues="UPDATED_NEW"
     )
@@ -114,30 +70,21 @@ def update_movie(title, year, rating, plot, actors, dynamodb=None):
 # ------------- DELETE FUNCTIONS ------------- #
 
 
-def delete_underrated_movie(title, year, rating, dynamodb=None):
+def delete_user(_uid, dynamodb=None):
 
-    table = dynamodb.Table('Movies')
+    table = dynamodb.Table('weathr-data-dev')
 
     try:
         response = table.delete_item(
             Key={
-                'year': year,
-                'title': title
-            },
-            ConditionExpression="info.rating <= :val",
-            ExpressionAttributeValues={
-                ":val": Decimal(rating)
+                'uid': _uid
             }
         )
-    except ClientError as e:
-        if e.response['Error']['Code'] == "ConditionalCheckFailedException":
-            print(e.response['Error']['Message'])
-        else:
-            raise
+    except ClientError as err:
+        print(err.response['Error']['Response'])
     else:
         return response
 
 
 if __name__ == '__main__':
-    movie_table = create_movie_table()
-    print("Table status:", movie_table.table_status)
+    print("hi")
