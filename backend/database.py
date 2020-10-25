@@ -13,14 +13,14 @@ dynamodb = boto3.resource('dynamodb')
 # ------------- CREATE FUNCTIONS ------------- #
 
 
-def put_user(_uid, _email, _password, _name, _phonenum, _admin):
+def put_user(_email, _uid, _password, _name, _phonenum, _admin):
 
     table = dynamodb.Table('weathr-data-dev')
 
     response = table.put_item(
         Item={
-            'user_id': _uid,
             'email': _email,
+            'user_id': _uid,
             'password': _password,
             'name': _name,
             'phonenum': _phonenum,
@@ -33,12 +33,12 @@ def put_user(_uid, _email, _password, _name, _phonenum, _admin):
 # ------------- READ FUNCTIONS ------------- #
 
 
-def get_user(_uid):
+def get_user(_email):
 
     table = dynamodb.Table('weathr-data-dev')
 
     try:
-        response = table.get_item(Key={'user_id': _uid})
+        response = table.get_item(Key={'email': _email})
     except ClientError as err:
         print(err.response['Error']['Message'])
     else:
@@ -47,17 +47,17 @@ def get_user(_uid):
 # ------------- UPDATE FUNCTIONS ------------- #
 
 
-def update_user(_uid, _email, _password, _name, _phonenum, _admin):
+def update_user(_email, _uid, _password, _name, _phonenum, _admin):
 
     table = dynamodb.Table('weathr-data-dev')
 
     response = table.update_item(
         Key={
-            'user_id': _uid
+            'email': _email
         },
-        UpdateExpression="email=:e, password=:p, name=:n, phonenum=:pn, admin=:a",
+        UpdateExpression="set user_id=:u, password=:p, nm=:n, phonenum=:pn, admin=:a",
         ExpressionAttributeValues={
-            ':e': _email,
+            ':u': _uid,
             ':p': _password,
             ':n': _name,
             ':pn': _phonenum,
@@ -70,14 +70,14 @@ def update_user(_uid, _email, _password, _name, _phonenum, _admin):
 # ------------- DELETE FUNCTIONS ------------- #
 
 
-def delete_user(_uid):
+def delete_user(_email):
 
     table = dynamodb.Table('weathr-data-dev')
 
     try:
         response = table.delete_item(
             Key={
-                'user_id': _uid
+                'email': _email
             }
         )
     except ClientError as err:
@@ -87,4 +87,9 @@ def delete_user(_uid):
 
 
 if __name__ == '__main__':
-    put_user("1", "xxx@gmail.com", "1234pas", "JohnDoe", "7778", False)
+    #put_user("xxx@gmail.com", "1", "1234pas", "JohnDoe", "7778", False)
+    print("Hi")
+    #print(get_user("xxx@gmail.com"))
+    #print(update_user("xxx@gmail.com", "1", "1234pasnew", "JohnDoe", "7778", False))
+    #print(get_user("xxx@gmail.com"))
+    #print(delete_user("xxx@gmail.com"))

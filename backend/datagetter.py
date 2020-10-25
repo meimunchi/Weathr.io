@@ -30,9 +30,6 @@ def one_call(ip, key):
 
 
 
-
-
-
 ### Example
 # uncomment and enter ip here to test
 # this calls ip and weather api
