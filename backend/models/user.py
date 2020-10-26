@@ -2,7 +2,7 @@ from flask_login import UserMixin
 import boto3
 import json
 from botocore.exceptions import ClientError
-from backend import table
+from ..create_app import table
 
 class User(UserMixin):
     # Database implementation for user
