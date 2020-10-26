@@ -1,15 +1,11 @@
 from flask import Flask, request
 from flask_login import LoginManager, login_user
 from flask_cors import CORS
-from backend.datagetter import *
+from datagetter import *
+from create_app import create_app
+import os
 
-application = Flask(__name__)
-login_manager = LoginManager()
-
-CORS(application)
-login_manager.init_app(application)
-
-
+application = create_app()
 
 @application.route('/')
 def main():
@@ -55,7 +51,9 @@ def login():
 
 @application.route('/info')
 def weathr_info():
-    return one_call(request.remote_addr, config_data['APIKEY'])
+    print(request.remote_addr)
+    print(os.getenv('WEATHER_APIKEY'))
+    return one_call(request.remote_addr, os.getenv('WEATHER_APIKEY'))
 
 
 # -------------- SMS RELATED PATHS -------------- #
