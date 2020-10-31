@@ -4,12 +4,15 @@ from flask_cors import CORS
 from datagetter import *
 from create_app import create_app
 import os
+from models import user
 
 application = create_app()
+
 
 @application.route('/')
 def main():
     return 'Hello Weathr!'
+
 
 # input is location, ouput is: weather forecast, temperature, current conditions (windspeed,
 @application.route('/general')
@@ -48,6 +51,18 @@ def login():
     print(password)
 
     return req_data
+
+
+@application.route('/signup', methods=['POST'])
+def signup_user():
+    req_data = request.get_json()
+
+    new_user = user.User()
+    new_user.put(req_data['email'], req_data['user_id'], req_data['password'], req_data['name'],
+                 req_data['phone_num'], req_data['is_admin'])
+
+    return "hi"
+
 
 @application.route('/info')
 def weathr_info():

@@ -2,14 +2,13 @@ from flask_login import UserMixin
 import boto3
 import json
 from botocore.exceptions import ClientError
-from ..create_app import table
+from create_app import table
+
 
 class User(UserMixin):
     # Database implementation for user
 
-    def put(self,_email, _uid, _password, _name, _phonenum, _admin):
-
-
+    def put(self, _email, _uid, _password, _name, _phonenum, _admin):
         response = table.put_item(
             Item={
                 'email': _email,
@@ -22,11 +21,9 @@ class User(UserMixin):
         )
         return response
 
-
     # ------------- READ FUNCTIONS ------------- #
 
-
-    def get(self,_email):
+    def get(self, _email):
 
         try:
             response = table.get_item(Key={'email': _email})
@@ -37,8 +34,7 @@ class User(UserMixin):
 
     # ------------- UPDATE FUNCTIONS ------------- #
 
-
-    def update(self,_email, _uid, _password, _name, _phonenum, _admin):
+    def update(self, _email, _uid, _password, _name, _phonenum, _admin):
 
         response = table.update_item(
             Key={
@@ -58,8 +54,7 @@ class User(UserMixin):
 
     # ------------- DELETE FUNCTIONS ------------- #
 
-
-    def delete(self,_email):
+    def delete(self, _email):
 
         try:
             response = table.delete_item(
@@ -71,4 +66,3 @@ class User(UserMixin):
             print(err.response['Error']['Response'])
         else:
             return response
-

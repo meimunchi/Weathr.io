@@ -10,24 +10,28 @@ login_manager = LoginManager()
 
 load_dotenv()
 
+# create database and table
+dynamodb = boto3.resource('dynamodb', region_name=os.getenv('AWS_REGION'))
+
 #create flask app
 def create_app():
-    
-    #TODO:handle production environment
+    # TODO:handle production environment
     if os.getenv('FLASK_CONFIG') == "production":
         application = Flask(__name__)
+        table = dynamodb.Table(os.getenv('DATABASE_PROD'))
     else:
         application = Flask(__name__)
 
-    #TODO:handle auth
+
+    # TODO:handle auth
     CORS(application)
     login_manager.init_app(application)
 
     return application
 
-#create database and table
-dynamodb = boto3.resource('dynamodb')
-table = dynamodb.Table(os.getenv('DATABASE_DEV'))
 
-
+if os.getenv('FLASK_CONFIG') == "production":
+    table = dynamodb.Table(os.getenv('DATABASE_PROD'))
+else:
+    table = dynamodb.Table(os.getenv('DATABASE_DEV'))
 
