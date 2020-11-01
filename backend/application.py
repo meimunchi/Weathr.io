@@ -1,32 +1,13 @@
-from flask import Flask, request
-from flask_login import LoginManager, login_user
-from flask_cors import CORS
+from flask import request
 from datagetter import *
 from create_app import create_app
 import os
+from controllers.auth import auth_api
+from controllers.weather_info import weather_info_api
 
 application = create_app()
 
-@application.route('/')
-def main():
-    return 'Hello Weathr!'
-
-# input is location, ouput is: weather forecast, temperature, current conditions (windspeed,
-@application.route('/general')
-def general():
-    return 'This is the general route!'
-
-
-# input is location, output is Natural Disaster (name, severity, type, location, list of tips, power updates, etc.)
-@application.route('/disaster')
-def disaster():
-    return 'This is the disaster route!'
-
-
-# input is location, output is news articles about weather based on location
-@application.route('/news')
-def news():
-    return 'This is the news route!'
+application.register_blueprint(weather_info_api)
 
 
 # input is ?, output is a list of blogs
@@ -35,19 +16,8 @@ def edu_blogs():
     return 'This is the educational-blogs route!'
 
 
-@application.route('/login', methods=['POST'])
-def login():
-    req_data = request.get_json()
-    email = req_data['email']
-    password = req_data['password']
+application.register_blueprint(auth_api)
 
-    # Query user based on email and verify password
-    # login_user(user)
-
-    print(email)
-    print(password)
-
-    return req_data
 
 @application.route('/info')
 def weathr_info():
