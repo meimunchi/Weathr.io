@@ -13,6 +13,7 @@ load_dotenv()
 # create database and table
 dynamodb = boto3.resource('dynamodb', region_name=os.getenv('AWS_REGION'))
 
+
 #create flask app
 def create_app():
     # TODO:handle production environment
