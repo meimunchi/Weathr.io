@@ -1,18 +1,17 @@
 import React from 'react';
 import './App.css';
-
-import Home from './Home/Home';
-import Signup from './Form/Login/signup'
+import { BrowserRouter, Route } from 'react-router-dom';
+import Login from './Form/login';
+import Navigation from './Navigation/navigation';
+import SignUp from './Form/Login/signup';
 
 
 function App() {
   return (
-    <div className="App">
-
-      <Home />
-      <Signup />
-
-    </div>
+    <BrowserRouter>
+      <Navigation />
+      <Route path='/signup' component={SignUp} />
+    </BrowserRouter>
   );
 }
 

@@ -1,7 +1,9 @@
 from models import user
 from flask import Blueprint, request
+from flask_cors import CORS
 
 auth_api = Blueprint('auth', __name__)
+CORS(auth_api)
 
 
 @auth_api.route('/login', methods=['POST'])
@@ -19,12 +21,12 @@ def login():
     return req_data
 
 
-@auth_api.route('/signup', methods=['POST'])
-def signup_user():
-    req_data = request.get_json()
+# @auth_api.route('/signup', methods=['POST'])
+# def signup_user():
+#     req_data = request.get_json()
 
-    new_user = user.User(req_data['email'], req_data['user_id'], req_data['password'], req_data['name'],
-                         req_data['phone_num'], req_data['is_admin'])
-    new_user.put()
+#     new_user = user.User(req_data['email'], req_data['user_id'], req_data['password'], req_data['name'],
+#                          req_data['phone_num'], req_data['is_admin'])
+#     new_user.put()
 
-    return "hi"
+#     return "hi"
