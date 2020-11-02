@@ -5,7 +5,7 @@ import os
 from controllers.auth import auth_api
 from controllers.weather_info import weather_info_api
 from flask_cors import cross_origin
-
+from controllers.sms import sms_api
 application = create_app()
 
 application.register_blueprint(weather_info_api)
@@ -27,29 +27,10 @@ def weathr_info():
     return one_call(request.remote_addr, os.getenv('WEATHER_APIKEY'))
 
 
-@application.route('/signup', methods=['POST'])
-@cross_origin
-def signup_user():
-    req_data = request.get_json()
-
-    new_user = user.User(req_data['email'], req_data['user_id'], req_data['password'], req_data['name'],
-                         req_data['phone_num'], req_data['is_admin'])
-    new_user.put()
-
-    return "hi"
-
-
 # -------------- SMS RELATED PATHS -------------- #
 
-# input is location, output is string or null (if none)
-@application.route('/sms/disaster')
-def sms_disaster():
-    return 'This is the sms/disaster route!'
+application.register_blueprint(sms_api,url_prefix='/sms')
 
-
-@application.route('/sms/general')
-def sms_general():
-    return 'This is the sms/general route!'
 
 
 if __name__ == "__main__":
