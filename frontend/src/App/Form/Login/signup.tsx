@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { SignupForm } from './SignupForm'
+import { SignUpForm } from '../interfaces'
 import { v4 as uuidv4 } from 'uuid';
 import Axios from 'axios'
 
 function SignUp() {
 
-    const [signupForm, setSignupForm] = useState({
+    const [signUpForm, setSignUpForm] = useState({
         first_name: "",
         last_name: "",
         email: "",
@@ -13,33 +13,47 @@ function SignUp() {
         password: "",
         password_confirm: "",
 
-    } as SignupForm)
+    } as SignUpForm)
+
+    const updateSignUpForm = (e: any) => {
+        setSignUpForm({
+            ...signUpForm, [e.target.name]: e.target.value
+        })
+
+    }
 
     const submitForm = async (e: any) => {
         e.preventDefault();
-        // check for equal passwords
         // error checking for each required field
-        const signupCredentials = {
-            email: signupForm.email,
-            name: `${signupForm.first_name} ${signupForm.last_name}`,
-            password: signupForm.password,
-            phone_num: signupForm.phone_number,
-            is_admin: false,
-            user_id: uuidv4()
+        //how to check for valid email and phone number?
+        if (validUserInfo(e)) {
+
+            const signUpCredentials = {
+                email: signUpForm.email,
+                name: `${signUpForm.first_name} ${signUpForm.last_name}`,
+                password: signUpForm.password,
+                phone_num: signUpForm.phone_number,
+                is_admin: false,
+                user_id: uuidv4()
+            }
+            //const response = await Axios.post('http://localhost:5000/signup', signUpCredentials);
+            //console.log(response.data);
+            console.log(signUpCredentials)
+
         }
-        const response = await Axios.post('http://localhost:5000/signup', signupCredentials);
-        console.log(response.data);
-        console.log(signupCredentials)
+        else {
+            console.log("Error from user information.")
+        }
     }
 
-    const updateSignupForm = (e: any) => {
-        setSignupForm({
-            ...signupForm, [e.target.name]: e.target.value
-        })
+    const validUserInfo = (e: any) => {
+        let valid = true
 
-        console.log(e.target.name, ": ", e.target.value)
-        console.log("email in signup form: ", signupForm.email)
-        console.log("phone number in signup form: ", signupForm.phone_number)
+        if (signUpForm.password != signUpForm.password_confirm) {
+            valid = false
+        }
+
+        return valid
     }
 
     const sendToLogin = (e: any) => {
@@ -53,43 +67,44 @@ function SignUp() {
                 name="email"
                 type="email"
                 placeholder="Email Address"
-                onChange={updateSignupForm}
-                value={signupForm.email} />
+                onChange={updateSignUpForm}
+                value={signUpForm.email} />
 
             <input
                 name="phone_number"
                 type="tel"
                 placeholder="Phone Number"
-                onChange={updateSignupForm}
-                value={signupForm.phone_number} />
+                pattern="[0-9]{10}"
+                onChange={updateSignUpForm}
+                value={signUpForm.phone_number} />
 
             <input
                 name="password"
                 type="password"
                 placeholder="Password"
-                onChange={updateSignupForm}
-                value={signupForm.password} />
+                onChange={updateSignUpForm}
+                value={signUpForm.password} />
 
             <input
                 name="password_confirm"
                 type="password"
                 placeholder="Confirm Password"
-                onChange={updateSignupForm}
-                value={signupForm.password_confirm} />
+                onChange={updateSignUpForm}
+                value={signUpForm.password_confirm} />
 
             <input
                 name="first_name"
                 type="text"
                 placeholder="First Name"
-                onChange={updateSignupForm}
-                value={signupForm.first_name} />
+                onChange={updateSignUpForm}
+                value={signUpForm.first_name} />
 
             <input
                 name="last_name"
                 type="text"
                 placeholder="Last Name"
-                onChange={updateSignupForm}
-                value={signupForm.last_name} />
+                onChange={updateSignUpForm}
+                value={signUpForm.last_name} />
 
 
             <button type="submit">Sign Up</button>
