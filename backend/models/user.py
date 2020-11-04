@@ -1,6 +1,6 @@
 from flask_login import UserMixin
 from botocore.exceptions import ClientError
-from create_app import table
+from backend.create_app import table
 
 
 # TODO: Include a separate table for Users

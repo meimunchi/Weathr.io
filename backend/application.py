@@ -1,9 +1,9 @@
 from flask import request
-from datagetter import *
-from create_app import create_app
+from backend.datagetter import *
+from backend.create_app import create_app
 import os
-from controllers.auth import auth_api
-from controllers.weather_info import weather_info_api
+from backend.controllers.auth import auth_api
+from backend.controllers.weather_info import weather_info_api
 
 application = create_app()
 
