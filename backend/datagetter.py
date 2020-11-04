@@ -1,7 +1,6 @@
 import json
 import requests
-
-
+import os
 # takes temp in kelvin and returns in celsius
 def kelvin_to_celsius(tempK):
     return tempK - 273.15
@@ -41,9 +40,12 @@ def one_call(ip):
     ip_info = get_ip_info(ip)  # makes call to ip api
 
     # loads in the api key from config.json
-    f = open('config.json')
-    config_data = json.load(f)
+    config_data = {}
+    with open('config.json', 'r') as f: #secure opening
+        config_data = json.load(f) 
     key = config_data['APIKEY']
+    # key = os.getenv('WEATHER_APIKEY') #get through env variable
+    print('key: '+ key )
 
     owm_response = requests.get('http://api.openweathermap.org/data/2.5/weather?lat=' + str(ip_info['lat'])
                                 + '&lon=' + str(ip_info['lon']) + '&appid=' + key)
@@ -65,7 +67,7 @@ def one_call(ip):
 # print(data_near_me['wind'])
 # print(data_near_me['name'])
 # print(data_near_me['main']['temp']) # reports temperature in kelvin haha
-one_call('70.171.10.208')
+one_call('128.227.1.41')
 
 
 ### EXAMPLE

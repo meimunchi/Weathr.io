@@ -1,14 +1,17 @@
 from flask import request
-from backend.datagetter import *
-from backend.create_app import create_app
+from datagetter import *
+from create_app import create_app
 import os
-from backend.controllers.auth import auth_api
-from backend.controllers.weather_info import weather_info_api
+from controllers.auth import auth_api
+from controllers.weather_info import weather_info_api
+from dotenv import load_dotenv
+
 
 application = create_app()
 
 application.register_blueprint(weather_info_api)
 
+load_dotenv() #load env vars
 
 # input is ?, output is a list of blogs
 @application.route('/educational-blogs')
@@ -23,7 +26,7 @@ application.register_blueprint(auth_api)
 def weathr_info():
     print(request.remote_addr)
     print(os.getenv('WEATHER_APIKEY'))
-    return one_call(request.remote_addr, os.getenv('WEATHER_APIKEY'))
+    return one_call(request.remote_addr)
 
 
 # -------------- SMS RELATED PATHS -------------- #
