@@ -1,4 +1,4 @@
-from backend.models import user
+from models import user
 from flask import Blueprint, request
 
 auth_api = Blueprint('auth', __name__)

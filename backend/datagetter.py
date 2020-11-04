@@ -40,11 +40,11 @@ def one_call(ip):
     ip_info = get_ip_info(ip)  # makes call to ip api
 
     # loads in the api key from config.json
-    config_data = {}
-    with open('config.json', 'r') as f: #secure opening
-        config_data = json.load(f) 
-    key = config_data['APIKEY']
-    # key = os.getenv('WEATHER_APIKEY') #get through env variable
+    # config_data = {}
+    # with open('config.json', 'r') as f: #secure opening
+    #     config_data = json.load(f)
+    # key = config_data['APIKEY']
+    key = os.getenv('WEATHER_APIKEY') #get through env variable
     print('key: '+ key )
 
     owm_response = requests.get('http://api.openweathermap.org/data/2.5/weather?lat=' + str(ip_info['lat'])
