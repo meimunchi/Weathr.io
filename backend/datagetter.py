@@ -39,15 +39,16 @@ def deg_to_dir(deg):
 def one_call(ip):
     ip_info = get_ip_info(ip)  # makes call to ip api
 
+
     # loads in the api key from config.json
     # config_data = {}
     # with open('config.json', 'r') as f: #secure opening
     #     config_data = json.load(f)
     # key = config_data['APIKEY']
     key = os.getenv('WEATHER_APIKEY') #get through env variable
-    print('key: '+ key )
+    # print('key: '+ key )
 
-    owm_response = requests.get('http://api.openweathermap.org/data/2.5/weather?lat=' + str(ip_info['lat'])
+    owm_response = requests.get('http://api.openweathermap.org/data/2.5/onecall?lat=' + str(ip_info['lat'])
                                 + '&lon=' + str(ip_info['lon']) + '&appid=' + key)
 
     decoded_resp = owm_response.content.decode("utf-8")  # decode byte string response
@@ -56,6 +57,52 @@ def one_call(ip):
     # print(resp_json['weather'][0]['main'])
     return resp_json
 
+
+def get_clouds_map():
+    key = os.getenv('WEATHER_APIKEY')  # get through env variable
+
+    map = requests.get('http://tile.openweathermap.org/map/layer=clouds_new/z=1/x=0/y=0.png?appid=' + key)
+    print(map)
+    return map
+
+
+def get_precipitation_map():
+    key = os.getenv('WEATHER_APIKEY')  # get through env variable
+
+    map = requests.get('http://tile.openweathermap.org/map/layer=precipitation_new/z=1/x=0/y=0.png?appid=' + key)
+
+    return map
+
+
+def get_sea_level_pressure_map():
+    key = os.getenv('WEATHER_APIKEY')  # get through env variable
+
+    map = requests.get('http://tile.openweathermap.org/map/layer=pressure_new/z=1/x=0/y=0.png?appid=' + key)
+
+    return map
+
+
+def get_sea_level_pressure_map():
+    key = os.getenv('WEATHER_APIKEY')  # get through env variable
+
+    map = requests.get('http://tile.openweathermap.org/map/layer=pressure_new/z=1/x=0/y=0.png?appid=' + key)
+
+    return map
+
+
+def get_wind_speed_map():
+    key = os.getenv('WEATHER_APIKEY')  # get through env variable
+
+    map = requests.get('http://tile.openweathermap.org/map/layer=wind_new/z=1/x=0/y=0.png?appid=' + key)
+
+    return map
+
+def get_temperature_map():
+    key = os.getenv('WEATHER_APIKEY')  # get through env variable
+
+    map = requests.get('http://tile.openweathermap.org/map/layer=temp_new/z=1/x=0/y=0.png?appid=' + key)
+
+    return map
 
 
 ### Example
@@ -67,7 +114,9 @@ def one_call(ip):
 # print(data_near_me['wind'])
 # print(data_near_me['name'])
 # print(data_near_me['main']['temp']) # reports temperature in kelvin haha
-one_call('128.227.1.41')
+# one_call('128.227.1.41')
+# get_clouds_map()
+
 
 
 ### EXAMPLE
