@@ -1,7 +1,9 @@
 from models import user
 from flask import Blueprint, request
+from flask_cors import CORS
 
 auth_api = Blueprint('auth', __name__)
+CORS(auth_api)
 
 
 @auth_api.route('/login', methods=['POST'])

@@ -16,10 +16,10 @@ def create_app():
 
 
 login_manager = LoginManager()
-dynamodb = boto3.resource('dynamodb', region_name=os.getenv('AWS_REGION'))
 
 # Load environment variables for development
 load_dotenv()
+dynamodb = boto3.resource('dynamodb', region_name=os.getenv('AWS_REGION'))
 
 if os.getenv('FLASK_CONFIG') == "production":
     table = dynamodb.Table(os.getenv('DATABASE_PROD'))
