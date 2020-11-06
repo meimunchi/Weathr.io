@@ -10,6 +10,7 @@ def sns_confirm_subscription(url):
     # TODO: 
     try:
         arn = requests.get(url)
+        return arn
     except:
         print("could not confirm subscription")
     
