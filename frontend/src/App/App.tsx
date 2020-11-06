@@ -11,6 +11,7 @@ function App() {
     <BrowserRouter>
       <Navigation />
       <Route path='/signup' component={SignUp} />
+      <Route path='/login' component={Login}/>
     </BrowserRouter>
   );
 }

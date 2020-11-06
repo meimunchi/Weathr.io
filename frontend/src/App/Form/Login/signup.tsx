@@ -11,8 +11,7 @@ function SignUp() {
         email: "",
         phone_number: "",
         password: "",
-        password_confirm: "",
-
+        password_confirm: ""
     } as SignUpForm)
 
     const updateSignUpForm = (e: any) => {
@@ -36,10 +35,9 @@ function SignUp() {
                 is_admin: false,
                 user_id: uuidv4()
             }
-            //const response = await Axios.post('http://localhost:5000/signup', signUpCredentials);
-            //console.log(response.data);
+            const response = await Axios.post('http://localhost:5000/signup', signUpCredentials);
+            console.log(response.data);
             console.log(signUpCredentials)
-
         }
         else {
             console.log("Error from user information.")

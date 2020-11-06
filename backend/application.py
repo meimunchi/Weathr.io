@@ -33,7 +33,7 @@ def weathr_info():
 
 # -------------- SMS RELATED PATHS -------------- #
 
-application.register_blueprint(sms_api,url_prefix='/sms')
+application.register_blueprint(sms_api, url_prefix='/sms')
 
 
 
