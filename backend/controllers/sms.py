@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from botocore.exceptions import ClientError
 import boto3
 import os
-from providers.sms_provider import send_message,sns_confirm_subscription
+from providers.sms_provider import send_message,sns_confirm_subscription, validate_message,formulate_message
 
 sms_api = Blueprint('sms',__name__)
 
@@ -20,15 +20,18 @@ def sms_general():
     messagetype = request.headers['x-amz-sns-message-type']
     req_body = request.get_json()
     if messagetype == "Notification":
-        #do this
-        print("hi")
+        #parse message (validate etc)
+        if validate_message(messagetype,req_body):
+            
+            #formulate message
+            message = formulate_message(req_body.messageBody)
+            #obtain destination number
+            destination_number = req_body.originationNumber
+            send_message(destination_number,(message))
+        return req_body
     elif messagetype == "SubscriptionConfirmation":
         sns_confirm_subscription(req_body.SubscribeURL)
     else:
         return "error..."
-    #parse message (validate etc)
-    #formulate message
-    #obtain destination number
-    #send_message('+19044796688',("Default message hehehehe"))
-    return messagetype
+    
 
