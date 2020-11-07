@@ -3,7 +3,7 @@ export interface UserCredentials {
   password: string
 }
 
-export interface SignupForm {
+export interface SignUpForm {
   first_name: string,
   last_name: string,
   email: string,

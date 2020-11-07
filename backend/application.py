@@ -2,18 +2,19 @@ from flask import request
 from datagetter import *
 from create_app import create_app
 import os
-from controllers.auth import auth_api
-from controllers.weather_info import weather_info_api
 from dotenv import load_dotenv
 
-
-from flask_cors import cross_origin
+from controllers.auth import auth_api
+from controllers.weather_info import weather_info_api
 from controllers.sms import sms_api
+
+
 application = create_app()
 
 application.register_blueprint(weather_info_api)
 
-load_dotenv() #load env vars
+load_dotenv()  # load env vars
+
 
 # input is ?, output is a list of blogs
 @application.route('/educational-blogs', methods=['POST'])
@@ -31,11 +32,7 @@ def weathr_info():
     return one_call(request.remote_addr)
 
 
-# -------------- SMS RELATED PATHS -------------- #
-
-application.register_blueprint(sms_api,url_prefix='/sms')
-
-
+application.register_blueprint(sms_api, url_prefix='/sms')
 
 if __name__ == "__main__":
     application.run(debug=True)
