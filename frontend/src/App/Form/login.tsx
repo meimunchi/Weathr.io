@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
-import { UserCredentials } from './interfaces';
+import { UserCredentials } from './interfaces'
 
 function Login() {
   const [userCredentials, setUserCredentials] = useState({

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { SignUpForm } from '../interfaces'
 import { v4 as uuidv4 } from 'uuid';
 import Axios from 'axios'
+import { SignUpForm } from '../interfaces'
 
 function SignUp() {
 
