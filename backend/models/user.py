@@ -18,12 +18,7 @@ class User(UserMixin):
         self.name = _name
         self.phone_num = _phone_num
         self.is_admin = _is_admin
-
-        if _password is not None:
-            self.password = sha256_crypt.encrypt(_password)
-        else:
-            self.password = _password
-
+        self.password = _password
         return
 
     def get_id(self):
@@ -42,6 +37,9 @@ class User(UserMixin):
         )
         return response
 
+    def secure_password(self):
+        self.password = sha256_crypt.encrypt(self.password)
+
     def validate_password(self, _password):
         return sha256_crypt.verify(_password, self.password)
 
@@ -59,7 +57,7 @@ class User(UserMixin):
     def get(cls, email):
         response = table.get_item(Key={'email': email})
         if 'Item' not in response:
-            raise Exception("No such email exists")
+            return None
         else:
             user_attrs = response['Item']
             user = User(_email=user_attrs['email'], _uid=user_attrs['user_id'], _password=user_attrs['password'],
