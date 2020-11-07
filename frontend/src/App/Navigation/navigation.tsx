@@ -9,10 +9,10 @@ function Navigation() {
             <h2>Weather.io</h2>
             <img src={cloud} alt="Weathr Logo" />
             <Link to='/'>Home</Link>
-            <a> Chat</a>
-            <a> About Us</a>
-            <a> Blog</a>
-            <a> Dashboard</a>
+            <Link to='/chat'>Chat</Link>
+            <Link to='/about_us'>About Us</Link>
+            <Link to='/blog'>Blog</Link>
+            <Link to='/dashboard'>Dashboard</Link>
             <Link to='/signup'> Signup</Link>
         </div>
     )
