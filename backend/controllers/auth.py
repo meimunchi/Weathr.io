@@ -28,7 +28,7 @@ def login():
 
     if user_login.validate_password(password):
         login_user(user_login)
-        return {'success': True}
+        return {'success': True, 'user': current_user.to_dict()}
     else:
         return {'success': False}
 
