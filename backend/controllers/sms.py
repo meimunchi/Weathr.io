@@ -17,24 +17,18 @@ def sms_disaster():
 @sms_api.route('/general',methods=['POST'])
 def sms_general():
     #take in sns message
-    messagetype = request.headers['x-amz-sns-message-type']
-    req_body = request.get_json()
-    print("MESSAGE TYPE",messagetype)
-    print("AAAAAAAAHHHHHHH REQUEST BODY AAHHHHHHHHH : ",req_body)
-    if messagetype == "Notification":
-        #parse message (validate etc)
-        if validate_message(messagetype,req_body):
+    message_type = request.headers['x-amz-sns-message-type']
+    req_body = request.get_json(force=True)
+    print(req_body['Message'])
+    # if message_type == "Notification":
+        # parse message (validate etc)
+        # if validate_message(message_type,req_body):
             
-            #formulate message
-            message = formulate_message(req_body.messageBody)
-            #obtain destination number
-            destination_number = req_body.originationNumber
-            send_message(destination_number,(message))
-        return req_body
-    elif messagetype == "SubscriptionConfirmation":
-        sns_confirm_subscription(req_body['SubscribeURL'])
-        return req_body
-    else:
-        return "error..."
-    
+        #formulate message
+        # message = formulate_message(req_body.messageBody)
+        #obtain destination number
+        # destination_number = '+19044796688'
+        # send_message(destination_number, 'Hello Meng Meng')
+    return req_body
+
 
