@@ -29,6 +29,8 @@ def validate_message(messagetype,req_body):
 
 def formulate_message(incoming_message):
     return incoming_message
+    # search for keywords
+    # make call to weather api
     # return "a default message here"
 
 
