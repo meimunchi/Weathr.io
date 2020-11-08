@@ -19,6 +19,8 @@ def sms_general():
     #take in sns message
     messagetype = request.headers['x-amz-sns-message-type']
     req_body = request.get_json()
+    print("MESSAGE TYPE",messagetype)
+    print("AAAAAAAAHHHHHHH REQUEST BODY AAHHHHHHHHH : ",req_body)
     if messagetype == "Notification":
         #parse message (validate etc)
         if validate_message(messagetype,req_body):
@@ -30,7 +32,8 @@ def sms_general():
             send_message(destination_number,(message))
         return req_body
     elif messagetype == "SubscriptionConfirmation":
-        sns_confirm_subscription(req_body.SubscribeURL)
+        sns_confirm_subscription(req_body['SubscribeURL'])
+        return req_body
     else:
         return "error..."
     
