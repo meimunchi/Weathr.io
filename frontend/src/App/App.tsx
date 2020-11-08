@@ -4,6 +4,7 @@ import { BrowserRouter, Route, RouteComponentProps } from 'react-router-dom'
 import Login from './Form/login';
 import Navigation from './Navigation/navigation';
 import SignUp from './Form/Login/signup';
+import Dashboard from './Dashboard/Dashboard'
 import { User } from './user.interface'
 
 
@@ -20,8 +21,9 @@ function App() {
     <BrowserRouter>
       <Navigation />
       <Route path='/signup' component={SignUp} />
-      // @ts-ignore
-      <Route path='/login' render={(props: RouteComponentProps<any>) => <Login {...props} loginUser={loginUser}/>}/>
+      <Route path='/dashboard' component={Dashboard} />.
+      {/*// @ts-ignore*/}
+      {/*<Route path='/login' render={(props: RouteComponentProps<any>) => <Login {...props} loginUser={loginUser}/>}/>*/}
     </BrowserRouter>
   );
 }

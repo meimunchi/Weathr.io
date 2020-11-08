@@ -25,7 +25,7 @@ def edu_blogs():
 application.register_blueprint(auth_api)
 
 
-@application.route('/info')
+@application.route('/info', methods=['POST'])
 def weathr_info():
     print(request.remote_addr)
     print(os.getenv('WEATHER_APIKEY'))
