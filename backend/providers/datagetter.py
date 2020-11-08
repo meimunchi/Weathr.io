@@ -49,7 +49,7 @@ def one_call(ip_info):
     # print('key: '+ key )
 
     owm_response = requests.get('http://api.openweathermap.org/data/2.5/onecall?lat=' + str(ip_info['lat'])
-                                + '&lon=' + str(ip_info['lon']) + '&appid=' + key)
+                                + '&lon=' + str(ip_info['long']) + '&appid=' + key + '&units=imperial')
 
     decoded_resp = owm_response.content.decode("utf-8")  # decode byte string response
     resp_json = json.loads(decoded_resp)

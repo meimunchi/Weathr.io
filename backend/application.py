@@ -27,9 +27,8 @@ application.register_blueprint(auth_api)
 
 @application.route('/info', methods=['POST'])
 def weathr_info():
-    print(request.remote_addr)
-    print(os.getenv('WEATHER_APIKEY'))
-    return one_call(request.remote_addr)
+    user_location = request.get_json()
+    return one_call(user_location)
 
 
 application.register_blueprint(sms_api, url_prefix='/sms')
