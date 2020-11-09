@@ -1,12 +1,12 @@
 div.nav-container {
-    position: relative;
+    display: grid;
     background-color: #99DAF7;
-    height: auto;
+    /* height: auto; */
     width: 100%;
-    margin-top: 0px;
-    margin-left: 0px;
-    
-    
+    margin: 0;
+
+    grid-template-columns: max-content minmax(min-content, auto) repeat(6, max-content);
+    align-items: center;
 }
 div.nav-container h2 {
    
