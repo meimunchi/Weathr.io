@@ -15,7 +15,7 @@ def login():
     email = req_data['email']
     password = req_data['password']
 
-    if email is None or password is None:
+    if email is None and password is None:
         return {'success': False, 'err': 'Invalid request body'}
 
     try:
