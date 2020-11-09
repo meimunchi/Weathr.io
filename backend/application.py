@@ -1,5 +1,5 @@
 from flask import request
-from datagetter import *
+from providers.datagetter import *
 from create_app import create_app
 import os
 from dotenv import load_dotenv

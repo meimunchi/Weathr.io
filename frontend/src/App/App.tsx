@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react'
 import './App.css';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, RouteComponentProps } from 'react-router-dom'
 import Login from './Form/login';
 import Navigation from './Navigation/navigation';
 import SignUp from './Form/Login/signup';
-import Home from './Form/Home/home'
+import { User } from './user.interface'
+
 
 function App() {
+  const [user, setUser] = useState(null as User | null)
+
+  const loginUser = (_user: User) => {
+    setUser(_user)
+  }
+
+  console.log(user)
+
   return (
     <BrowserRouter>
       <Navigation />
       <Route path='/signup' component={SignUp} />
-      <Route path='/login' component={Login} />
-      <Route exact path='/' component={Home} />
+      // @ts-ignore
+      <Route path='/login' render={(props: RouteComponentProps<any>) => <Login {...props} loginUser={loginUser} />} />
     </BrowserRouter>
   );
 }

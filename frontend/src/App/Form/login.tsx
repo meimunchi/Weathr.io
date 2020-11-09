@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
-import { UserCredentials } from './interfaces';
+import { UserCredentials } from './interfaces'
 
-function Login() {
+// @ts-ignore
+function Login({ loginUser }) {
   const [userCredentials, setUserCredentials] = useState({
     email: '',
     password: ''
@@ -17,7 +18,9 @@ function Login() {
   const submit = async (e: any) => {
     e.preventDefault();
     const response = await Axios.post('http://localhost:5000/login', userCredentials);
-    console.log(response.data);
+    if (response.data.success) {
+      loginUser(response.data.user);
+    }
   }
 
   return (
