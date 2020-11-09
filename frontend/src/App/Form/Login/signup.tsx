@@ -63,7 +63,8 @@ function SignUp() {
     }
 
     return (
-        <form onSubmit={submitForm}>
+        <form className="signup"
+            onSubmit={submitForm}>
             <img src={cloud} alt="Weathr Logo" />
             <p>Weathr.io</p>
             <input className="inputs"

@@ -5,7 +5,7 @@ import Login from './Form/login';
 import Navigation from './Navigation/navigation';
 import SignUp from './Form/Login/signup';
 import { User } from './user.interface'
-
+import Home from './Form/Home/home'
 
 function App() {
   const [user, setUser] = useState(null as User | null)
@@ -20,8 +20,9 @@ function App() {
     <BrowserRouter>
       <Navigation />
       <Route path='/signup' component={SignUp} />
-      // @ts-ignore
+      {/* @ts-ignore */}
       <Route path='/login' render={(props: RouteComponentProps<any>) => <Login {...props} loginUser={loginUser} />} />
+      <Route exact path='/' component={Home} />
     </BrowserRouter>
   );
 }

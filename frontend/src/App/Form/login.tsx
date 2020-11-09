@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
 import { UserCredentials } from './interfaces'
+import './login.css'
 
 // @ts-ignore
 function Login({ loginUser }) {
@@ -24,7 +25,8 @@ function Login({ loginUser }) {
   }
 
   return (
-    <form onSubmit={submit}>
+    <form className="login"
+      onSubmit={submit}>
       <input
         name="email"
         type="email"

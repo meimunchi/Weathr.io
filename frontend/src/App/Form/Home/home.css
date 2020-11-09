@@ -2,17 +2,15 @@ div.greeting{
     width: 100%;
     background-color: #99DAF7;
     font-family: Amaranth;
+    position: relative;
 }
 
 div.greeting  h2{
-    margin-top: 0px;
-    margin-bottom: 0px;
     color: #FFFFFF;
     font-size: 64px;
 
     display: inline-flex;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin: 0px 20px 0px 50px;
     width: auto;
     height: auto;
 
@@ -21,5 +19,12 @@ div.greeting  h2{
 div.greeting p {
     color: #35ABEE;
     font-size: 30px;
-    margin-left: 20px;
+    margin-left: 90px;
+    display: list-item;
+    list-style: url('../../../assets/small-blue-cloud.png')
+}
+
+div.greeting img {
+    position: relative;
+    left: 60%;
 }

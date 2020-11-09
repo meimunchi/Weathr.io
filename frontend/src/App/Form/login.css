@@ -1,0 +1,19 @@
+form.login {
+    position: relative;
+    top: 200px;
+    font-family: Amaranth;
+    justify-content: center;
+    display: grid;
+}
+form.login input {
+    position: relative;
+    height: 50px;
+    width: 280px;
+    background: #C4C4C4;
+    border-radius: 24px;
+    display: block;
+}
+form.login button {
+    position: relative;
+    display: block;
+}

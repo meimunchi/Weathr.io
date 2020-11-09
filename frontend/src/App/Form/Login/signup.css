@@ -1,8 +1,9 @@
-form {
+form.signup {
     display: grid;
     margin: 0 auto;
     font-family: Amaranth;
     justify-content: center;
+    position: relative;
 }
 
 input.inputs{  
@@ -27,14 +28,15 @@ a.login{
     height: 40px;
     width: 280px;
     text-align: center;
+    display: inline;
 }
 
-form img {
+form.signup img {
     margin: auto;
     padding: 10px;
 }
 
-form p {
+form.signup p {
     text-align: center;
     display: block;
     padding: 10px;
