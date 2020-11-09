@@ -1,3 +1,39 @@
 div.nav-container {
     background-color: #99DAF7;
+    height: auto;
+    width: 100%;
+    margin-top: 0px;
+    margin-left: 0px;
+    
+}
+div.nav-container h2 {
+   
+    color: #35ABEE;
+    font-size: 35px;
+    
+    display: inline-flex;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: auto;
+    height: auto;
+}
+
+div.nav-container a {
+    color: #35ABEE;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+    
+    display: inline-flex;
+    align-items: stretch;
+    margin-top: -10px;
+    margin-right: 30px;
+    margin-left: 30px;
+}
+
+div.nav-container img {
+   
+    width: auto;
+    height: auto;
+    margin-right: 100px;
 }

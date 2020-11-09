@@ -1,18 +1,43 @@
 form {
     display: grid;
     margin: 0 auto;
-
+    font-family: Amaranth;
     justify-content: center;
 }
 
-input.input{  
-    height: 30px;
-    width: 250px;
+input.inputs{  
+    height: 50px;
+    width: 280px;
     background: #C4C4C4;
     border-radius: 24px;
 }
 
-button, input.login {
+button{
     background: #99DAF7;
     border-color: #99DAF7;
+    height: 40px;
+    width: 280px;
+}
+
+a.login{
+    background: #99DAF7;
+    border-color: #99DAF7;
+    color: #000000;
+    text-decoration: none;
+    height: 40px;
+    width: 280px;
+    text-align: center;
+}
+
+form img {
+    margin: auto;
+    padding: 10px;
+}
+
+form p {
+    text-align: center;
+    display: block;
+    padding: 10px;
+    margin: -70px 0px 0px 0px;
+    font-size: 25px;
 }

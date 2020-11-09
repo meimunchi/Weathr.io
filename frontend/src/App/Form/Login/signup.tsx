@@ -4,6 +4,8 @@ import { SignUpForm } from '../interfaces'
 import { v4 as uuidv4 } from 'uuid';
 import Axios from 'axios'
 import './signup.css'
+import { Link } from 'react-router-dom';
+import cloud from '../../../assets/cloud-logo.png'
 
 function SignUp() {
 
@@ -25,7 +27,6 @@ function SignUp() {
 
     const submitForm = async (e: any) => {
         e.preventDefault();
-        // error checking for each required field
         //how to check for valid email and phone number?
         if (validUserInfo(e)) {
 
@@ -48,7 +49,6 @@ function SignUp() {
 
     const validUserInfo = (e: any) => {
         let valid = true;
-        // im not sure of a better way of doing this
         if (signUpForm.email == "" || signUpForm.first_name == "" || signUpForm.last_name == ""
             || signUpForm.password == "" || signUpForm.phone_number == "") {
 
@@ -62,14 +62,11 @@ function SignUp() {
         return valid
     }
 
-    const sendToLogin = (e: any) => {
-        console.log("Sent to new account page.")
-    }
-
     return (
         <form onSubmit={submitForm}>
-
-            <input className="input"
+            <img src={cloud} alt="Weathr Logo" />
+            <p>Weathr.io</p>
+            <input className="inputs"
                 name="first_name"
                 type="text"
                 placeholder="First Name"
@@ -77,7 +74,7 @@ function SignUp() {
                 value={signUpForm.first_name} />
             <br></br>
 
-            <input className="input"
+            <input className="inputs"
                 name="last_name"
                 type="text"
                 placeholder="Last Name"
@@ -85,7 +82,7 @@ function SignUp() {
                 value={signUpForm.last_name} />
             <br></br>
 
-            <input className="input"
+            <input className="inputs"
                 name="email"
                 type="email"
                 placeholder="Email Address"
@@ -93,7 +90,7 @@ function SignUp() {
                 value={signUpForm.email} />
             <br></br>
 
-            <input className="input"
+            <input className="inputs"
                 name="phone_number"
                 type="tel"
                 placeholder="Phone Number"
@@ -102,7 +99,7 @@ function SignUp() {
                 value={signUpForm.phone_number} />
             <br></br>
 
-            <input className="input"
+            <input className="inputs"
                 name="password"
                 type="password"
                 placeholder="Password"
@@ -110,7 +107,7 @@ function SignUp() {
                 value={signUpForm.password} />
             <br></br>
 
-            <input className="input"
+            <input className="inputs"
                 name="password_confirm"
                 type="password"
                 placeholder="Confirm Password"
@@ -122,11 +119,12 @@ function SignUp() {
                 type="submit">Sign Up</button>
             <br></br>
 
-            <input className="login"
-                type="button"
-                value="Already have an account? Login."
-                onClick={sendToLogin} />
-            <br></br>
+            <Link
+                className="login"
+                to='/login'>
+                Already have an account? Login.
+            </Link>
+
 
         </form>
     );
