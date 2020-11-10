@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Axios from "axios";
 import { User } from '../user.interface'
+import "./Dashboard.css"
 
 interface DashboardProps {
     user: User | null
@@ -67,17 +68,8 @@ function Dashboard({ user }: DashboardProps) {
       <div>
 
           <h1>Weather Dashboard</h1>
-          <h2>48 Hour Hourly Forecast</h2>
           <h2>Welcome Back, { user ? user.name : 'Guest'}</h2>
-          {
-              weatherData && <div>
-                  { weatherData.hourly.map(hour =>
-                    <p>Temperature: { hour.temp }F</p>
-                  )}
-              </div>
-          }
           <h2>7-Day Forecast</h2>
-
           {
               weatherData && <tr id={'day7forecast'}>
                   { weatherData.daily.map((day, index) =>
