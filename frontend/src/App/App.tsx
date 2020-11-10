@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import './App.css';
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import Login from './Form/login';
 import Navigation from './Navigation/navigation';
 import SignUp from './Form/Login/signup';
 import Dashboard from './Dashboard/Dashboard'
 import { User } from './user.interface'
 import Home from './Form/Home/home'
-import Axios from 'axios'
 
 function App() {
   const [user, setUser] = useState(null as User | null)
@@ -34,10 +33,18 @@ function App() {
   return (
     <BrowserRouter>
       <Navigation />
-      <Route path='/signup' component={SignUp} />
-      <Route path='/dashboard' render={(props) => <Dashboard {...props} user={user}/>} />
-      <Route path='/login' render={(props) => <Login {...props} loginUser={loginUser}/>}/>
-      <Route exact path='/' component={Home} />
+      <Switch>
+        <Route path='/signup' component={SignUp} />
+        <Route path='/dashboard' render={(props) => <Dashboard {...props} user={user}/>} />
+        <Route path='/login' render={(props) => <Login {...props} loginUser={loginUser}/>}/>
+        <Route exact path='/' component={Home} />
+        <Route path='/chat' render={() => <div>Chat!</div>}/>
+        <Route path='/about-us' render={() => <div>About Us!</div>}/>
+        <Route path='/blog' render={() => <div>Blog!</div>}/>
+        <Route path='/'>
+          <Redirect to='/'></Redirect>
+        </Route>
+      </Switch>
     </BrowserRouter>
   );
 }

@@ -39,7 +39,7 @@ function SignUp() {
                 is_admin: false,
                 user_id: uuidv4()
             }
-            const response = await Axios.post('http://localhost:5000/signup', signUpCredentials);
+            const response = await Axios.post(`${process.env.REACT_APP_PROXY}/signup`, signUpCredentials);
             console.log(response.data);
             if (response.data.success) {
               history.push('/login')

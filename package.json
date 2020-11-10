@@ -12,7 +12,7 @@
     "start:backend-global": "cd backend && py application.py",
     "start:dev-venv": "concurrently \"npm run start:frontend\" \"npm run start:backend-venv\"",
     "start:dev-global": "concurrently \"npm run start:frontend\" \"npm run start:backend-global\"",
-    "prebuild": "cd frontend && npm run build && cd ..",
+    "prebuild": "cd frontend && cross-env REACT_APP_PROXY=http://weathrio-dev.us-east-1.elasticbeanstalk.com npm run build && cd ..",
     "build": "copyfiles -f frontend/build/* backend/static && copyfiles -f frontend/build/static/css/* backend/static/static/css && copyfiles -f frontend/build/static/js/* backend/static/static/js",
     "test:backend": "cd backend/tests && nose2"
   },
