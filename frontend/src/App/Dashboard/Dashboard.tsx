@@ -72,7 +72,7 @@ function Dashboard({ user }: DashboardProps) {
                     }
                 })
             }
-            const response = await Axios.post('http://localhost:5000/info', body);
+            const response = await Axios.post(`${process.env.REACT_APP_PROXY}/info`, body);
 
             const resWeatherData = response.data;
             localStorage.setItem('weather-data', JSON.stringify(resWeatherData));
