@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import bigCloud from '../../../assets/big-blue-cloud.png'
 import './home.css'
+import bigCloud from '../../assets/big-blue-cloud.png';
 
 function Home() {
     return (

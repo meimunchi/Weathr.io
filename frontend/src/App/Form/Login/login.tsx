@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
-import { UserCredentials } from './interfaces'
-import './login.css'
+import { LoginCredentials } from '../form.interface'
+import '../form.css';
 import { useHistory } from 'react-router'
-import { User } from '../user.interface'
+import { User } from '../../user.interface'
+import { Link } from 'react-router-dom'
+import cloud from '../../../assets/cloud-logo.png'
 
 interface LoginProps {
   loginUser(_user: User): void
@@ -13,7 +15,7 @@ function Login({ loginUser }: LoginProps) {
   const [userCredentials, setUserCredentials] = useState({
     email: '',
     password: ''
-  } as UserCredentials);
+  } as LoginCredentials);
   const [error, setError] = useState(null as string | null);
   const history = useHistory();
 
@@ -39,6 +41,7 @@ function Login({ loginUser }: LoginProps) {
 
   return (
     <form className="login" onSubmit={submit}>
+      <img src={cloud} alt="Weathr Logo" />
       { error && <p>{error}</p> }
       <input
         name="email"
@@ -57,6 +60,7 @@ function Login({ loginUser }: LoginProps) {
         required
       />
       <button type="submit">Login</button>
+      <Link to='/signup'>Don't have an account. Sign up here!</Link>
     </form>
   );
 }
