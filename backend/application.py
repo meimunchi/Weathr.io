@@ -31,12 +31,6 @@ def weathr_info():
     return one_call(user_location)
 
 
-# @application.after_request
-# def creds(response):
-#     response.headers['Access-Control-Allow-Credentials'] = 'true'
-#     return response
-
-
 application.register_blueprint(sms_api, url_prefix='/sms')
 
 if __name__ == "__main__":
