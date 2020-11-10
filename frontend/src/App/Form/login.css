@@ -1,7 +1,7 @@
 form.login {
     position: relative;
     top: 200px;
-    font-family: Amaranth;
+    font-family: 'Amaranth';
     justify-content: center;
     display: grid;
 }

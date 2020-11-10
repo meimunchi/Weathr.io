@@ -5,7 +5,7 @@ div.nav-container {
     width: 100%;
     margin: 0;
 
-    grid-template-columns: max-content minmax(min-content, auto) repeat(6, max-content);
+    grid-template-columns: max-content minmax(min-content, auto) repeat(7, max-content);
     align-items: center;
 }
 div.nav-container h2 {

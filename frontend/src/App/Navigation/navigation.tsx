@@ -13,7 +13,8 @@ function Navigation() {
             <Link to='/about_us'>About Us</Link>
             <Link to='/blog'>Blog</Link>
             <Link to='/dashboard'>Dashboard</Link>
-            <Link to='/signup'> Signup</Link>
+            <Link to='/signup'>Signup</Link>
+            <Link to='/login'>Login</Link>
         </div>
     )
 }

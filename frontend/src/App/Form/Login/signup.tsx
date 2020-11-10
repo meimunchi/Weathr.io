@@ -6,9 +6,9 @@ import Axios from 'axios'
 import './signup.css'
 import { Link } from 'react-router-dom';
 import cloud from '../../../assets/cloud-logo.png'
+import { useHistory } from 'react-router'
 
 function SignUp() {
-
     const [signUpForm, setSignUpForm] = useState({
         first_name: "",
         last_name: "",
@@ -18,18 +18,19 @@ function SignUp() {
         password_confirm: ""
     } as SignUpForm)
 
+    const [error, setError] = useState(null as string | null);
+    const history = useHistory();
+
     const updateSignUpForm = (e: any) => {
         setSignUpForm({
             ...signUpForm, [e.target.name]: e.target.value
         })
-
     }
 
     const submitForm = async (e: any) => {
         e.preventDefault();
         //how to check for valid email and phone number?
         if (validUserInfo(e)) {
-
             const signUpCredentials = {
                 email: signUpForm.email,
                 name: `${signUpForm.first_name} ${signUpForm.last_name}`,
@@ -40,39 +41,38 @@ function SignUp() {
             }
             const response = await Axios.post('http://localhost:5000/signup', signUpCredentials);
             console.log(response.data);
-            console.log(signUpCredentials)
-        }
-        else {
-            console.log("Error from user information.")
+            if (response.data.success) {
+              history.push('/login')
+            } else {
+              setError(response.data.err);
+            }
         }
     }
 
     const validUserInfo = (e: any) => {
-        let valid = true;
-        if (signUpForm.email == "" || signUpForm.first_name == "" || signUpForm.last_name == ""
-            || signUpForm.password == "" || signUpForm.phone_number == "") {
-
-            valid = false
+        if (signUpForm.email === "" || signUpForm.first_name === "" || signUpForm.last_name === ""
+            || signUpForm.password === "" || signUpForm.phone_number === "") {
+            return false;
         }
-
-        else if (signUpForm.password != signUpForm.password_confirm) {
-            valid = false
+        else if (signUpForm.password !== signUpForm.password_confirm) {
+            setError('Passwords are not the same')
+            return false;
         }
-
-        return valid
+        return true;
     }
 
     return (
-        <form className="signup"
-            onSubmit={submitForm}>
+        <form className="signup" onSubmit={submitForm}>
             <img src={cloud} alt="Weathr Logo" />
             <p>Weathr.io</p>
+            { error && <p>{error}</p> }
             <input className="inputs"
                 name="first_name"
                 type="text"
                 placeholder="First Name"
                 onChange={updateSignUpForm}
-                value={signUpForm.first_name} />
+                value={signUpForm.first_name}
+                required/>
             <br></br>
 
             <input className="inputs"
@@ -80,7 +80,8 @@ function SignUp() {
                 type="text"
                 placeholder="Last Name"
                 onChange={updateSignUpForm}
-                value={signUpForm.last_name} />
+                value={signUpForm.last_name}
+                required/>
             <br></br>
 
             <input className="inputs"
@@ -88,7 +89,8 @@ function SignUp() {
                 type="email"
                 placeholder="Email Address"
                 onChange={updateSignUpForm}
-                value={signUpForm.email} />
+                value={signUpForm.email}
+                required/>
             <br></br>
 
             <input className="inputs"
@@ -97,7 +99,8 @@ function SignUp() {
                 placeholder="Phone Number"
                 pattern="[0-9]{10}"
                 onChange={updateSignUpForm}
-                value={signUpForm.phone_number} />
+                value={signUpForm.phone_number}
+                required/>
             <br></br>
 
             <input className="inputs"
@@ -105,7 +108,8 @@ function SignUp() {
                 type="password"
                 placeholder="Password"
                 onChange={updateSignUpForm}
-                value={signUpForm.password} />
+                value={signUpForm.password}
+                required/>
             <br></br>
 
             <input className="inputs"
@@ -113,7 +117,8 @@ function SignUp() {
                 type="password"
                 placeholder="Confirm Password"
                 onChange={updateSignUpForm}
-                value={signUpForm.password_confirm} />
+                value={signUpForm.password_confirm}
+                required/>
             <br></br>
 
             <button className="signUp"
@@ -125,8 +130,6 @@ function SignUp() {
                 to='/login'>
                 Already have an account? Login.
             </Link>
-
-
         </form>
     );
 }
