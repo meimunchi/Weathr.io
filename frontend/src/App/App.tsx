@@ -7,6 +7,7 @@ import SignUp from './Form/Login/signup';
 import Dashboard from './Dashboard/Dashboard'
 import { User } from './user.interface'
 import Home from './Form/Home/home'
+import About from'./About/about';
 
 function App() {
   const [user, setUser] = useState(null as User | null)
@@ -39,7 +40,7 @@ function App() {
         <Route path='/login' render={(props) => <Login {...props} loginUser={loginUser}/>}/>
         <Route exact path='/' component={Home} />
         <Route path='/chat' render={() => <div>Chat!</div>}/>
-        <Route path='/about-us' render={() => <div>About Us!</div>}/>
+        <Route path='/about-us' component={About}/>
         <Route path='/blog' render={() => <div>Blog!</div>}/>
         <Route path='/'>
           <Redirect to='/'></Redirect>
