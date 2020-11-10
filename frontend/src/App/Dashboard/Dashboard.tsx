@@ -7,8 +7,34 @@ interface DashboardProps {
     user: User | null
 }
 
+interface WeatherData {
+    daily: DailyData[],
+    hourly: HourlyData[],
+    alerts: { 
+        description: string
+    }
+}
+
+interface DailyData {
+    temp: {
+        max: number,
+        min: number
+    },
+    pop: number,
+    humidity: number,
+    clouds: number,
+    uvi: number,
+    sunrise: number,
+    sunset: number
+}
+
+interface HourlyData {
+    temp: number,
+    pop: number
+}
+
 function Dashboard({ user }: DashboardProps) {
-    const [weatherData, setWeatherData] = useState(null);
+    const [weatherData, setWeatherData] = useState(null as null | WeatherData);
 
     const isPastTime = () => {
         const strNextUpdateTime = localStorage.getItem('next-update-time');
@@ -74,16 +100,15 @@ function Dashboard({ user }: DashboardProps) {
               weatherData && <tr id={'day7forecast'}>
                   { weatherData.daily.map((day, index) =>
                           <th id={'day7elements'}>
-                          <h3>Day {index+1}</h3>
-                          <p>Max Temp: { day.temp.max}F</p>
-                          <p>Min Temp: { day.temp.min}F</p>
-                          <p>Chance of Rain: { day.pop * 100}%</p>
-                          <p>Humidity: { day.humidity}%</p>
-                          <p>Cloud Cover: { day.clouds}%</p>
-                          <p>UV Index: { day.uvi} out of 10.0</p>
-                          <p>Sunrise: { day.sunrise}</p>
-                          <p>Sunset: { day.sunset}</p>
-
+                            <h3>Day {index+1}</h3>
+                            <p>Max Temp: { day.temp.max}F</p>
+                            <p>Min Temp: { day.temp.min}F</p>
+                            <p>Chance of Rain: { day.pop * 100}%</p>
+                            <p>Humidity: { day.humidity}%</p>
+                            <p>Cloud Cover: { day.clouds}%</p>
+                            <p>UV Index: { day.uvi} out of 10.0</p>
+                            <p>Sunrise: { day.sunrise}</p>
+                            <p>Sunset: { day.sunset}</p>
                           </th>
                       )}
               </tr>
@@ -104,10 +129,9 @@ function Dashboard({ user }: DashboardProps) {
           }
           <h2>Emergency Weather Information</h2>
           {
-              weatherData && typeof weatherData.alerts != 'undefined' ?
+              weatherData?.alerts ?
                 <p>Description: {weatherData.alerts.description}</p> :
                   <p>Alerts are not here.</p>
-
           }
 
       </div>
