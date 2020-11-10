@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Axios from "axios";
 import { User } from '../user.interface'
-import "./Dashboard.css"
+import "./dashboard.css"
 
 interface DashboardProps {
     user: User | null
