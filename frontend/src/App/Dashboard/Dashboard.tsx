@@ -61,6 +61,15 @@ useEffect(() => {
       <div>
 
           <h1>Weather Dashboard</h1>
+          <h2>48 Hour Hourly Forecast</h2>
+          <h2>Welcome Back, { user ? user.name : 'Guest'}</h2>
+          {
+              weatherData && <div>
+                  { weatherData.hourly.map(hour =>
+                    <p>Temperature: { hour.temp }F</p>
+                  )}
+              </div>
+          }
           <h2>7-Day Forecast</h2>
 
           {
