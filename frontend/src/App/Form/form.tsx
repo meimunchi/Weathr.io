@@ -8,7 +8,7 @@ function Form() {
 
     <div className="form">
         <img src={cloudLogo} alt="Weathr Logo" />
-        <Login />
+
     </div>
 
 }
