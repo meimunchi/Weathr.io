@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import Login from '../login'
-import { SignUpForm } from '../interfaces'
+import { SignUpCredentials } from '../form.interface'
 import { v4 as uuidv4 } from 'uuid';
 import Axios from 'axios'
-import './signup.css'
+import '../form.css'
+import { Link } from 'react-router-dom';
+import cloud from '../../../assets/cloud-logo.png'
+import { useHistory } from 'react-router'
 
 function SignUp() {
-
     const [signUpForm, setSignUpForm] = useState({
         first_name: "",
         last_name: "",
@@ -14,21 +15,21 @@ function SignUp() {
         phone_number: "",
         password: "",
         password_confirm: ""
-    } as SignUpForm)
+    } as SignUpCredentials)
+
+    const [error, setError] = useState(null as string | null);
+    const history = useHistory();
 
     const updateSignUpForm = (e: any) => {
         setSignUpForm({
             ...signUpForm, [e.target.name]: e.target.value
         })
-
     }
 
     const submitForm = async (e: any) => {
         e.preventDefault();
-        // error checking for each required field
         //how to check for valid email and phone number?
         if (validUserInfo(e)) {
-
             const signUpCredentials = {
                 email: signUpForm.email,
                 name: `${signUpForm.first_name} ${signUpForm.last_name}`,
@@ -37,97 +38,79 @@ function SignUp() {
                 is_admin: false,
                 user_id: uuidv4()
             }
-            const response = await Axios.post('http://localhost:5000/signup', signUpCredentials);
+            const response = await Axios.post(`${process.env.REACT_APP_PROXY}/signup`, signUpCredentials);
             console.log(response.data);
-            console.log(signUpCredentials)
-        }
-        else {
-            console.log("Error from user information.")
+            if (response.data.success) {
+              history.push('/login')
+            } else {
+              setError(response.data.err);
+            }
         }
     }
 
     const validUserInfo = (e: any) => {
-        let valid = true;
-        // im not sure of a better way of doing this
-        if (signUpForm.email == "" || signUpForm.first_name == "" || signUpForm.last_name == ""
-            || signUpForm.password == "" || signUpForm.phone_number == "") {
-
-            valid = false
+        if (signUpForm.email === "" || signUpForm.first_name === "" || signUpForm.last_name === ""
+            || signUpForm.password === "" || signUpForm.phone_number === "") {
+            return false;
         }
-
-        else if (signUpForm.password != signUpForm.password_confirm) {
-            valid = false
+        else if (signUpForm.password !== signUpForm.password_confirm) {
+            setError('Passwords are not the same')
+            return false;
         }
-
-        return valid
-    }
-
-    const sendToLogin = (e: any) => {
-        console.log("Sent to new account page.")
+        return true;
     }
 
     return (
-        <form onSubmit={submitForm}>
-
-            <input className="input"
+        <form className="login" onSubmit={submitForm}>
+            <img src={cloud} alt="Weathr Logo" />
+            { error && <p>{error}</p> }
+            <input className="inputs"
                 name="first_name"
                 type="text"
                 placeholder="First Name"
                 onChange={updateSignUpForm}
-                value={signUpForm.first_name} />
-            <br></br>
-
-            <input className="input"
+                value={signUpForm.first_name}
+                required/>
+            <input className="inputs"
                 name="last_name"
                 type="text"
                 placeholder="Last Name"
                 onChange={updateSignUpForm}
-                value={signUpForm.last_name} />
-            <br></br>
-
-            <input className="input"
+                value={signUpForm.last_name}
+                required/>
+            <input className="inputs"
                 name="email"
                 type="email"
                 placeholder="Email Address"
                 onChange={updateSignUpForm}
-                value={signUpForm.email} />
-            <br></br>
-
-            <input className="input"
+                value={signUpForm.email}
+                required/>
+            <input className="inputs"
                 name="phone_number"
                 type="tel"
                 placeholder="Phone Number"
                 pattern="[0-9]{10}"
                 onChange={updateSignUpForm}
-                value={signUpForm.phone_number} />
-            <br></br>
-
-            <input className="input"
+                value={signUpForm.phone_number}
+                required/>
+            <input className="inputs"
                 name="password"
                 type="password"
                 placeholder="Password"
                 onChange={updateSignUpForm}
-                value={signUpForm.password} />
-            <br></br>
-
-            <input className="input"
+                value={signUpForm.password}
+                required/>
+            <input className="inputs"
                 name="password_confirm"
                 type="password"
                 placeholder="Confirm Password"
                 onChange={updateSignUpForm}
-                value={signUpForm.password_confirm} />
-            <br></br>
-
-            <button className="signUp"
-                type="submit">Sign Up</button>
-            <br></br>
-
-            <input className="login"
-                type="button"
-                value="Already have an account? Login."
-                onClick={sendToLogin} />
-            <br></br>
-
+                value={signUpForm.password_confirm}
+                required/>
+            <button type="submit">Sign Up</button>
+            <Link to='/login'>
+                Already have an account? Login.
+            </Link>
         </form>
     );
 }

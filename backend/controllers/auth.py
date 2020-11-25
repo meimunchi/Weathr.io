@@ -6,7 +6,9 @@ from flask_login import login_user, current_user, login_required
 from botocore.exceptions import ClientError
 
 auth_api = Blueprint('auth', __name__)
-CORS(auth_api)
+CORS(auth_api,
+     origins='http://localhost:3000',
+     supports_credentials=True)
 
 
 @auth_api.route('/login', methods=['POST'])
@@ -62,7 +64,7 @@ def signup_user():
     return {'success': True}
 
 
-@auth_api.route('/user', methods=['POST'])
+@auth_api.route('/user', methods=['GET'])
 @login_required
 def get_user():
     return current_user.to_dict()
