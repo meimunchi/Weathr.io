@@ -30,6 +30,10 @@ def weathr_info():
     user_location = request.get_json()
     return one_call(user_location)
 
+@application.route('/precip', methods=['GET'])
+def weathr_precip():
+    return get_precipitation_map()
+
 
 application.register_blueprint(sms_api, url_prefix='/sms')
 

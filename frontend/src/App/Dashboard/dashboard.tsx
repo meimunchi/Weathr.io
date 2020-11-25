@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Axios from "axios";
 import { User } from '../user.interface'
 import "./dashboard.css"
+//import "../../../../backend/providers/datagetter.py"
 
 interface DashboardProps {
     user: User | null
@@ -73,8 +74,9 @@ function Dashboard({ user }: DashboardProps) {
                 })
             }
             const response = await Axios.post(`${process.env.REACT_APP_PROXY}/info`, body);
-
             const resWeatherData = response.data;
+            //const res = await Axios.get(`${process.env.REACT_APP_PROXY}/precip`, body);
+            //const precipmap = res;
             localStorage.setItem('weather-data', JSON.stringify(resWeatherData));
             setWeatherData(response.data);
 
@@ -92,6 +94,22 @@ function Dashboard({ user }: DashboardProps) {
     return(
 
       <div>
+
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+
+            <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+
+            
+          <div id = "map"></div>
+
+          <script>
+            var map = L.map('map').setView([42.35, -71.08], 13);
+
+            L.tileLayer('http://tile.openweathermap.org/map/layer=precipitation_new/z=1/x=0/y=0.png?appid=10d61017ae8b2c417f4655c38368133d').addTo(map);
+
+
+          </script>
 
           <h1>Weather Dashboard</h1>
           <h2>Welcome Back, { user ? user.name : 'Guest'}</h2>
