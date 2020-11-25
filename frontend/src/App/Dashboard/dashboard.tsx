@@ -2,35 +2,10 @@ import React, {useEffect, useState} from 'react';
 import Axios from "axios";
 import { User } from '../user.interface'
 import "./dashboard.css"
+import { WeatherData } from './weather-data.interface'
 
 interface DashboardProps {
     user: User | null
-}
-
-interface WeatherData {
-    daily: DailyData[],
-    hourly: HourlyData[],
-    alerts: { 
-        description: string
-    }
-}
-
-interface DailyData {
-    temp: {
-        max: number,
-        min: number
-    },
-    pop: number,
-    humidity: number,
-    clouds: number,
-    uvi: number,
-    sunrise: number,
-    sunset: number
-}
-
-interface HourlyData {
-    temp: number,
-    pop: number
 }
 
 function Dashboard({ user }: DashboardProps) {
