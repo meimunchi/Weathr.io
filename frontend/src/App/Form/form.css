@@ -1,0 +1,47 @@
+form.login {
+    display: grid;
+    width: 300px;
+    margin: 40px auto 0 auto;
+    justify-items: center;
+    row-gap: 6px;
+}
+
+form.login > p {
+    margin: 0;
+    color: #f16464;
+}
+
+form.login > input {
+    width: 280px;
+    padding: 14px 18px;
+    font-size: 18px;
+    background: #FFFFFF;
+    border-radius: 24px;
+    border: 1px solid #35ABEE;
+    box-sizing: border-box;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+form.login > button {
+    background: #99DAF7;
+    box-sizing: border-box;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 18px;
+    font-weight: bold;
+    color: #35ABEE;
+    border-radius: 24px;
+    border: 1px solid #35ABEE;
+    padding: 4px;
+    width: 280px;
+}
+
+form.login > a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #35ABEE;
+}
+
+form.login > a.hover {
+    font-size: 16px;
+    color: #35ABEE;
+}

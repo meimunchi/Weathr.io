@@ -1,6 +1,9 @@
 import json
 import requests
 import os
+import datetime
+import calendar
+import pytz
 # takes temp in kelvin and returns in celsius
 def kelvin_to_celsius(tempK):
     return tempK - 273.15
@@ -39,7 +42,6 @@ def deg_to_dir(deg):
 def one_call(ip_info):
     # ip_info = get_ip_info(ip)  # makes call to ip api
 
-
     # loads in the api key from config.json
     # config_data = {}
     # with open('config.json', 'r') as f: #secure opening
@@ -53,7 +55,9 @@ def one_call(ip_info):
 
     decoded_resp = owm_response.content.decode("utf-8")  # decode byte string response
     resp_json = json.loads(decoded_resp)
-    # print(json.dumps(resp_json, indent=2))
+    for item in resp_json['daily']:
+        item['sunrise'] = datetime.datetime.utcfromtimestamp(item['sunrise'])
+        item['sunset'] = datetime.datetime.utcfromtimestamp(item['sunset'])
     # print(resp_json['weather'][0]['main'])
     return resp_json
 

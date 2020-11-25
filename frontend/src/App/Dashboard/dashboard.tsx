@@ -1,13 +1,40 @@
 import React, {useEffect, useState} from 'react';
 import Axios from "axios";
 import { User } from '../user.interface'
+import "./dashboard.css"
 
 interface DashboardProps {
     user: User | null
 }
 
+interface WeatherData {
+    daily: DailyData[],
+    hourly: HourlyData[],
+    alerts: { 
+        description: string
+    }
+}
+
+interface DailyData {
+    temp: {
+        max: number,
+        min: number
+    },
+    pop: number,
+    humidity: number,
+    clouds: number,
+    uvi: number,
+    sunrise: number,
+    sunset: number
+}
+
+interface HourlyData {
+    temp: number,
+    pop: number
+}
+
 function Dashboard({ user }: DashboardProps) {
-    const [weatherData, setWeatherData] = useState(null);
+    const [weatherData, setWeatherData] = useState(null as null | WeatherData);
 
     const isPastTime = () => {
         const strNextUpdateTime = localStorage.getItem('next-update-time');
@@ -45,7 +72,7 @@ function Dashboard({ user }: DashboardProps) {
                     }
                 })
             }
-            const response = await Axios.post('http://localhost:5000/info', body);
+            const response = await Axios.post(`${process.env.REACT_APP_PROXY}/info`, body);
 
             const resWeatherData = response.data;
             localStorage.setItem('weather-data', JSON.stringify(resWeatherData));
@@ -65,31 +92,46 @@ function Dashboard({ user }: DashboardProps) {
     return(
 
       <div>
-          <h1>Weather Dashboard</h1>
-          <h2>48 Hour Hourly Forecast</h2>
-          <h2>Welcome Back, { user ? user.name : 'Guest'}</h2>
-          {
-              weatherData && <div>
-                  { weatherData.hourly.map(hour =>
-                      <p>Temperature: { hour.temp }F</p>
-                  )}
-              </div>
-          }
-          <h2>7-Day Forecast</h2>
 
+          <h1>Weather Dashboard</h1>
+          <h2>Welcome Back, { user ? user.name : 'Guest'}</h2>
+          <h2>7-Day Forecast</h2>
           {
-              weatherData && <div>
+              weatherData && <tr id={'day7forecast'}>
                   { weatherData.daily.map((day, index) =>
-                          <div>
-                          <h3>Day {index+1}</h3>
-                          <p>Max Temp: { day.temp.max}</p>
-                          <p>Min Temp: { day.temp.min}</p>
-                          <p>Chance of Rain: { day.pop * 100}%</p>
-                          <p>Humidity: { day.humidity}%</p>
-                          <p>Cloud Cover: { day.clouds}%</p>
-                          </div>
+                          <th id={'day7elements'}>
+                            <h3>Day {index+1}</h3>
+                            <p>Max Temp: { day.temp.max}F</p>
+                            <p>Min Temp: { day.temp.min}F</p>
+                            <p>Chance of Rain: { day.pop * 100}%</p>
+                            <p>Humidity: { day.humidity}%</p>
+                            <p>Cloud Cover: { day.clouds}%</p>
+                            <p>UV Index: { day.uvi} out of 10.0</p>
+                            <p>Sunrise: { day.sunrise}</p>
+                            <p>Sunset: { day.sunset}</p>
+                          </th>
                       )}
-              </div>
+              </tr>
+          }
+          <h2>48 Hour Hourly Forecast</h2>
+          {
+              weatherData && <tr id='hour48forecast'>
+                  { weatherData.hourly.map((hour, index) =>
+                      <th id={'hour48elements'}>
+                          <p>Hour {index}:</p>
+                          <p>Temperature: { hour.temp + 1}F</p>
+                          <p>Chance of Rain: { (hour.pop * 100).toFixed(1)}%</p>
+                      </th>
+
+
+                  )}
+              </tr>
+          }
+          <h2>Emergency Weather Information</h2>
+          {
+              weatherData?.alerts ?
+                <p>Description: {weatherData.alerts.description}</p> :
+                  <p>Alerts are not here.</p>
           }
 
       </div>

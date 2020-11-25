@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, redirect, url_for
 from providers.datagetter import *
 from create_app import create_app
 import os
@@ -31,13 +31,13 @@ def weathr_info():
     return one_call(user_location)
 
 
-# @application.after_request
-# def creds(response):
-#     response.headers['Access-Control-Allow-Credentials'] = 'true'
-#     return response
-
-
 application.register_blueprint(sms_api, url_prefix='/sms')
+
+
+@application.route('/', methods=['GET'])
+def redirect_home():
+    return redirect('/static')
+
 
 if __name__ == "__main__":
     application.run(debug=True)

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import './App.css';
-import { BrowserRouter, Route, RouteComponentProps } from 'react-router-dom'
-import Login from './Form/login';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
+import Login from './Form/Login/login';
 import Navigation from './Navigation/navigation';
-import SignUp from './Form/Login/signup';
-import Dashboard from './Dashboard/Dashboard'
+import SignUp from './Form/Signup/signup';
+import Dashboard from './Dashboard/dashboard'
 import { User } from './user.interface'
-import Home from './Form/Home/home'
-import Axios from 'axios'
+import Home from './Home/home'
+import About from'./About/about';
 
 function App() {
   const [user, setUser] = useState(null as User | null)
@@ -34,10 +34,18 @@ function App() {
   return (
     <BrowserRouter>
       <Navigation />
-      <Route path='/signup' component={SignUp} />
-      <Route path='/dashboard' render={(props) => <Dashboard {...props} user={user}/>} />
-      <Route path='/login' render={(props) => <Login {...props} loginUser={loginUser}/>}/>
-      <Route exact path='/' component={Home} />
+      <Switch>
+        <Route path='/signup' component={SignUp} />
+        <Route path='/dashboard' render={(props) => <Dashboard {...props} user={user}/>} />
+        <Route path='/login' render={(props) => <Login {...props} loginUser={loginUser}/>}/>
+        <Route exact path='/' component={Home} />
+        <Route path='/chat' render={() => <div>Chat!</div>}/>
+        <Route path='/about-us' component={About}/>
+        <Route path='/blog' render={() => <div>Blog!</div>}/>
+        <Route path='/'>
+          <Redirect to='/'/>
+        </Route>
+      </Switch>
     </BrowserRouter>
   );
 }
