@@ -1,0 +1,8 @@
+div.chat-container {
+    display: grid;
+    grid-template-columns: 1fr 100px;
+}
+
+div.chat-container > div {
+    grid-column: 1 / 3;
+}

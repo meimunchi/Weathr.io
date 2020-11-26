@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import './App.css';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import Login from './Form/Login/login';
@@ -7,7 +7,8 @@ import SignUp from './Form/Signup/signup';
 import Dashboard from './Dashboard/dashboard'
 import { User } from './user.interface'
 import Home from './Home/home'
-import About from'./About/about';
+import About from './About/about';
+import ChatBotPage from './ChatBot/chat-bot';
 
 function App() {
   const [user, setUser] = useState(null as User | null)
@@ -36,14 +37,14 @@ function App() {
       <Navigation />
       <Switch>
         <Route path='/signup' component={SignUp} />
-        <Route path='/dashboard' render={(props) => <Dashboard {...props} user={user}/>} />
-        <Route path='/login' render={(props) => <Login {...props} loginUser={loginUser}/>}/>
+        <Route path='/dashboard' render={(props) => <Dashboard {...props} user={user} />} />
+        <Route path='/login' render={(props) => <Login {...props} loginUser={loginUser} />} />
         <Route exact path='/' component={Home} />
-        <Route path='/chat' render={() => <div>Chat!</div>}/>
-        <Route path='/about-us' component={About}/>
-        <Route path='/blog' render={() => <div>Blog!</div>}/>
+        <Route path='/chat' component={ChatBotPage} />
+        <Route path='/about-us' component={About} />
+        <Route path='/blog' render={() => <div>Blog!</div>} />
         <Route path='/'>
-          <Redirect to='/'/>
+          <Redirect to='/' />
         </Route>
       </Switch>
     </BrowserRouter>
