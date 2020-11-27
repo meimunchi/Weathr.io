@@ -1,9 +1,6 @@
 from flask import Blueprint, request
 import json
-from botocore.exceptions import ClientError
-import boto3
-import os
-from providers.sms_provider import send_message, sns_confirm_subscription, validate_message, formulate_message
+from providers.sms_provider import send_message
 
 sms_api = Blueprint('sms', __name__)
 
@@ -28,6 +25,7 @@ def sms_general():
         # TODO: Can use phone number as another key to identify
 
         message = formulate_message(pinpoint_message['messageBody'])
+
         send_message(pinpoint_message['originationNumber'], message)
         return message
     else:

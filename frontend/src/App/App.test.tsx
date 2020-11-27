@@ -1,11 +1,11 @@
-// Requires setupTests.ts -- will have to look into testing later
+import React from 'react';
+import { render } from '@testing-library/react';
+import App from './App';
 
-// import React from 'react';
-// import { render } from '@testing-library/react';
-// import App from './App';
+describe('App component', () => {
+  it('renders', () => {
+    const { container } = render(<App/>);
 
-// test('renders learn react link', () => {
-//   const { getByText } = render(<App />);
-//   const linkElement = getByText(/learn react/i);
-//   expect(linkElement).toBeInTheDocument();
-// });
+    expect(container).toBeInTheDocument();
+  })
+})
