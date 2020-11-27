@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import './App.css';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
-import Login from './Form/login';
+import Login from './Form/Login/login';
 import Navigation from './Navigation/navigation';
-import SignUp from './Form/Login/signup';
-import Dashboard from './Dashboard/Dashboard'
+import SignUp from './Form/Signup/signup';
+import Dashboard from './Dashboard/dashboard'
 import { User } from './user.interface'
-import Home from './Form/Home/home'
+import Home from './Home/home'
 import About from'./About/about';
 
 function App() {
@@ -43,7 +43,7 @@ function App() {
         <Route path='/about-us' component={About}/>
         <Route path='/blog' render={() => <div>Blog!</div>}/>
         <Route path='/'>
-          <Redirect to='/'></Redirect>
+          <Redirect to='/'/>
         </Route>
       </Switch>
     </BrowserRouter>

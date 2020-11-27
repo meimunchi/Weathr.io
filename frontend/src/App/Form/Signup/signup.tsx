@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import Login from '../login'
-import { SignUpForm } from '../interfaces'
+import { SignUpCredentials } from '../form.interface'
 import { v4 as uuidv4 } from 'uuid';
 import Axios from 'axios'
-import './signup.css'
+import '../form.css'
 import { Link } from 'react-router-dom';
 import cloud from '../../../assets/cloud-logo.png'
 import { useHistory } from 'react-router'
@@ -16,7 +15,7 @@ function SignUp() {
         phone_number: "",
         password: "",
         password_confirm: ""
-    } as SignUpForm)
+    } as SignUpCredentials)
 
     const [error, setError] = useState(null as string | null);
     const history = useHistory();
@@ -62,9 +61,8 @@ function SignUp() {
     }
 
     return (
-        <form className="signup" onSubmit={submitForm}>
+        <form className="login" onSubmit={submitForm}>
             <img src={cloud} alt="Weathr Logo" />
-            <p>Weathr.io</p>
             { error && <p>{error}</p> }
             <input className="inputs"
                 name="first_name"
@@ -73,8 +71,6 @@ function SignUp() {
                 onChange={updateSignUpForm}
                 value={signUpForm.first_name}
                 required/>
-            <br></br>
-
             <input className="inputs"
                 name="last_name"
                 type="text"
@@ -82,8 +78,6 @@ function SignUp() {
                 onChange={updateSignUpForm}
                 value={signUpForm.last_name}
                 required/>
-            <br></br>
-
             <input className="inputs"
                 name="email"
                 type="email"
@@ -91,8 +85,6 @@ function SignUp() {
                 onChange={updateSignUpForm}
                 value={signUpForm.email}
                 required/>
-            <br></br>
-
             <input className="inputs"
                 name="phone_number"
                 type="tel"
@@ -101,8 +93,6 @@ function SignUp() {
                 onChange={updateSignUpForm}
                 value={signUpForm.phone_number}
                 required/>
-            <br></br>
-
             <input className="inputs"
                 name="password"
                 type="password"
@@ -110,8 +100,6 @@ function SignUp() {
                 onChange={updateSignUpForm}
                 value={signUpForm.password}
                 required/>
-            <br></br>
-
             <input className="inputs"
                 name="password_confirm"
                 type="password"
@@ -119,15 +107,8 @@ function SignUp() {
                 onChange={updateSignUpForm}
                 value={signUpForm.password_confirm}
                 required/>
-            <br></br>
-
-            <button className="signUp"
-                type="submit">Sign Up</button>
-            <br></br>
-
-            <Link
-                className="login"
-                to='/login'>
+            <button type="submit">Sign Up</button>
+            <Link to='/login'>
                 Already have an account? Login.
             </Link>
         </form>
