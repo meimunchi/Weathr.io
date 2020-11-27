@@ -1,6 +1,9 @@
 import json
 import requests
 import os
+import datetime
+import calendar
+import pytz
 # takes temp in kelvin and returns in celsius
 def kelvin_to_celsius(tempK):
     return tempK - 273.15
@@ -36,9 +39,8 @@ def deg_to_dir(deg):
 # wind (mph) can be found at ['wind']['speed]
 # wind direction can be found at ['wind']['deg'] and converted w above functions
 # TODO: determine what else to add
-def one_call(ip):
-    ip_info = get_ip_info(ip)  # makes call to ip api
-
+def one_call(ip_info):
+    # ip_info = get_ip_info(ip)  # makes call to ip api
 
     # loads in the api key from config.json
     # config_data = {}
@@ -49,11 +51,13 @@ def one_call(ip):
     # print('key: '+ key )
 
     owm_response = requests.get('http://api.openweathermap.org/data/2.5/onecall?lat=' + str(ip_info['lat'])
-                                + '&lon=' + str(ip_info['lon']) + '&appid=' + key)
+                                + '&lon=' + str(ip_info['long']) + '&appid=' + key + '&units=imperial')
 
     decoded_resp = owm_response.content.decode("utf-8")  # decode byte string response
     resp_json = json.loads(decoded_resp)
-    # print(json.dumps(resp_json, indent=2))
+    for item in resp_json['daily']:
+        item['sunrise'] = datetime.datetime.utcfromtimestamp(item['sunrise'])
+        item['sunset'] = datetime.datetime.utcfromtimestamp(item['sunset'])
     # print(resp_json['weather'][0]['main'])
     return resp_json
 

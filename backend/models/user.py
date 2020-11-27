@@ -38,7 +38,7 @@ class User(UserMixin):
         return response
 
     def secure_password(self):
-        self.password = sha256_crypt.encrypt(self.password)
+        self.password = sha256_crypt.hash(self.password)
 
     def validate_password(self, _password):
         return sha256_crypt.verify(_password, self.password)
@@ -47,7 +47,6 @@ class User(UserMixin):
         return {
             "email": self.email,
             "uid": self.uid,
-            "password": self.password,
             "name": self.name,
             "phone_num": self.phone_num,
             "is_admin": self.is_admin

@@ -2,7 +2,10 @@ from botocore.exceptions import ClientError
 import boto3
 import os
 import requests
-pinpoint = boto3.client('pinpoint',region_name=os.getenv('AWS_REGION'))
+from providers.datagetter import one_call
+
+pinpoint = boto3.client('pinpoint', region_name=os.getenv('AWS_REGION'))
+
 
 # -------------- VALIDATION AND CONFIRMATION -------------- #
 
@@ -13,8 +16,9 @@ def sns_confirm_subscription(url):
         return arn
     except:
         print("could not confirm subscription")
-    
-def validate_message(messagetype,req_body):
+
+
+def validate_message(messagetype, req_body):
     if req_body.SignatureVersion != "1":
         return False
     sign_cert = requests.get(req_body.SigningCertURL)
@@ -28,15 +32,34 @@ def validate_message(messagetype,req_body):
 # -------------- FORMULATE MESSAGE -------------- #
 
 def formulate_message(incoming_message):
-    return incoming_message
-    # search for keywords
-    # make call to weather api
-    # return "a default message here"
+    if 'menu' in incoming_message:
+        return 'Welcome to find Weathr.io to find out about the current weather! Includes all sorts of information ' \
+               'from temperature to humidity to cloudiness to wind speed to general weather!'
 
+    weather_data = one_call({'lat': '29.651634', 'long': '-82.324829'})
+    curr_weather_data = weather_data['current']
+
+    response_list = []
+    if 'descr' in incoming_message:
+        response_list.append(f"Currently in store for {curr_weather_data['weather'][0]['description']}")
+    if 'cloud' in incoming_message:
+        response_list.append(f"Current cloudiness is at {curr_weather_data['clouds']}%")
+    if 'humidity' in incoming_message:
+        response_list.append(f"Current humidity is at {curr_weather_data['humidity']}%")
+    if 'temp' in incoming_message:
+        response_list.append(f"Current temperature is at {curr_weather_data['temp']}F, but feels like"
+                             f" {curr_weather_data['feels_like']}F")
+    if 'wind' in incoming_message:
+        response_list.append(f"Wind is currently at {curr_weather_data['wind_speed']}mph")
+
+    if len(response_list) == 0:
+        return 'What? Come again o.o'
+    else:
+        return ' | '.join(response_list)
 
 
 # -------------- SENDING THE MESSAGE -------------- #
-def send_message(destinationnumber,message):
+def send_message(destinationnumber, message):
     originationnumber = os.getenv('PINPOINT_LONGCODE')
     messageType = "TRANSACTIONAL"
 
@@ -63,5 +86,4 @@ def send_message(destinationnumber,message):
         print(e.response['Error']['Message'])
     else:
         print("Message sent! Message ID: "
-                + response['MessageResponse']['Result'][destinationnumber]['MessageId'])
-
+              + response['MessageResponse']['Result'][destinationnumber]['MessageId'])

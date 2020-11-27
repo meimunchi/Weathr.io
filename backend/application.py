@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, redirect, url_for
 from providers.datagetter import *
 from create_app import create_app
 import os
@@ -25,14 +25,19 @@ def edu_blogs():
 application.register_blueprint(auth_api)
 
 
-@application.route('/info')
+@application.route('/info', methods=['POST'])
 def weathr_info():
-    print(request.remote_addr)
-    print(os.getenv('WEATHER_APIKEY'))
-    return one_call(request.remote_addr)
+    user_location = request.get_json()
+    return one_call(user_location)
 
 
 application.register_blueprint(sms_api, url_prefix='/sms')
+
+
+@application.route('/', methods=['GET'])
+def redirect_home():
+    return redirect('/static')
+
 
 if __name__ == "__main__":
     application.run(debug=True)
