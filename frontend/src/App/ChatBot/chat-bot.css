@@ -12,7 +12,11 @@ div.header > p {
 div.chat-container {
     display: grid;
     grid-template-columns: 1fr 100px;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> df7ccd8... added chatbox styling
 }
 
 div.chat-container > div {
@@ -46,4 +50,8 @@ div.chat-container > button {
     border: 1px solid #35ABEE;
     padding: 7px;
     margin-right: 20px;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> df7ccd8... added chatbox styling
