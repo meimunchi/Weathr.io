@@ -1,8 +1,49 @@
+div.header {
+    display: grid;
+    justify-content: center;
+}
+
+div.header > p {
+    color: #35ABEE;
+    font-size: 18px;
+    margin: 0px;
+}
+
 div.chat-container {
     display: grid;
     grid-template-columns: 1fr 100px;
+    
 }
 
 div.chat-container > div {
     grid-column: 1 / 3;
+}
+div.textbox {
+    box-sizing: border-box;
+    border: 1px solid #35ABEE;
+    margin: 20px;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+}
+
+div.chat-container > input {
+    border-radius: 24px;
+    border: 1px solid #35ABEE;
+    box-sizing: border-box;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    margin-left: 20px;
+}
+
+div.chat-container > button {
+    background: #99DAF7;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 18px;
+    font-weight: bold;
+    color: #35ABEE;
+    border-radius: 24px;
+    border: 1px solid #35ABEE;
+    padding: 7px;
+    margin-right: 20px;
 }
