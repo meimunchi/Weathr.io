@@ -3,9 +3,16 @@ import boto3
 import os
 import requests
 from providers.datagetter import one_call
+import json
+
 
 pinpoint = boto3.client('pinpoint', region_name=os.getenv('AWS_REGION'))
 
+with open('../blog.json') as f:
+        blogData = json.load(f)
+
+default_msg = 'Welcome to find Weathr.io to find out about the current weather! Includes all sorts of information ' \
+               'from temperature to humidity to cloudiness to wind speed to general weather!'
 
 # -------------- VALIDATION AND CONFIRMATION -------------- #
 
@@ -32,9 +39,9 @@ def validate_message(messagetype, req_body):
 # -------------- FORMULATE MESSAGE -------------- #
 
 def formulate_message(incoming_message):
+    response =""
     if 'menu' in incoming_message:
-        return 'Welcome to find Weathr.io to find out about the current weather! Includes all sorts of information ' \
-               'from temperature to humidity to cloudiness to wind speed to general weather!'
+        return default_msg
 
     weather_data = one_call({'lat': '29.651634', 'long': '-82.324829'})
     curr_weather_data = weather_data['current']
@@ -52,10 +59,20 @@ def formulate_message(incoming_message):
     if 'wind' in incoming_message:
         response_list.append(f"Wind is currently at {curr_weather_data['wind_speed']}mph")
 
-    if len(response_list) == 0:
-        return 'What? Come again o.o'
-    else:
-        return ' | '.join(response_list)
+    if not len(response_list) == 0:
+        response += ' | '.join(response_list)
+        response += "\n"
+
+    for disaster in blogData:
+        if disaster.casefold() in message.casefold():
+            response += disaster + " Info: \n"
+            info = data.get(disaster)
+            for section in info:
+                if section.casefold() in message.casefold():
+                    response = response + section.upper() + ":\n"
+                    for tip in info.get(section):
+                        response = response + "- " + tip + "\n"
+    return response
 
 
 # -------------- SENDING THE MESSAGE -------------- #
@@ -87,3 +104,14 @@ def send_message(destinationnumber, message):
     else:
         print("Message sent! Message ID: "
               + response['MessageResponse']['Result'][destinationnumber]['MessageId'])
+
+
+
+def testLoadJSON():
+    print("Hey there")
+    with open('..blog.json') as f:
+        data = json.load(f)
+
+
+if __name__ == "__main__":
+    testLoadJSON()

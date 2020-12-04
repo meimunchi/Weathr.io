@@ -11,9 +11,9 @@ sms_api = Blueprint('sms', __name__)
 # -------------- SMS RELATED PATHS -------------- #
 
 # input is location, output is string or null (if none)
-@sms_api.route('/disaster')
+@sms_api.route('/web')
 def sms_disaster():
-    return 'This is the sms/disaster route!'
+    return 'Chatbot route'
 
 
 @sms_api.route('/general', methods=['POST'])
