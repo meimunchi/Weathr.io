@@ -67,7 +67,7 @@ function Dashboard({ user }: DashboardProps) {
 
     return(
 
-      <div>
+      <div className="dash">
 
           <div id = "map"></div>
 
