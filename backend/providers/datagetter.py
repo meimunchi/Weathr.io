@@ -56,8 +56,30 @@ def one_call(ip_info):
     decoded_resp = owm_response.content.decode("utf-8")  # decode byte string response
     resp_json = json.loads(decoded_resp)
     for item in resp_json['daily']:
-        item['sunrise'] = datetime.datetime.utcfromtimestamp(item['sunrise'])
-        item['sunset'] = datetime.datetime.utcfromtimestamp(item['sunset'])
+        rise_hours = str(int(datetime.datetime.utcfromtimestamp(item['sunrise']).strftime('%H')) - 5)
+        rise_minutes = datetime.datetime.utcfromtimestamp(item['sunrise']).strftime('%M')
+        set_hours = str(int(datetime.datetime.utcfromtimestamp(item['sunset']).strftime('%H')) - 5)
+        set_minutes = datetime.datetime.utcfromtimestamp(item['sunset']).strftime('%H')
+
+
+        item['sunrise'] = rise_hours + ":" + rise_minutes + "AM EST" if int(rise_hours) < 12 else str((int(rise_hours) - 12)) + ":" + str(int(rise_minutes))  + "PM EST"
+        item['sunset'] = set_hours + ":" + set_minutes + "AM EST" if int(set_hours) < 12 else str(int(set_hours) - 12) + ":" + str(int(set_minutes)) + "PM EST"
+
+
+
+
+
+        # mod = item['sunrise'].split(' ')
+        # mod = mod[4]
+        # sun_time = mod.split(':')
+        #
+        # sun_time[0] = int(sun_time[0]) - 5  # GMT TO EST
+        # if sun_time[0] < 1:
+        #     sun_time[0] = 12 - sun_time[0]  # ensure proper formatting
+
+        # item['sunrise'] = str(sun_time[0]) + ":" + str(sun_time[1]) + " EST"  # find correct time zone
+
+
     # print(resp_json['weather'][0]['main'])
     return resp_json
 
@@ -66,7 +88,7 @@ def get_clouds_map():
     key = os.getenv('WEATHER_APIKEY')  # get through env variable
 
     map = requests.get('http://tile.openweathermap.org/map/layer=clouds_new/z=1/x=0/y=0.png?appid=' + key)
-    print(map)
+
     return map
 
 

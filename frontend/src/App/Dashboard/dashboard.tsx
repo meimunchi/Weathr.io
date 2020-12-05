@@ -3,6 +3,7 @@ import Axios from "axios";
 import { User } from '../user.interface'
 import "./dashboard.css"
 //import "../../../../backend/providers/datagetter.py"
+import 'leaf'
 
 interface DashboardProps {
     user: User | null
@@ -94,58 +95,47 @@ function Dashboard({ user }: DashboardProps) {
     return(
 
       <div>
-
-            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
-
-            <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-
-
             
           <div id = "map"></div>
 
           <script>
             var map = L.map('map').setView([42.35, -71.08], 13);
-
             L.tileLayer('http://tile.openweathermap.org/map/layer=precipitation_new/z=1/x=0/y=0.png?appid=10d61017ae8b2c417f4655c38368133d').addTo(map);
-
-
           </script>
 
-          <h1>Weather Dashboard</h1>
-          <h2>Welcome Back, { user ? user.name : 'Guest'}</h2>
-          <h2>7-Day Forecast</h2>
+          <h1 id = {'heading'}>Weather Dashboard</h1>
+          <h2 id = {'heading'}>Welcome Back, { user ? user.name : 'Guest'}</h2>
+          <h2 id = {'heading'}>7-Day Forecast</h2>
           {
               weatherData && <tr id={'day7forecast'}>
                   { weatherData.daily.map((day, index) =>
                           <th id={'day7elements'}>
                             <h3>Day {index+1}</h3>
-                            <p>Max Temp: { day.temp.max}F</p>
-                            <p>Min Temp: { day.temp.min}F</p>
-                            <p>Chance of Rain: { day.pop * 100}%</p>
-                            <p>Humidity: { day.humidity}%</p>
-                            <p>Cloud Cover: { day.clouds}%</p>
-                            <p>UV Index: { day.uvi} out of 10.0</p>
-                            <p>Sunrise: { day.sunrise}</p>
-                            <p>Sunset: { day.sunset}</p>
+                            <p>Max Temp: { (day.temp.max).toFixed(1)}F</p>
+                            <p>Min Temp: { (day.temp.min).toFixed(1)}F</p>
+                            <p>Chance of Rain: { (day.pop * 100).toFixed(1)}%</p>
+                            <p>Humidity: { (day.humidity).toFixed(1)}%</p>
+                            <p>Cloud Cover: { (day.clouds).toFixed(1)}%</p>
+                            <p>UV Index: { (day.uvi).toFixed(1)} out of 10.0</p>
+                            <p>Sunrise: { (day.sunrise)}</p>
+                            <p>Sunset: { (day.sunset)}</p>
                           </th>
                       )}
               </tr>
           }
-          <h2>48 Hour Hourly Forecast</h2>
+          <h2 id = {'heading'}>48 Hour Hourly Forecast</h2>
           {
               weatherData && <tr id='hour48forecast'>
-                  { weatherData.hourly.map((hour, index) =>
+                  {weatherData.hourly.map((hour, index) =>
                       <th id={'hour48elements'}>
                           <p>Hour {index}:</p>
-                          <p>Temperature: { hour.temp + 1}F</p>
-                          <p>Chance of Rain: { (hour.pop * 100).toFixed(1)}%</p>
+                          <p>Temperature: {(hour.temp).toFixed(1) + 1}F</p>
+                          <p>Chance of Rain: {(hour.pop * 100).toFixed(1)}%</p>
                       </th>
-
-
                   )}
               </tr>
           }
-          <h2>Emergency Weather Information</h2>
+          <h2 id = {'heading'}>Emergency Weather Information</h2>
           {
               weatherData?.alerts ?
                 <p>Description: {weatherData.alerts.description}</p> :

@@ -1,4 +1,13 @@
-#map 
+#heading
+{
+    background: lightgrey;
+    width: 15rem;
+    border: 3px solid black;
+    border-radius: 25px;
+    text-align: center;
+}
+
+#map
 { 
     height: 180px; 
 }
