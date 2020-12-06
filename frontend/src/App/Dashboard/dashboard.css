@@ -7,9 +7,9 @@
     text-align: center;
 }
 
-#map
-{ 
-    height: 180px; 
+.leaflet-container {
+    height: 200px;
+    width: 800px;
 }
 #day7forecast {
     border: 1px solid black;
