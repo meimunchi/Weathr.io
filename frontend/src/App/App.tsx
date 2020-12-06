@@ -9,6 +9,7 @@ import { User } from './user.interface'
 import Home from './Home/home'
 import About from './About/about';
 import ChatBotPage from './ChatBot/chat-bot';
+import BlogPage from './Blog/blog'
 
 function App() {
   const [user, setUser] = useState(null as User | null)
@@ -42,7 +43,7 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route path='/chat' component={ChatBotPage} />
         <Route path='/about-us' component={About} />
-        <Route path='/blog' render={() => <div>Blog!</div>} />
+        <Route path='/blog' component={BlogPage} />
         <Route path='/'>
           <Redirect to='/' />
         </Route>

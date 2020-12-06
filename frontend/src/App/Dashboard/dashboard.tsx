@@ -3,6 +3,8 @@ import Axios from "axios";
 import { User } from '../user.interface'
 import "./dashboard.css"
 import { WeatherData } from './weather-data.interface'
+import { MapContainer, Marker, TileLayer, Popup } from 'react-leaflet'
+import 'leaflet/dist/leaflet.css'
 
 interface DashboardProps {
     user: User | null
@@ -67,7 +69,7 @@ function Dashboard({ user }: DashboardProps) {
 
     return(
 
-      <div className="dash">
+      <div>
 
           <div id = "map"></div>
 

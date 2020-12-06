@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 import json
-from providers.sms_provider import send_message
+from providers.sms_provider import send_message, formulate_message
 
 sms_api = Blueprint('sms', __name__)
 
