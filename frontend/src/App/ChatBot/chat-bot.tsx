@@ -11,7 +11,6 @@ function ChatBotPage() {
     // TODO: Use state for input field
 
     return (
-<<<<<<< HEAD
       <div className="chatbot">
           <div className="header">
               <img src={cloudLogo} alt="Weathr Logo" />
@@ -30,26 +29,6 @@ function ChatBotPage() {
           </div>
 
       </div>
-=======
-        <div className="chatbot">
-            <div className="header">
-                <img src={cloudLogo} alt="Weathr Logo" />
-                <p data-testid='cloud-logo'>Chat Bot is here to :) Find out what you can talk about here</p>
-                <img src={smallCloud} alt="Weathr Logo" />
-            </div>
-
-            <div className="chat-container">
-                <div className="textbox">
-                    <p>Hellooo</p>
-                    <p>Helooo</p>
-                </div>
-
-                <input></input>
-                <button onSubmit={submit}>Send</button>
-            </div>
-
-        </div>
->>>>>>> df7ccd8... added chatbox styling
     )
 }
 

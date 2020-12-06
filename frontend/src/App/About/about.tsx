@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import bigCloud from '../../assets/big-blue-cloud.png'
 import './about.css'
-import '../../../node_modules/bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap/dist/css/bootstrap.css' // No need for node_modules
 
 
 function About() {
