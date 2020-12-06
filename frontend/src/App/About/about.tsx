@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import bigCloud from '../../assets/big-blue-cloud.png'
+import johnHead from '../../assets/John.PNG'
+import antoineHead from '../../assets/antoine.jpg'
+import victoriaHead from '../../assets/victoria.jpg'
+import colinHead from '../../assets/Colin.PNG'
+import tianruiHead from '../../assets/Tianrui.jpg'
 import './about.css'
-// import 'bootstrap/dist/css/bootstrap.css' // No need for node_modules
+import 'bootstrap/dist/css/bootstrap.css'
 
 
 function About() {
@@ -18,11 +23,11 @@ function About() {
             <img src={bigCloud} alt="Weathr Logo" />
         </div>
 
-        <div className="container marketing">
+        <div className="container about">
 
             <div className="row">
                 <div className="col-lg-4">
-                    <img src="#" alt="John Dillon Headshot"></img>
+                    <img src={johnHead} alt="John Dillon Headshot"></img>
                         <h2>John Dillon</h2>
                         <h5>Software Developer</h5>
                         <p> 3rd Year CS Major, Minor in Disabilities in Society <br></br>
@@ -32,7 +37,7 @@ function About() {
                 </div>
 
                 <div className="col-lg-4">
-                    <img src="#" alt="Tianrui Li Headshot"></img>
+                    <img src={tianruiHead} alt="Tianrui Li Headshot"></img>
                         <h2>Tianrui Li</h2>
                         <h5>Software Developer</h5>
                         <p> 2nd Year CS Major, Minor in Electrical Engineering and Statistics<br></br>
@@ -42,7 +47,7 @@ function About() {
                 </div>
 
                 <div className="col-lg-4">
-                    <img src="#" alt="Victoria Mei Headshot"></img>
+                    <img src={victoriaHead} alt="Victoria Mei Headshot"></img>
                         <h2>Victoria Mei</h2>
                         <h5>Software Developer</h5>
                         <p> 2nd Year CS Major, Minor in Business Administration<br></br>
@@ -55,19 +60,23 @@ function About() {
 
             <div className="row">
                 <div className="col-lg-4">
-                    <img src="#" alt="Antoine Ferguson Headshot"></img>
+                    <img src={antoineHead} alt="Antoine Ferguson Headshot"></img>
                         <h2>Antoine Ferguson</h2>
                         <h5>Software Developer</h5>
-                        <p>Filler</p>
+                        <p> 3rd Year CpE Major<br></br>
+                            Interests: Cybersecurity<br></br>
+                            Hobbies: Sports, Video games, Eating<br></br>
+                        </p>
                 </div>
 
                 <div className="col-lg-4">
-                    <img src="#" alt = "Colin Adams Headshot"></img>
+                    <img src={colinHead} alt = "Colin Adams Headshot"></img>
                     <h2>Colin Adams</h2>
                     <h5>Software Developer</h5>
-                    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras
-                        mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-                        condimentum nibh.</p>
+                    <p> 4th Year CS Major<br></br>
+                        Interests: Data Mining, Data Science, Cloud Computing, Map Analysis<br></br>
+                        Hobbies: Cycling, Climbing, Hiking, Guitar<br></br>
+                    </p>
                 </div>
 
                 <div className="col-lg-4">
