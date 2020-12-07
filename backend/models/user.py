@@ -1,7 +1,8 @@
 from flask_login import UserMixin
 from botocore.exceptions import ClientError
-from create_app import table, login_manager
+from create_app import login_manager
 from passlib.hash import sha256_crypt
+from providers.dynamo_table import create_table
 
 
 class User(UserMixin):
@@ -11,6 +12,7 @@ class User(UserMixin):
     name = None
     phone_num = None
     is_admin = None
+    table = None
 
     def __init__(self, _email=None, _uid=None, _password=None, _name=None, _phone_num=None, _is_admin=None):
         self.email = _email
@@ -19,20 +21,21 @@ class User(UserMixin):
         self.phone_num = _phone_num
         self.is_admin = _is_admin
         self.password = _password
+        self.table = create_table('weathr-users')
         return
 
     def get_id(self):
         return self.email
 
     def put(self):
-        response = table.put_item(
+        response = self.table.put_item(
             Item={
                 'email': self.email,
                 'user_id': self.uid,
                 'password': self.password,
                 'name': self.name,
                 'phonenum': self.phone_num,
-                'admin': self.is_admin
+                'admin': self.is_admin,
             }
         )
         return response
@@ -49,12 +52,12 @@ class User(UserMixin):
             "uid": self.uid,
             "name": self.name,
             "phone_num": self.phone_num,
-            "is_admin": self.is_admin
+            "is_admin": self.is_admin,
         }
 
     @classmethod
     def get(cls, email):
-        response = table.get_item(Key={'email': email})
+        response = create_table('weathr-users').get_item(Key={'email': email})
         if 'Item' not in response:
             return None
         else:
@@ -63,14 +66,13 @@ class User(UserMixin):
                         _name=user_attrs['name'], _phone_num=user_attrs['phonenum'], _is_admin=user_attrs['admin'])
             return user
 
-    def update(self, _email, _uid, _password, _name, _phonenum, _admin):
-        response = table.update_item(
+    def update(self, _email, _password, _name, _phonenum, _admin):
+        response = self.table.update_item(
             Key={
                 'email': _email
             },
-            UpdateExpression="set user_id=:u, password=:p, nm=:n, phonenum=:pn, admin=:a",
+            UpdateExpression="set password=:p, nm=:n, phonenum=:pn, admin=:a",
             ExpressionAttributeValues={
-                ':u': _uid,
                 ':p': _password,
                 ':n': _name,
                 ':pn': _phonenum,
@@ -82,7 +84,7 @@ class User(UserMixin):
 
     def delete(self, _email):
         try:
-            response = table.delete_item(
+            response = self.table.delete_item(
                 Key={
                     'email': _email
                 }
