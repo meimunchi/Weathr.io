@@ -10,7 +10,6 @@ pinpoint = boto3.client('pinpoint', region_name=os.getenv('AWS_REGION'))
 # -------------- VALIDATION AND CONFIRMATION -------------- #
 
 def sns_confirm_subscription(url):
-    # TODO: 
     try:
         arn = requests.get(url)
         return arn

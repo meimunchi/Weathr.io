@@ -8,7 +8,7 @@ import Dashboard from './Dashboard/dashboard'
 import { User } from './user.interface'
 import Home from './Home/home'
 import About from './About/about';
-import ChatBotPage from './ChatBot/chat-bot';
+import ChatBot from './ChatBot/chat-bot';
 import BlogMain from './BlogMain/blog-main'
 import BlogPage from './BlogPage/blog-page'
 import Axios from 'axios'
@@ -42,7 +42,7 @@ function App() {
         <Route path='/dashboard' render={(props) => <Dashboard {...props} user={user} />} />
         <Route path='/login' render={(props) => <Login {...props} loginUser={loginUser} />} />
         <Route exact path='/' component={Home} />
-        <Route path='/chat' component={ChatBotPage} />
+        <Route path='/chat' component={ChatBot} />
         <Route path='/about-us' component={About} />
         <Route path='/blog/:name' render={(props) => <BlogPage {...props }/>} />
         <Route exact path='/blog' component={BlogMain} />
