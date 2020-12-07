@@ -1,7 +1,6 @@
 from flask import request, redirect, url_for
 from providers.datagetter import *
 from create_app import create_app
-import os
 from dotenv import load_dotenv
 
 from controllers.auth import auth_api
@@ -29,6 +28,7 @@ application.register_blueprint(auth_api)
 def weathr_info():
     user_location = request.get_json()
     return one_call(user_location)
+
 
 @application.route('/precip', methods=['GET'])
 def weathr_precip():

@@ -11,24 +11,24 @@ import About from './About/about';
 import ChatBotPage from './ChatBot/chat-bot';
 import BlogMain from './BlogMain/blog-main'
 import BlogPage from './BlogPage/blog-page'
+import Axios from 'axios'
 
 function App() {
   const [user, setUser] = useState(null as User | null)
 
-  const loginUser = (_user: User) => {
-    localStorage.setItem('user', JSON.stringify(_user));
+  const loginUser = async (_user: User) => {
     setUser(_user);
   }
 
-  // TODO: Figure out problem with credentials
+  const logoutUser = async () => {
+    await Axios.get(`${process.env.REACT_APP_PROXY}/logout`, { withCredentials: true })
+    setUser(null)
+  }
+
   useEffect(() => {
     async function getUser() {
-      // const response = await Axios.get(`${process.env.REACT_APP_PROXY}/user`, {  withCredentials: true });
-      // console.log(response)
-      const user = localStorage.getItem('user');
-      if (user) {
-        setUser(JSON.parse(user));
-      }
+      const response = await Axios.get(`${process.env.REACT_APP_PROXY}/user`, { withCredentials: true })
+      setUser(response.data)
     }
 
     getUser()
@@ -36,7 +36,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Navigation />
+      <Navigation user={user} logoutUser={logoutUser}/>
       <Switch>
         <Route path='/signup' component={SignUp} />
         <Route path='/dashboard' render={(props) => <Dashboard {...props} user={user} />} />
