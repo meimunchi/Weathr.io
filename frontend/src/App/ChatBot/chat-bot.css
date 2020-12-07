@@ -1,49 +1,88 @@
 div.header {
     display: grid;
     justify-content: center;
+    justify-items: center;
+    margin: 18px 0;
+}
+
+div.header > img {
+    width: 200px;
 }
 
 div.header > p {
     color: #35ABEE;
     font-size: 18px;
-    margin: 0px;
+    margin: 0;
 }
 
-div.chat-container {
+form.chat-container {
     display: grid;
-    grid-template-columns: 1fr 100px;
+    margin: 16px auto;
+    max-width: 80%;
+    grid-template-columns: 1fr 80px;
+    grid-row-gap: 20px;
 }
 
-div.chat-container > div {
+form.chat-container > div {
     grid-column: 1 / 3;
 }
 
 div.textbox {
     box-sizing: border-box;
     border: 1px solid #35ABEE;
-    margin: 20px;
     border-radius: 10px;
     padding: 5px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-
+    height: 40vh;
+    overflow-y: auto;
 }
 
-div.chat-container > input {
-    border-radius: 24px;
-    border: 1px solid #35ABEE;
+div.textbox > div.msg-container {
+    display: inline-block;
+    width: 100%;
+}
+
+div.textbox > div.msg-container > p {
+    word-wrap: break-word;
+    border-radius: 20px;
+    padding: 6px 12px;
+    max-width: 60%;
+    margin: 0;
+}
+
+div.textbox > div.msg-container > p.send {
+    background: #69c1ef;
+    color: #dae2f3;
+    float: right;
+}
+
+div.textbox > div > p.receive {
+    background: #dae2f3;
+    float: left;
+}
+
+form.chat-container > input {
+    border-radius: 14px 0 0 14px;
+    border: 1px solid #afc4ce;
+    border-right: none;
     box-sizing: border-box;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    margin-left: 20px;
 }
 
-div.chat-container > button {
+form.chat-container > button {
     background: #99DAF7;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     color: #35ABEE;
-    border-radius: 24px;
-    border: 1px solid #35ABEE;
+    border-radius: 0 14px 14px 0;
+    border: 1px solid #afc4ce;
+    border-left: none;
     padding: 7px;
-    margin-right: 20px;
+}
+
+form.chat-container > button:hover {
+    background: #9ecdec;
+    color: #56b6ea;
+    cursor: pointer;
 }

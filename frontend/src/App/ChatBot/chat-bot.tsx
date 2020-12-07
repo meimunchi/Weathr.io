@@ -1,34 +1,69 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import cloudLogo from '../../assets/cloud-logo.png'
 import smallCloud from '../../assets/small-blue-cloud.png'
 import './chat-bot.css'
-
-function submit() {
-    console.log("yo it's submitted.")
-}
+import Axios from 'axios'
+import 'react-html-parser'
+import HtmlParser from 'react-html-parser'
 
 function ChatBotPage() {
-    // TODO: Use state for input field
+  const [msg, setMsg] = useState('')
+  const [chatMessages, setChatMessages] = useState('')
 
-    return (
-      <div className="chatbot">
-          <div className="header">
-              <img src={cloudLogo} alt="Weathr Logo" />
-              <p data-testid='cloud-logo'>Chat Bot is here to :) Find out what you can talk about here</p>
-              <img src={smallCloud} alt="Weathr Logo" />
-          </div>
+  useEffect(() => {
+    const chatOutput = document.querySelector('.textbox');
+    if (chatOutput) {
+      chatOutput.scrollTop = chatOutput.scrollHeight;
+    }
+  });
 
-          <div className="chat-container">
-              <div className="textbox">
-                  <p>Hellooo</p>
-                  <p>Helooo</p>
-              </div>
+  const changeMsg = (e: any) => {
+    setMsg(e.target.value)
+  }
 
-              <input></input>
-              <button onSubmit={submit}>Send</button>
-          </div>
+  const submit = async (e: any) => {
+    e.preventDefault()
+    if (msg.length > 0) {
+      let updatedChatMessages = chatMessages + '<div class="msg-container">\n' +
+        `<p class="send">${msg}</p>\n` +
+        '</div>\n'
 
+      setChatMessages(updatedChatMessages)
+      setMsg('')
+
+      const response = await Axios.post(`${process.env.REACT_APP_PROXY}/chat`, { msg })
+
+      updatedChatMessages += '<div class="msg-container">\n' +
+        `<p class="receive">${response.data.msg}</p>\n` +
+        '</div>\n'
+      setChatMessages(updatedChatMessages)
+
+      localStorage.setItem('chat-messages', updatedChatMessages)
+    }
+  }
+
+  useEffect(() => {
+    const msgCache = localStorage.getItem('chat-messages')
+    if (msgCache) {
+      setChatMessages(msgCache)
+    }
+  }, [])
+
+  return (
+    <div className="chatbot">
+      <div className="header">
+        <img src={cloudLogo} alt="Weathr Logo" />
+        <p data-testid='cloud-logo'>Weathr.io Chat is here to enlighten the soul</p>
+        {/*<img src={smallCloud} alt="Small Weathr Logo" />*/}
       </div>
+      <form className="chat-container" onSubmit={submit}>
+        <div className="textbox">
+          { HtmlParser(chatMessages) }
+        </div>
+        <input value={msg} onChange={changeMsg}/>
+        <button type="submit">Send</button>
+      </form>
+    </div>
     )
 }
 

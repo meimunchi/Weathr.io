@@ -20,7 +20,7 @@ div.nav-container h2 {
     height: auto;
 }
 
-div.nav-container a, p {
+div.nav-container a, div.nav-container > p {
     color: #35ABEE;
     text-decoration: none;
     font-weight: bold;

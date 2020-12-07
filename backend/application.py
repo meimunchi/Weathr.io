@@ -1,5 +1,4 @@
 from flask import request, redirect, url_for
-from providers.datagetter import *
 from create_app import create_app
 from dotenv import load_dotenv
 
@@ -7,35 +6,32 @@ from controllers.auth import auth_api
 from controllers.weather_info import weather_info_api
 from controllers.sms import sms_api
 
+from providers.sms_provider import formulate_message
+
 
 application = create_app()
 
+load_dotenv()  # load env vars
+
 application.register_blueprint(weather_info_api)
 
-load_dotenv()  # load env vars
+application.register_blueprint(auth_api)
+
+application.register_blueprint(sms_api, url_prefix='/sms')
+
+application.register_blueprint(weather_info_api)
+
+
+@application.route('/chat', methods=['POST'])
+def reply_chat():
+    sender_msg = request.get_json()['msg']
+    return {'msg': formulate_message(sender_msg)}
 
 
 # input is ?, output is a list of blogs
 @application.route('/educational-blogs', methods=['POST'])
 def edu_blogs():
     return 'This is the educational-blogs route!'
-
-
-application.register_blueprint(auth_api)
-
-
-@application.route('/info', methods=['POST'])
-def weathr_info():
-    user_location = request.get_json()
-    return one_call(user_location)
-
-
-@application.route('/precip', methods=['GET'])
-def weathr_precip():
-    return get_precipitation_map()
-
-
-application.register_blueprint(sms_api, url_prefix='/sms')
 
 
 @application.route('/', methods=['GET'])
