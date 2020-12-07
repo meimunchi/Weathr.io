@@ -1,5 +1,6 @@
 div.header {
     display: grid;
+    grid-template-columns: auto auto auto;
     justify-content: center;
 }
 
@@ -7,6 +8,14 @@ div.header > p {
     color: #35ABEE;
     font-size: 18px;
     margin: 0px;
+    grid-column: 2;
+}
+div.header > img.cloudLogo {
+    margin-top: 40px;
+    grid-column: 2;
+}
+div.header > img.smallCloud {
+    grid-column: 2;
 }
 
 div.chat-container {
@@ -23,9 +32,9 @@ div.textbox {
     border: 1px solid #35ABEE;
     margin: 20px;
     border-radius: 10px;
-    padding: 5px;
+    padding: 10px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-
+    height: 350px;
 }
 
 div.chat-container > input {
@@ -34,6 +43,7 @@ div.chat-container > input {
     box-sizing: border-box;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     margin-left: 20px;
+    padding: 10px;
 }
 
 div.chat-container > button {
@@ -45,5 +55,5 @@ div.chat-container > button {
     border-radius: 24px;
     border: 1px solid #35ABEE;
     padding: 7px;
-    margin-right: 20px;
+    margin: 0px 20px 0px 5px;
 }

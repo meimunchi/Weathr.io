@@ -41,9 +41,9 @@ function SignUp() {
             const response = await Axios.post(`${process.env.REACT_APP_PROXY}/signup`, signUpCredentials);
             console.log(response.data);
             if (response.data.success) {
-              history.push('/login')
+                history.push('/login')
             } else {
-              setError(response.data.err);
+                setError(response.data.err);
             }
         }
     }
@@ -63,28 +63,28 @@ function SignUp() {
     return (
         <form className="login" onSubmit={submitForm}>
             <img src={cloud} alt="Weathr Logo" />
-            { error && <p>{error}</p> }
+            { error && <p>{error}</p>}
             <input className="inputs"
                 name="first_name"
                 type="text"
                 placeholder="First Name"
                 onChange={updateSignUpForm}
                 value={signUpForm.first_name}
-                required/>
+                required />
             <input className="inputs"
                 name="last_name"
                 type="text"
                 placeholder="Last Name"
                 onChange={updateSignUpForm}
                 value={signUpForm.last_name}
-                required/>
+                required />
             <input className="inputs"
                 name="email"
                 type="email"
                 placeholder="Email Address"
                 onChange={updateSignUpForm}
                 value={signUpForm.email}
-                required/>
+                required />
             <input className="inputs"
                 name="phone_number"
                 type="tel"
@@ -92,21 +92,21 @@ function SignUp() {
                 pattern="[0-9]{10}"
                 onChange={updateSignUpForm}
                 value={signUpForm.phone_number}
-                required/>
+                required />
             <input className="inputs"
                 name="password"
                 type="password"
                 placeholder="Password"
                 onChange={updateSignUpForm}
                 value={signUpForm.password}
-                required/>
+                required />
             <input className="inputs"
                 name="password_confirm"
                 type="password"
                 placeholder="Confirm Password"
                 onChange={updateSignUpForm}
                 value={signUpForm.password_confirm}
-                required/>
+                required />
             <button type="submit">Sign Up</button>
             <Link to='/login'>
                 Already have an account? Login.
