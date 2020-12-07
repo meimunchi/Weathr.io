@@ -1,0 +1,20 @@
+/*Adapted from Bootstrap Examples*/
+.about .col-lg-4 {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+.about h2 {
+    font-weight: 400;
+}
+.about .col-lg-4 p {
+    margin-right: .75rem;
+    margin-left: .75rem;
+}
+
+.about .row .col-lg-4 img {
+    max-height: 400px;
+    max-width: 300px;
+    border: 5px #5a5a5a solid;
+    border-radius: 25px;
+}

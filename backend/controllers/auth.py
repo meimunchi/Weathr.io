@@ -1,14 +1,12 @@
+from flask_cors import CORS
+
 from models.user import User
 from flask import Blueprint, request
-from flask_cors import CORS
-from flask_login import login_user, current_user, login_required
+from flask_login import login_user, current_user, login_required, logout_user
 
 from botocore.exceptions import ClientError
 
 auth_api = Blueprint('auth', __name__)
-CORS(auth_api,
-     origins='http://localhost:3000',
-     supports_credentials=True)
 
 
 @auth_api.route('/login', methods=['POST'])
@@ -68,3 +66,10 @@ def signup_user():
 @login_required
 def get_user():
     return current_user.to_dict()
+
+
+@auth_api.route('/logout', methods=['GET'])
+@login_required
+def logout():
+    logout_user()
+    return {'success': True}

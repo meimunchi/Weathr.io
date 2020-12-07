@@ -1,6 +1,25 @@
-#day7forecast {
-    border: 1px solid black;
+.dash
+{
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
+
+#heading
+{
+    background: lightgrey;
+    width: 15rem;
+    border: 3px solid black;
+    border-radius: 25px;
+    text-align: center;
+}
+
+.leaflet-container {
+    height: 200px;
+    width: 800px;
+}
+
 #day7elements {
     padding-left: 3px;
     padding-right: 3px;
