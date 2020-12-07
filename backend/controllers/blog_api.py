@@ -8,7 +8,8 @@ blog_api = Blueprint('blog', __name__)
 
 @blog_api.route('/get-blogs', methods=['GET'])
 def get_blogs():
-    return {'all_blogs': Blog.get_all()}
+    # Can filter so it doesn't give all content for each blog
+    return {'blogs': Blog.get_all()}
 
 # Get single blog can be implemented if necessary
 
