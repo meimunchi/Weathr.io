@@ -1,11 +1,11 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
-import './blog.css'
+import './blog-main.css'
 
-function BlogPage() {
+function BlogMain() {
 
-    //Blog template built for Bootstrap by twitter user @mdo.
-    //Blog template adapted from Bootstrap.
+    //BlogMain template built for Bootstrap by twitter user @mdo.
+    //BlogMain template adapted from Bootstrap.
   return (
     <div>
         <body>
@@ -188,4 +188,4 @@ function BlogPage() {
   )
 }
 
-export default BlogPage
+export default BlogMain

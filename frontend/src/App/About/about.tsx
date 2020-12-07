@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import bigCloud from '../../assets/big-blue-cloud.png'
-import johnHead from '../../assets/John.PNG'
+import johnHead from '../../assets/John.png'
 import antoineHead from '../../assets/antoine.jpg'
 import victoriaHead from '../../assets/victoria.jpg'
-import colinHead from '../../assets/Colin.PNG'
+import colinHead from '../../assets/Colin.png'
 import tianruiHead from '../../assets/Tianrui.jpg'
 import './about.css'
 import 'bootstrap/dist/css/bootstrap.css'

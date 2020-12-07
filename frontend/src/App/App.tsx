@@ -9,7 +9,8 @@ import { User } from './user.interface'
 import Home from './Home/home'
 import About from './About/about';
 import ChatBotPage from './ChatBot/chat-bot';
-import BlogPage from './Blog/blog'
+import BlogMain from './BlogMain/blog-main'
+import BlogPage from './BlogPage/blog-page'
 
 function App() {
   const [user, setUser] = useState(null as User | null)
@@ -43,7 +44,8 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route path='/chat' component={ChatBotPage} />
         <Route path='/about-us' component={About} />
-        <Route path='/blog' component={BlogPage} />
+        <Route path='/blog/:name' render={(props) => <BlogPage {...props }/>} />
+        <Route exact path='/blog' component={BlogMain} />
         <Route path='/'>
           <Redirect to='/' />
         </Route>
