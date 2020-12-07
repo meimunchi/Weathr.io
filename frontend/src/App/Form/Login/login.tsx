@@ -26,16 +26,22 @@ function Login({ loginUser }: LoginProps) {
   }
 
   const submit = async (e: any) => {
-    e.preventDefault();
-    const response = await Axios.post(`${process.env.REACT_APP_PROXY}/login`, userCredentials);
+    e.preventDefault()
+    const response = await Axios.post(`${process.env.REACT_APP_PROXY}/login`, userCredentials, { withCredentials: true })
     if (response.data.success) {
-      setError(null);
-      loginUser(response.data.user);
-      history.push('/dashboard');
+      setError(null)
+      loginUser(response.data.user)
+      history.push('/dashboard')
     } else if (response.data.err) {
-      setError(response.data.err);
+      setError(response.data.err)
+      setTimeout(() => {
+        setError(null)
+      }, 3000)
     } else {
       setError('Incorrect credentials. Please try again.')
+      setTimeout(() => {
+        setError(null)
+      }, 3000)
     }
   }
 

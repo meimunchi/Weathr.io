@@ -39,11 +39,13 @@ function SignUp() {
                 user_id: uuidv4()
             }
             const response = await Axios.post(`${process.env.REACT_APP_PROXY}/signup`, signUpCredentials);
-            console.log(response.data);
             if (response.data.success) {
               history.push('/login')
             } else {
-              setError(response.data.err);
+              setError(response.data.err)
+              setTimeout(() => {
+                setError(null)
+              }, 3000)
             }
         }
     }

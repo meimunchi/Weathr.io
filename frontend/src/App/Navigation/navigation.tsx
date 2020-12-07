@@ -2,20 +2,27 @@ import React from 'react';
 import cloud from '../../assets/white-cloud.png'
 import { Link } from 'react-router-dom';
 import './navigation.css'
+import { User } from '../user.interface'
 
-function Navigation() {
+interface LogoutUser {
+  user: User | null
+  logoutUser(): void
+}
+
+function Navigation({ user, logoutUser }: LogoutUser) {
     return (
-        <div className="nav-container">
-            <h2>Weathr.io</h2>
-            <img src={cloud} alt="Weathr Logo" />
-            <Link to='/'>Home</Link>
-            <Link to='/chat'>Chat</Link>
-            <Link to='/about-us'>About Us</Link>
-            <Link to='/blog'>Blog</Link>
-            <Link to='/dashboard'>Dashboard</Link>
-            <Link to='/signup'>Signup</Link>
-            <Link to='/login'>Login</Link>
-        </div>
+      <div className="nav-container">
+        <h2>Weathr.io</h2>
+        <img src={cloud} alt="Weathr Logo" />
+        <Link to='/'>Home</Link>
+        <Link to='/chat'>Chat</Link>
+        <Link to='/about-us'>About Us</Link>
+        <Link to='/blog'>Blog</Link>
+        <Link to='/dashboard'>Dashboard</Link>
+        { !user && <Link to='/signup'>Signup</Link> }
+        { !user && <Link to='/login'>Login</Link> }
+        { user && <Link to='/' onClick={logoutUser}>Logout</Link> }
+      </div>
     )
 }
 
