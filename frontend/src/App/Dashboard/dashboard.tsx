@@ -3,7 +3,7 @@ import Axios from "axios";
 import { User } from '../user.interface'
 import "./dashboard.css"
 import { WeatherData } from './weather-data.interface'
-import { MapContainer, Marker, TileLayer, Popup } from 'react-leaflet'
+// import { MapContainer, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 
 interface DashboardProps {
@@ -70,28 +70,23 @@ function Dashboard({ user }: DashboardProps) {
     return(
 
       <div>
-        <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
-          <TileLayer
-            url="http://tile.openweathermap.org/map/temp_new/0/0/0.png?appid=10d61017ae8b2c417f4655c38368133d"
-          />
-          {/*<Marker position={[51.505, -0.09]}>*/}
-          {/*  <Popup>*/}
-          {/*    A pretty CSS3 popup. <br /> Easily customizable.*/}
-          {/*  </Popup>*/}
-          {/*</Marker>*/}
-        </MapContainer>
+        {/*<MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>*/}
+        {/*  <TileLayer*/}
+        {/*    url="http://tile.openweathermap.org/map/temp_new/0/0/0.png?appid=10d61017ae8b2c417f4655c38368133d"*/}
+        {/*  />*/}
+        {/*  /!*<Marker position={[51.505, -0.09]}>*!/*/}
+        {/*  /!*  <Popup>*!/*/}
+        {/*  /!*    A pretty CSS3 popup. <br /> Easily customizable.*!/*/}
+        {/*  /!*  </Popup>*!/*/}
+        {/*  /!*</Marker>*!/*/}
+        {/*</MapContainer>*/}
 
-        <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <Marker position={[51.505, -0.09]}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
-        </MapContainer>
+        {/*<MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>*/}
+        {/*  <TileLayer*/}
+        {/*    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'*/}
+        {/*    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"*/}
+        {/*  />*/}
+        {/*</MapContainer>*/}
 
         <h1 id = {'heading'}>Weather Dashboard</h1>
         <h2 id = {'heading'}>Welcome Back, { user ? user.name : 'Guest'}</h2>
