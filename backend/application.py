@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from controllers.auth import auth_api
 from controllers.weather_info import weather_info_api
 from controllers.sms import sms_api
+from controllers.blog_api import blog_api
 
 from providers.sms_provider import formulate_message
 
@@ -20,6 +21,8 @@ application.register_blueprint(auth_api)
 application.register_blueprint(sms_api, url_prefix='/sms')
 
 application.register_blueprint(weather_info_api)
+
+application.register_blueprint(blog_api)
 
 
 @application.route('/chat', methods=['POST'])

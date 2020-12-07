@@ -36,7 +36,7 @@ function SignUp() {
                 password: signUpForm.password,
                 phone_num: signUpForm.phone_number,
                 is_admin: false,
-                user_id: uuidv4()
+                user_id: uuidv4(),
             }
             const response = await Axios.post(`${process.env.REACT_APP_PROXY}/signup`, signUpCredentials);
             if (response.data.success) {

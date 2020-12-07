@@ -17,7 +17,8 @@ function Navigation({ user, logoutUser }: LogoutUser) {
         <Link to='/'>Home</Link>
         <Link to='/chat'>Chat</Link>
         <Link to='/about-us'>About Us</Link>
-        <Link to='/blog'>Blog</Link>
+        <Link to='/blog'>Blogs</Link>
+        { user && user.is_admin && <Link to='/blog-write'>Blog Write</Link> }
         <Link to='/dashboard'>Dashboard</Link>
         { !user && <Link to='/signup'>Signup</Link> }
         { !user && <Link to='/login'>Login</Link> }

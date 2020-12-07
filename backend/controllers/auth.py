@@ -1,5 +1,3 @@
-from flask_cors import CORS
-
 from models.user import User
 from flask import Blueprint, request
 from flask_login import login_user, current_user, login_required, logout_user
