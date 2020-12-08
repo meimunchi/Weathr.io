@@ -1,6 +1,7 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import './blog-main.css'
+import { Link } from 'react-router-dom'
 
 function BlogMain() {
 
@@ -16,7 +17,7 @@ function BlogMain() {
                     <h1 className="display-4 font-italic">Tornado 101</h1>
                     <p className="lead my-3">This article will provide you with valuable information about
                         how to prepare for, act during, and recover after a Tornado strikes.</p>
-                    <p className="lead mb-0"><a href="#" className="text-white font-weight-bold">Continue reading...</a>
+                    <p className="lead mb-0"><Link to="/blog/124" className="text-white font-weight-bold">Continue reading...</Link>
                     </p>
                 </div>
             </div>

@@ -1,0 +1,10 @@
+form.blog-edit > div.quill-container {
+    max-width: 1000px;
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+}
+
+form.blog-edit > h2 {
+    color: #9fcdff;
+}
