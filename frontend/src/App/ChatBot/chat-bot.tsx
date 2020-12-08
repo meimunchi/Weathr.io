@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import cloudLogo from '../../assets/cloud-logo.png'
-import smallCloud from '../../assets/small-blue-cloud.png'
 import './chat-bot.css'
 import Axios from 'axios'
 import 'react-html-parser'
 import HtmlParser from 'react-html-parser'
+import SimpleModal from './menu-options'
 
 function ChatBotPage() {
   const [msg, setMsg] = useState('')
   const [chatMessages, setChatMessages] = useState('')
+
 
   useEffect(() => {
     const chatOutput = document.querySelector('.textbox');
@@ -49,22 +50,27 @@ function ChatBotPage() {
     }
   }, [])
 
+
+
   return (
     <div className="chatbot">
       <div className="header">
         <img src={cloudLogo} alt="Weathr Logo" />
-        <p data-testid='cloud-logo'>Weathr.io Chat is here to enlighten the soul</p>
-        {/*<img src={smallCloud} alt="Small Weathr Logo" />*/}
+        <p data-testid='header-text'>Weathr.io Chat is here to enlighten the soul</p>
+        {SimpleModal()}
+
       </div>
+
+
       <form className="chat-container" onSubmit={submit}>
         <div className="textbox">
-          { HtmlParser(chatMessages) }
+          {HtmlParser(chatMessages)}
         </div>
-        <input value={msg} onChange={changeMsg}/>
+        <input value={msg} onChange={changeMsg} />
         <button type="submit">Send</button>
       </form>
     </div>
-    )
+  )
 }
 
 export default ChatBotPage;

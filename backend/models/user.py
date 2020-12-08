@@ -71,28 +71,26 @@ class User(UserMixin):
             Key={
                 'email': _email
             },
-            UpdateExpression="set password=:p, nm=:n, phonenum=:pn, admin=:a",
+            UpdateExpression="set password=:p, #dyno_name=:n, phonenum=:pn, admin=:a",
             ExpressionAttributeValues={
                 ':p': _password,
                 ':n': _name,
                 ':pn': _phonenum,
                 ':a': _admin
             },
+            ExpressionAttributeNames={
+                "#dyno_name": "name",
+            },
             ReturnValues="UPDATED_NEW"
         )
         return response
 
     def delete(self, _email):
-        try:
-            response = self.table.delete_item(
-                Key={
-                    'email': _email
-                }
-            )
-        except ClientError as err:
-            print(err.response['Error']['Response'])
-        else:
-            return response
+        self.table.delete_item(
+            Key={
+                'email': _email
+            }
+        )
 
 
 # Loads user object from user ID stored in session

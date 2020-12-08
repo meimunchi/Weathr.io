@@ -9,10 +9,11 @@ import { User } from './user.interface'
 import Home from './Home/home'
 import About from './About/about';
 import ChatBot from './ChatBot/chat-bot';
-import BlogMain from './BlogMain/blog-main'
-import BlogPage from './BlogPage/blog-page'
+import BlogMain from './Blog/BlogMain/blog-main'
+import BlogPage from './Blog/BlogPage/blog-page'
 import Axios from 'axios'
-import BlogWrite from './BlogWrite/blog-write'
+import BlogEditorial from './Blog/BlogEditorial/blog-editorial'
+import BlogEdit from './Blog/BlogEdit/blog-edit'
 
 function App() {
   const [user, setUser] = useState(null as User | null)
@@ -45,9 +46,10 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route path='/chat' component={ChatBot} />
         <Route path='/about-us' component={About} />
-        <Route path='/blog/:name' render={(props) => <BlogPage {...props }/>} />
+        <Route path='/blog/:id' render={(props) => <BlogPage {...props }/>} />
         <Route exact path='/blog' component={BlogMain} />
-        { user && user.is_admin && <Route path='/blog-write' component={BlogWrite} /> }
+        { user && user.is_admin && <Route path='/blog-edit/:id' render={(props) => <BlogEdit {...props}/> } /> }
+        { user && user.is_admin && <Route exact path='/blog-edit' render={(props) => <BlogEditorial {...props} user={user}/> } /> }
         <Route path='/'>
           <Redirect to='/' />
         </Route>
