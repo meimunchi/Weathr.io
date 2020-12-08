@@ -7,8 +7,8 @@ import json
 
 pinpoint = boto3.client('pinpoint', region_name=os.getenv('AWS_REGION'))
 
-# with open('../blog.json') as f:
-#     blogData = json.load(f)
+#with open('../blog.json') as f:
+ #       blogData = json.load(f)
 
 default_msg = 'Welcome to find Weathr.io to find out about the current weather! Includes all sorts of information ' \
               'from temperature to humidity to cloudiness to wind speed to general weather!'

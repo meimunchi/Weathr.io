@@ -20,9 +20,8 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         paper: {
             position: 'absolute',
-            width: 400,
+            width: 600,
             backgroundColor: theme.palette.background.paper,
-            border: '2px solid #000',
             boxShadow: theme.shadows[20],
             padding: theme.spacing(2, 4, 3),
         },
@@ -36,31 +35,38 @@ export default function SimpleModal() {
 
     const handleOpen = () => {
         setOpen(true);
+        console.log(open);
     };
 
     const handleClose = () => {
         setOpen(false);
+        console.log(open);
+
     };
 
     const body = (
         <div style={modalStyle} className={classes.paper}>
-            <h2 id="simple-modal-title">Chatbot</h2>
+            <h2 id="simple-modal-title">Menu options</h2>
             <p id="simple-modal-description">
-                temp, humidity, cloudy, wind, description, menu
-        </p>
+                Use the <b>commands</b> below: <br></br>
+                <b>menu</b> to display all available commands<br></br>
+                <b>descr</b> to provide a general weather description<br></br>
+                <b>humidity, cloudy,</b> or <b>wind</b> to provide their respective weather information<br></br>
+            </p>
             <SimpleModal />
         </div>
     );
 
     return (
         <div>
-            <button type="button" onClick={handleOpen}>Show Menu</button>
+            <button type="button" onClick={handleOpen} hidden={open}>
+                Menu
+            </button>
             <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description"
-            >
+                aria-describedby="simple-modal-description">
                 {body}
             </Modal>
         </div>
