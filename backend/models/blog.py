@@ -46,10 +46,38 @@ class Blog:
             return None
         else:
             blog_attrs = response['Item']
-            blog = Blog(_uid=blog_attrs['blog_id'], _name=blog_attrs['name'], _author=blog_attrs['author'],
+            blog = Blog(_uid=blog_attrs['uid'], _name=blog_attrs['name'], _author=blog_attrs['author'],
                         _date=blog_attrs['date'], _content=blog_attrs['content'])
             return blog
 
     @classmethod
     def get_all(cls):
         return create_table('weathr-blogs').scan()['Items']
+
+    @classmethod
+    def update(cls, _uid, _name, _author, _date, _content):
+        create_table('weathr-blogs').update_item(
+            Key={
+                'uid': _uid
+            },
+            UpdateExpression="set #dyno_name=:n, author=:a, #dyno_date=:d, content=:c",
+            ExpressionAttributeValues={
+                ':n': _name,
+                ':a': _author,
+                ':d': _date,
+                ':c': _content
+            },
+            ExpressionAttributeNames={
+                "#dyno_name": "name",
+                "#dyno_date": "date"
+            },
+            ReturnValues="UPDATED_NEW"
+        )
+
+    @classmethod
+    def delete(cls, _uid):
+        create_table('weathr-blogs').delete_item(
+            Key={
+                'uid': _uid
+            }
+        )

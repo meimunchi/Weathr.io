@@ -1,0 +1,7 @@
+section.blog-editorial > div.blog-list > a {
+    background: #9ecdec;
+}
+
+section.blog-editorial > div.blog-list > a:hover {
+    cursor: pointer;
+}
