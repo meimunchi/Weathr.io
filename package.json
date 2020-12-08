@@ -24,6 +24,7 @@
     "cross-env": "^7.0.2"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
     "@types/jest": "^26.0.15"
   }
 }
