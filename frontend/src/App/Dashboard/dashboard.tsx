@@ -114,7 +114,7 @@ function Dashboard({ user }: DashboardProps) {
             </tr>
         }
         <h2 id = {'heading'}>48 Hour Hourly Forecast</h2>
-
+        <div id = {'scrollbar'}>
         {/* <table id = {'table48'}> */}
         {
             weatherData && <tr id='hour48forecast'>
@@ -128,6 +128,7 @@ function Dashboard({ user }: DashboardProps) {
             </tr>
         }
         {/* </table> */}
+        </div>
         <h2 id = {'heading'}>Emergency Weather Information</h2>
         {
             weatherData?.alerts ?

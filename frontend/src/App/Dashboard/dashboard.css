@@ -32,8 +32,12 @@
 #hour48forecast {
     width: 80px;
 }
-/* 
-#table48 {
+
+#scrollbar {
+    overflow-x:auto;
+}
+
+/* #table48 {
     width: 100%;
     overflow-x:hidden;
 } */
