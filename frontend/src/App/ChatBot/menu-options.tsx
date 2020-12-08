@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function SimpleModal() {
     const classes = useStyles();
-    // getModalStyle is not a pure function, we roll the style only on the first render
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
 
@@ -45,9 +44,9 @@ export default function SimpleModal() {
 
     const body = (
         <div style={modalStyle} className={classes.paper}>
-            <h2 id="simple-modal-title">Text in a modal</h2>
+            <h2 id="simple-modal-title">Chatbo</h2>
             <p id="simple-modal-description">
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                temp, humidity, cloudy, wind, description, menu
         </p>
             <SimpleModal />
         </div>
@@ -55,7 +54,7 @@ export default function SimpleModal() {
 
     return (
         <div>
-            <button type="button" onClick={handleOpen}>Open Modal</button>
+            <button type="button" onClick={handleOpen}>Show Menu</button>
             <Modal
                 open={open}
                 onClose={handleClose}
