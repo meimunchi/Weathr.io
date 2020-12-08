@@ -8,7 +8,7 @@ div.greeting{
 div.greeting  h2{
     color: #FFFFFF;
     font-size: 64px;
-
+    font-family: 'Amaranth';
     display: inline-flex;
     margin: 0px 20px 0px 50px;
     width: auto;
@@ -19,6 +19,7 @@ div.greeting  h2{
 div.greeting p {
     color: #35ABEE;
     font-size: 30px;
+    font-family: 'Amaranth';
     margin-left: 90px;
     display: list-item;
     list-style: url('../../assets/small-blue-cloud.png')

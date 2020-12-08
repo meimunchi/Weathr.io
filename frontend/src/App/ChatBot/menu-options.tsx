@@ -35,12 +35,10 @@ export default function SimpleModal() {
 
     const handleOpen = () => {
         setOpen(true);
-        console.log(open);
     };
 
     const handleClose = () => {
         setOpen(false);
-        console.log(open);
 
     };
 
@@ -57,9 +55,10 @@ export default function SimpleModal() {
         </div>
     );
 
+    // need to only 1 modal possible
     return (
         <div>
-            <button type="button" onClick={handleOpen} hidden={open}>
+            <button type="button" onClick={handleOpen}>
                 Menu
             </button>
             <Modal

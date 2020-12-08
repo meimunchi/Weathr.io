@@ -1,7 +1,7 @@
 div.nav-container {
     display: grid;
     background-color: #99DAF7;
-    /* height: auto; */
+    padding: 10px;
     width: 100%;
     margin: 0;
 
@@ -12,7 +12,7 @@ div.nav-container h2 {
    
     color: #35ABEE;
     font-size: 35px;
-    
+    font-family: 'Amaranth';
     display: inline-flex;
     margin-left: 50px;
     margin-right: 20px;
