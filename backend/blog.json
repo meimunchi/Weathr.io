@@ -1,0 +1,44 @@
+{
+    "Tornado": {
+        "signs": [
+            "Strong, persistent rotation in the clouds.",
+            "Whirling dust or debris on the ground.",
+            "Loud, continuous roar or rumble.",
+            "Heavy rain or hail followed by calm or a fast, intense shift in wind.",
+            "Local Weather Authorities or Warnings."
+        ],
+        "before": [
+            "Prepare a safe place (no windows, as low as possible, under sturdy protection like a heavy table, avoid heavy objects on above floors).",
+            "Collect general safety emergency supplies (water, non-perishable foods, flashlights, radio, etc.)"
+        ],
+        "during": [
+           " Avoid windows and heavy objects that might fall on you or through the above floor at all costs.",
+            "Cover yourself with a sturdy object like a heavy table or mattress.",
+            "Bath tubs can be a good form of protection.",
+            "Avoid vehicles or objects that may fly in the wind at all costs.",
+            "DO NOT go outside."
+        ],
+        "after": [
+           "Stay away from downed power lines or puddles (they may electrocute you!).",
+            "Avoid broken glass or sharp objects.",
+            "Avoid heavily damaged houses or structures, as they may collapse without notice.",
+            "Avoid matches or lighters, as nearby natural gas lines or tanks may be leaking nearby.",
+            "Listen to officials."
+        ]
+    },
+    "Earthquake": {
+
+    },
+    "Blizzard": {
+
+    },
+    "Wildfires":{
+
+    },
+    "Hurricane": {
+
+    },
+    "Flood":{
+
+    }
+}
