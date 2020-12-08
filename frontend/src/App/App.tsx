@@ -49,7 +49,7 @@ function App() {
         <Route path='/blog/:id' render={(props) => <BlogPage {...props }/>} />
         <Route exact path='/blog' component={BlogMain} />
         { user && user.is_admin && <Route path='/blog-edit/:id' render={(props) => <BlogEdit {...props}/> } /> }
-        { user && user.is_admin && <Route exact path='/blog-edit' component={BlogEditorial} /> }
+        { user && user.is_admin && <Route exact path='/blog-edit' render={(props) => <BlogEditorial {...props} user={user}/> } /> }
         <Route path='/'>
           <Redirect to='/' />
         </Route>

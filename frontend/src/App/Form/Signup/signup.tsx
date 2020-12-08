@@ -17,8 +17,8 @@ function SignUp() {
         password_confirm: ""
     } as SignUpCredentials)
 
-    const [error, setError] = useState(null as string | null);
-    const history = useHistory();
+    const [error, setError] = useState(null as string | null)
+    const history = useHistory()
 
     const updateSignUpForm = (e: any) => {
         setSignUpForm({

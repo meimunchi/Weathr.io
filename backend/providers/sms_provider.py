@@ -5,14 +5,14 @@ import requests
 from providers.datagetter import one_call
 import json
 
-
 pinpoint = boto3.client('pinpoint', region_name=os.getenv('AWS_REGION'))
 
-with open('../blog.json') as f:
-        blogData = json.load(f)
+# with open('../blog.json') as f:
+#     blogData = json.load(f)
 
 default_msg = 'Welcome to find Weathr.io to find out about the current weather! Includes all sorts of information ' \
-               'from temperature to humidity to cloudiness to wind speed to general weather!'
+              'from temperature to humidity to cloudiness to wind speed to general weather!'
+
 
 # -------------- VALIDATION AND CONFIRMATION -------------- #
 
@@ -38,7 +38,7 @@ def validate_message(messagetype, req_body):
 # -------------- FORMULATE MESSAGE -------------- #
 
 def formulate_message(incoming_message):
-    response =""
+    response = ""
     if 'menu' in incoming_message:
         return default_msg
 
@@ -62,15 +62,16 @@ def formulate_message(incoming_message):
         response += ' | '.join(response_list)
         response += "\n"
 
-    for disaster in blogData:
-        if disaster.casefold() in message.casefold():
-            response += disaster + " Info: \n"
-            info = data.get(disaster)
-            for section in info:
-                if section.casefold() in message.casefold():
-                    response = response + section.upper() + ":\n"
-                    for tip in info.get(section):
-                        response = response + "- " + tip + "\n"
+    # TODO: Figure out
+    # for disaster in blogData:
+    #     if disaster.casefold() in message.casefold():
+    #         response += disaster + " Info: \n"
+    #         info = data.get(disaster)
+    #         for section in info:
+    #             if section.casefold() in message.casefold():
+    #                 response = response + section.upper() + ":\n"
+    #                 for tip in info.get(section):
+    #                     response = response + "- " + tip + "\n"
     return response
 
 
@@ -103,7 +104,6 @@ def send_message(destinationnumber, message):
     else:
         print("Message sent! Message ID: "
               + response['MessageResponse']['Result'][destinationnumber]['MessageId'])
-
 
 
 def testLoadJSON():

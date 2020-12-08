@@ -42,11 +42,13 @@ function BlogEdit({ match }: BlogEditProps) {
   const onSubmitEdits = async (e: any) => {
     e.preventDefault()
     if (blog) {
+      const currDate = new Date().toDateString()
+
       const response = await Axios.post(`${process.env.REACT_APP_PROXY}/update-blog`,
         { uid: match.params.id,
           author: blog.author,
           name: blog.name,
-          date: blog.date,
+          date: currDate,
           content: blog.content
         } as Blog,{ withCredentials: true })
 
@@ -65,13 +67,13 @@ function BlogEdit({ match }: BlogEditProps) {
   return (
     <section className="blog-edit-container">
       { blog && <form className="blog-edit" onSubmit={onSubmitEdits}>
-        <h2>{ blog.name }</h2>
         <label>
-          By <input name="author" value={blog.author} onChange={onInputChange}/>
+          <input name="name" value={blog.name} placeholder='Blog Title' onChange={onInputChange}/>
         </label>
         <label>
-          Date: <input name="date" value={blog.date} onChange={onInputChange}/>
+          By <input name="author" value={blog.author} placeholder='Author' onChange={onInputChange}/>
         </label>
+        <p>Updated last on {blog.date}</p>
         <div className="quill-container">
           <ReactQuill value={blog.content} onChange={onContentChange}/>
         </div>

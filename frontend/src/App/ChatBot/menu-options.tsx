@@ -44,7 +44,7 @@ export default function SimpleModal() {
 
     const body = (
         <div style={modalStyle} className={classes.paper}>
-            <h2 id="simple-modal-title">Chatbo</h2>
+            <h2 id="simple-modal-title">Chatbot</h2>
             <p id="simple-modal-description">
                 temp, humidity, cloudy, wind, description, menu
         </p>
