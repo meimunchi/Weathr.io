@@ -4,11 +4,12 @@ import os
 import requests
 from providers.datagetter import one_call
 import json
+from pathlib import Path
 
 pinpoint = boto3.client('pinpoint', region_name=os.getenv('AWS_REGION'))
 
-#with open('../blog.json') as f:
- #       blogData = json.load(f)
+with open('./blog.json') as f:
+       blogData = json.load(f)
 
 default_msg = 'Welcome to find Weathr.io to find out about the current weather! Includes all sorts of information ' \
               'from temperature to humidity to cloudiness to wind speed to general weather!'
@@ -63,15 +64,15 @@ def formulate_message(incoming_message):
         response += "\n"
 
     # TODO: Figure out
-    # for disaster in blogData:
-    #     if disaster.casefold() in message.casefold():
-    #         response += disaster + " Info: \n"
-    #         info = data.get(disaster)
-    #         for section in info:
-    #             if section.casefold() in message.casefold():
-    #                 response = response + section.upper() + ":\n"
-    #                 for tip in info.get(section):
-    #                     response = response + "- " + tip + "\n"
+    for disaster in blogData:
+        if disaster.casefold() in incoming_message.casefold():
+            response += disaster + " Info: \n"
+            info = blogData.get(disaster)
+            for section in info:
+                if section.casefold() in incoming_message.casefold():
+                    response = response + section.upper() + ":\n"
+                    for tip in info.get(section):
+                        response = response + "- " + tip + "\n"
     return response
 
 
