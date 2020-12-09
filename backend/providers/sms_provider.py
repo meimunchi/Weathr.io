@@ -55,8 +55,8 @@ def formulate_message(incoming_message):
                         response = response + "- " + tip + "\n"
     if len(response) > 0:
         return response
-    (longitude,latitude,valid,zip_msg) = get_location(incoming_message)
-    return zip_msg
+    (longitude,latitude,valid) = get_location(incoming_message)
+    
     if longitude == None or latitude == None:
         if valid:
             return "Incorrectly formatted zip code. Please enter in the format : zip=xxxxx "
@@ -105,11 +105,19 @@ def get_location(incoming_message):
     except ValueError as err:
         end_index = len(incoming_message)
 
+
     zip_msg = incoming_message[start_index + 4 : end_index]
-    #use zip to call geolocation
+    api_req =f"https://maps.googleapis.com/maps/api/geocode/json?address={zip_msg}&key={os.getenv('GEOLOCATION_API_KEY')}"
+    try:
+        loc_results = requests.get(api_req).json()["results"]
+        if len(loc_results) == 0:
+            return None,None, True 
+        loc = loc_results[0]["geometry"]["location"]
+        return loc["lat"],loc["lng"], True
+    except:
+        return None, None, True
     
-    #return longitude and latitude, if necessary
-    return None,None, True, zip_msg
+    
 
 
 # -------------- SENDING THE MESSAGE -------------- #

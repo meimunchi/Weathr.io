@@ -14,12 +14,3 @@ describe('About Us Page', () => {
     })
 })
 
-
-/*
-
-
-fireEvent(
-          getByTestId('menu-button'),
-          new MouseEvent('click')
-        )
-*/
