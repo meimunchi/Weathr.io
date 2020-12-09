@@ -43,31 +43,7 @@ def formulate_message(incoming_message):
     if 'menu' in incoming_message:
         return default_msg
 
-    # TODO: Please enable location
-
-    weather_data = one_call({'lat': '29.651634', 'long': '-82.324829'})
-    curr_weather_data = weather_data['current']
-
-    response_list = []
-    if 'descr' in incoming_message:
-        response_list.append(f"Currently in store for {curr_weather_data['weather'][0]['description']}")
-    if 'cloud' in incoming_message:
-        response_list.append(f"Current cloudiness is at {curr_weather_data['clouds']}%")
-    if 'humidity' in incoming_message:
-        response_list.append(f"Current humidity is at {curr_weather_data['humidity']}%")
-    if 'temp' in incoming_message:
-        response_list.append(f"Current temperature is at {curr_weather_data['temp']}F, but feels like"
-                             f" {curr_weather_data['feels_like']}F")
-    if 'wind' in incoming_message:
-        response_list.append(f"Wind is currently at {curr_weather_data['wind_speed']}mph")
-
-    if not len(response_list) == 0:
-        response += ' | '.join(response_list)
-        response += "\n"
-    else:
-        response = 'Please come again? That command is not recognized'
-
-    # TODO: Figure out
+    
     for disaster in blogData:
         if disaster.casefold() in incoming_message.casefold():
             response += disaster + " Info: \n"
@@ -77,7 +53,63 @@ def formulate_message(incoming_message):
                     response = response + section.upper() + ":\n"
                     for tip in info.get(section):
                         response = response + "- " + tip + "\n"
+    if len(response) > 0:
+        return response
+    (longitude,latitude,valid,zip_msg) = get_location(incoming_message)
+    return zip_msg
+    if longitude == None or latitude == None:
+        if valid:
+            return "Incorrectly formatted zip code. Please enter in the format : zip=xxxxx "
+        return "Please specify your location using a zip code."
+        
+    # weather_data = one_call({'lat': '29.651634', 'long': '-82.324829'})
+    weather_data = one_call({'lat': latitude, 'long': longitude})
+    curr_weather_data = weather_data['current']
+
+    
+
+    response_list = []
+    if 'descr'.casefold() in incoming_message.casefold():
+        response_list.append(f"Currently in store for {curr_weather_data['weather'][0]['description']}")
+    if 'cloud'.casefold() in incoming_message.casefold():
+        response_list.append(f"Current cloudiness is at {curr_weather_data['clouds']}%")
+    if 'humidity'.casefold() in incoming_message.casefold():
+        response_list.append(f"Current humidity is at {curr_weather_data['humidity']}%")
+    if 'temp'.casefold() in incoming_message.casefold():
+        response_list.append(f"Current temperature is at {curr_weather_data['temp']}F, but feels like"
+                             f" {curr_weather_data['feels_like']}F")
+    if 'wind'.casefold() in incoming_message.casefold():
+        response_list.append(f"Wind is currently at {curr_weather_data['wind_speed']}mph")
+
+    if not len(response_list) == 0:
+        response += ' | '.join(response_list)
+        response += "\n"
+    else:
+        response += 'Please come again? That command is not recognized'
+
+   
     return response
+
+
+# -------------- GET LOCATION OF THE USER -------------- #
+def get_location(incoming_message):
+    #find zip=
+    # if "zip=".casefold() in incoming_message.casefold():
+    try:
+        start_index = incoming_message.index("zip=")
+    except ValueError as err:
+        return None,None,False
+
+    try:
+        end_index = incoming_message.index(" ",start_index)
+    except ValueError as err:
+        end_index = len(incoming_message)
+
+    zip_msg = incoming_message[start_index + 4 : end_index]
+    #use zip to call geolocation
+    
+    #return longitude and latitude, if necessary
+    return None,None, True, zip_msg
 
 
 # -------------- SENDING THE MESSAGE -------------- #

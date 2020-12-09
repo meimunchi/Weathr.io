@@ -7,7 +7,7 @@ from controllers.weather_info import weather_info_api
 from controllers.sms import sms_api
 from controllers.blog_api import blog_api
 
-from providers.sms_provider import formulate_message
+from providers.sms_provider import formulate_message,get_location
 
 
 application = create_app()
@@ -28,8 +28,7 @@ application.register_blueprint(blog_api)
 @application.route('/chat', methods=['POST'])
 def reply_chat():
     req_data = request.get_json()
-    if req_data['lat'] is None and req_data['long'] is None:
-        return {'msg': 'Please set your location first through the location command'}
+    # longitude,latitude = get_location(req_data['msg'])
     return {'msg': formulate_message(req_data['msg'])}
 
 

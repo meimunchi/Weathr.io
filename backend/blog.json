@@ -46,7 +46,7 @@
             
         ],
         "after": [
-            "Avoid downed power lines, seriously damaged buildings or structures, or leaking gas and water lines.".
+            "Avoid downed power lines, seriously damaged buildings or structures, or leaking gas and water lines.",
             "Expect aftershocks- be vigilant.",
             "Check for injuries and damage.",
             "If in an area that can experience tsunamis, get to higher ground or inland immediately.",
@@ -117,7 +117,7 @@
         "signs": [   
             "Listen to local radio storm advisories.",
             "Follow hurricane progress on www.nhc.noaa.gov.",
-            "If nothing else, look for large drop in atmospheric pressure.",
+            "If nothing else, look for large drop in atmospheric pressure."
 
         ],
         "before": [
