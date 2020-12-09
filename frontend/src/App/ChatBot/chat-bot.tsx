@@ -5,11 +5,12 @@ import Axios from 'axios'
 import 'react-html-parser'
 import HtmlParser from 'react-html-parser'
 import SimpleModal from './menu-options'
+import { LocationCoords } from '../location-coords'
 
 function ChatBotPage() {
   const [msg, setMsg] = useState('')
   const [chatMessages, setChatMessages] = useState('')
-
+  const [locationCoords, setLocationCoords] = useState(null as null | LocationCoords)
 
   useEffect(() => {
     const chatOutput = document.querySelector('.textbox');
@@ -32,14 +33,17 @@ function ChatBotPage() {
       setChatMessages(updatedChatMessages)
       setMsg('')
 
-      const response = await Axios.post(`${process.env.REACT_APP_PROXY}/chat`, { msg })
+      const response = await Axios.post(`${process.env.REACT_APP_PROXY}/chat`, {
+        lat: locationCoords ? locationCoords.lat : null,
+        long: locationCoords ? locationCoords.long : null, msg
+      })
 
       updatedChatMessages += '<div class="msg-container">\n' +
         `<p class="receive">${response.data.msg}</p>\n` +
         '</div>\n'
       setChatMessages(updatedChatMessages)
 
-      localStorage.setItem('chat-messages', updatedChatMessages)
+      sessionStorage.setItem('chat-messages', updatedChatMessages)
     }
   }
 
@@ -49,8 +53,6 @@ function ChatBotPage() {
       setChatMessages(msgCache)
     }
   }, [])
-
-
 
   return (
     <div className="chatbot">

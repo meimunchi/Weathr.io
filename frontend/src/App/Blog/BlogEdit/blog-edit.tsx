@@ -5,6 +5,13 @@ import { Blog } from '../blog'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import './blog-edit.css'
+import { Snackbar } from '@material-ui/core'
+import { v4 as uuidv4 } from 'uuid';
+
+interface UpdateMsg {
+  isOpen: boolean,
+  msg: string
+}
 
 interface BlogEditParams {
   id: string
@@ -15,6 +22,7 @@ interface BlogEditProps extends RouteComponentProps<BlogEditParams>{
 
 function BlogEdit({ match }: BlogEditProps) {
   const [blog, setBlog] = useState(null as null | Blog)
+  const [updateMsg, setUpdateMsg] = useState(null as null | UpdateMsg)
 
   const history = useHistory();
 
@@ -51,8 +59,17 @@ function BlogEdit({ match }: BlogEditProps) {
           date: currDate,
           content: blog.content
         } as Blog,{ withCredentials: true })
-
-      // TODO: Indicate successful / unsuccessful updating
+      if (response.data.success) {
+        setUpdateMsg({
+          isOpen: true,
+          msg: 'Successfully submitted changes'
+        })
+      } else {
+        setUpdateMsg({
+          isOpen: true,
+          msg: 'Error. Changes failed to submit'
+        })
+      }
     }
   }
 
@@ -80,6 +97,14 @@ function BlogEdit({ match }: BlogEditProps) {
         <button type="submit">Submit Changes</button>
       </form> }
       { blog && <button onClick={deleteBlog}>Delete</button> }
+      { updateMsg && <Snackbar
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          open={updateMsg.isOpen}
+          autoHideDuration={2000}
+          onClose={() => { setUpdateMsg(null); }}
+          message={updateMsg.msg}
+          key={uuidv4()}
+      /> }
     </section>
   )
 }

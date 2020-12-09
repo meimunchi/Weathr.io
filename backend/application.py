@@ -27,8 +27,10 @@ application.register_blueprint(blog_api)
 
 @application.route('/chat', methods=['POST'])
 def reply_chat():
-    sender_msg = request.get_json()['msg']
-    return {'msg': formulate_message(sender_msg)}
+    req_data = request.get_json()
+    if req_data['lat'] is None and req_data['long'] is None:
+        return {'msg': 'Please set your location first through the location command'}
+    return {'msg': formulate_message(req_data['msg'])}
 
 
 # input is ?, output is a list of blogs
