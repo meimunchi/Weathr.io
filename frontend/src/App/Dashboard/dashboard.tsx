@@ -8,7 +8,9 @@ import 'leaflet/dist/leaflet.css'
 import { LocationCoords } from '../location-coords'
 import L from 'leaflet'
 
-import icon from 'leaflet/dist/images/marker-icon.png';
+// @ts-ignore
+import icon from 'leaflet/dist/images/marker-icon.png'
+// @ts-ignore
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 let DefaultIcon = L.icon({
@@ -17,7 +19,6 @@ let DefaultIcon = L.icon({
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
-
 
 
 interface DashboardProps {
@@ -84,34 +85,9 @@ function Dashboard({ user }: DashboardProps) {
   return (
 
     <div className='dash'>
-      {/* <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
-            <TileLayer
-            url="http://tile.openweathermap.org/map/temp_new/0/0/0.png?appid=10d61017ae8b2c417f4655c38368133d"
-            />
-        </MapContainer> */}
-      {/* <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
-       <TileLayer */}
-      {/*    url="http://tile.openweathermap.org/map/temp_new/0/0/0.png?appid=10d61017ae8b2c417f4655c38368133d"*/}
-      {/*  />*/}
-      {/*  /!*<Marker position={[51.505, -0.09]}>*!/*/}
-      {/*  /!*  <Popup>*!/*/}
-      {/*  /!*    A pretty CSS3 popup. <br /> Easily customizable.*!/*/}
-      {/*  /!*  </Popup>*!/}
-        {  /!*</Marker>*!}
-        {</MapContainer>}
-
-        {/*<MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>*/}
-      {/*  <TileLayer*/}
-      {/*    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'*/}
-      {/*    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"*/}
-      {/*  />*/}
-      {/*</MapContainer>*/}
-
-
-
       <h1 id={'heading'}>Weather Dashboard</h1>
       <h2 id={'heading'}>Welcome Back, {user ? user.name : 'Guest'}</h2>
-      { !locationCoords && <p>Please enable location in browser so we can provide you the best tailored information</p>}
+      { !weatherData && <p>Please enable location in browser so we can provide you the best tailored information</p>}
       { locationCoords && weatherData && <div>
         <h2 id={'heading'}>Precipitation Map</h2>
         <MapContainer center={[locationCoords.lat, locationCoords.long]} zoom={6} scrollWheelZoom={false}>
@@ -127,32 +103,22 @@ function Dashboard({ user }: DashboardProps) {
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
           </Marker>
-          {/*<Marker position={[locationCoords.lat, locationCoords.long]}>*/}
-        {/*  <Popup>*/}
-        {/*    A pretty CSS3 popup. <br /> Easily customizable.*/}
-        {/*  </Popup>*/}
-        {/*</Marker>*/}
-      </MapContainer>
-        <h2 id={'heading'}>Temperature Map</h2>
-        <MapContainer center={[locationCoords.lat, locationCoords.long]} zoom={6} scrollWheelZoom={false}>
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <TileLayer
-            url="http://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=10d61017ae8b2c417f4655c38368133d"
-          />
-          <Marker position={[locationCoords.lat, locationCoords.long]}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
-          {/*<Marker position={[locationCoords.lat, locationCoords.long]}>*/}
-        {/*  <Popup>*/}
-        {/*    A pretty CSS3 popup. <br /> Easily customizable.*/}
-        {/*  </Popup>*/}
-        {/*</Marker>*/}
-      </MapContainer>
+          </MapContainer>
+            <h2 id={'heading'}>Temperature Map</h2>
+            <MapContainer center={[locationCoords.lat, locationCoords.long]} zoom={6} scrollWheelZoom={false}>
+              <TileLayer
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <TileLayer
+                url="http://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=10d61017ae8b2c417f4655c38368133d"
+              />
+              <Marker position={[locationCoords.lat, locationCoords.long]}>
+                <Popup>
+                  A pretty CSS3 popup. <br /> Easily customizable.
+                </Popup>
+              </Marker>
+          </MapContainer>
         <h2 id={'heading'}>7-Day Forecast</h2>
         <div id={'day7forecast'}>
         <tr >
