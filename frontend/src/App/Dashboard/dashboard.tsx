@@ -3,7 +3,7 @@ import Axios from 'axios'
 import { User } from '../user.interface'
 import './dashboard.css'
 import { WeatherData } from './weather-data.interface'
-// import { MapContainer, TileLayer } from 'react-leaflet'
+import { MapContainer, TileLayer, Popup, Marker } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { LocationCoords } from '../location-coords'
 
@@ -76,8 +76,8 @@ function Dashboard({ user }: DashboardProps) {
             url="http://tile.openweathermap.org/map/temp_new/0/0/0.png?appid=10d61017ae8b2c417f4655c38368133d"
             />
         </MapContainer> */}
-      {/*<MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>*/}
-      {/*  <TileLayer*/}
+      {/* <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+       <TileLayer */}
       {/*    url="http://tile.openweathermap.org/map/temp_new/0/0/0.png?appid=10d61017ae8b2c417f4655c38368133d"*/}
       {/*  />*/}
       {/*  /!*<Marker position={[51.505, -0.09]}>*!/*/}
@@ -94,11 +94,23 @@ function Dashboard({ user }: DashboardProps) {
       {/*  />*/}
       {/*</MapContainer>*/}
 
+
+
       <h1 id={'heading'}>Weather Dashboard</h1>
       <h2 id={'heading'}>Welcome Back, {user ? user.name : 'Guest'}</h2>
       { !locationCoords && <p>Please enable location in browser so we can provide you the best tailored information</p>}
       { locationCoords && weatherData && <div>
         <p>Current Location: { locationCoords.lat }, {locationCoords.long }</p>
+        <MapContainer center={[locationCoords.lat, locationCoords.long]} zoom={13} scrollWheelZoom={false}>
+        <TileLayer
+          url="http://tile.openweathermap.org/map/precipitation_new/1/1/1.png?appid=10d61017ae8b2c417f4655c38368133d"
+        />
+        <Marker position={[locationCoords.lat, locationCoords.long]}>
+          <Popup>
+            A pretty CSS3 popup. <br /> Easily customizable.
+          </Popup>
+        </Marker>
+      </MapContainer>
         <h2 id={'heading'}>7-Day Forecast</h2>
         <tr id={'day7forecast'}>
           {weatherData.daily.map((day, index) =>
