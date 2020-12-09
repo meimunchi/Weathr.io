@@ -19,8 +19,10 @@
 }
 
 .leaflet-container {
-    height: 200px;
-    width: 800px;
+    height: 800px;
+    width: 1600px;
+    /*flex-direction: column;*/
+    margin-bottom: 25px;
 }
 
 #day7elements {
@@ -34,7 +36,9 @@
 }
 
 #day7forecast {
+    margin: auto;
     margin-bottom: 25px;
+
 }
 
 #hour48forecast {

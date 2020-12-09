@@ -17,9 +17,6 @@ section.blog-editorial > h1 {
     margin-right: 100px;
 }
 
-
-
-
 section.blog-editorial > div.blog-list > a:hover {
     cursor: pointer;
 }
