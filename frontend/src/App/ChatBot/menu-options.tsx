@@ -34,7 +34,7 @@ export default function SimpleModal() {
 
     return (
         <div>
-            <Button variant="contained" color="inherit" onClick={handleOpen}> Show Menu</Button>
+            <Button variant="outlined" color="inherit" onClick={handleOpen}> Show Menu</Button>
 
             <Dialog
                 open={open}
@@ -45,7 +45,6 @@ export default function SimpleModal() {
                 <DialogTitle id="alert-dialog-title"> Use the <b>commands</b> below:</DialogTitle>
                 <DialogContent>
                     <Typography id="alert-dialog-description">
-                        Use the <b>commands</b> below: <br></br>
                         <b>menu</b> to display all available commands<br></br>
                         <b>descr</b> to provide a general weather description<br></br>
                         <b>humidity, cloudy,</b> or <b>wind</b> to provide their respective weather information
