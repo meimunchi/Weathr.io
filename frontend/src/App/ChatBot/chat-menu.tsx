@@ -41,15 +41,18 @@ export default function ChatMenu() {
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description"
             >
-                <DialogTitle id="alert-dialog-title" data-testid="menu-title"> Use the <b>commands</b> below:</DialogTitle>
+                <DialogTitle id="alert-dialog-title" data-testid="menu-title">Weathr.io Chat Menu</DialogTitle>
                 <DialogContent>
                     <Typography id="alert-dialog-description">
+                        Weathr.io chat is designed as a way to simulate chatting over SMS with +16204224617 when you're
+                        without WiFi. Below are some of the possible commands<br/><br/>
                         <b>menu</b> to display all available commands<br/>
-                        <b>descr</b> to provide a general weather description<br/>
-                        <b>humidity, cloudy,</b> or <b>wind</b> to provide their respective weather information<br/>
                         <b>tornado, earthquake, blizzard, wildfire, hurricane,</b> or <b>flood</b> to obtain some useful tips about each.<br/>
-                        - Find out what to do <b>before, after,</b> or <b>during</b> these natural disasters
-                </Typography>
+                        - Find out what to do <b>before, after,</b> or <b>during</b> these natural disaster<br/><br/>
+                        Add <b>zip=XXXXXX</b> in order to identify your location for the following commands<br/>
+                        - <b>descr</b> to provide a general weather description<br/>
+                        - <b>humidity, cloudy,</b> or <b>wind</b> to provide their respective weather information<br/>
+                    </Typography>
                 </DialogContent>
 
                 <DialogActions>

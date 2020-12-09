@@ -59,6 +59,7 @@ function ChatBotPage() {
       <div className="header">
         <img src={cloudLogo} alt="Weathr Logo" />
         <p data-testid='header-text'>Weathr.io Chat is here to enlighten the soul</p>
+        <p>To try chatting over SMS, text +16204224617 here now!</p>
         <ChatMenu />
       </div>
 
