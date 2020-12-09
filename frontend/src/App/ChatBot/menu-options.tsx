@@ -1,20 +1,11 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-
-function getModalStyle() {
-    function rand() {
-        return Math.round(Math.random() * 20) - 10;
-    }
-    const top = 50 + rand();
-    const left = 50 + rand();
-
-    return {
-        top: `${top}%`,
-        left: `${left}%`,
-        transform: `translate(-${top}%, -${left}%)`,
-    };
-}
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { DialogContentText, Typography } from '@material-ui/core';
+import DialogContent from '@material-ui/core/DialogContent';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -30,7 +21,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function SimpleModal() {
     const classes = useStyles();
-    const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
 
     const handleOpen = () => {
@@ -42,32 +32,31 @@ export default function SimpleModal() {
 
     };
 
-    const body = (
-        <div style={modalStyle} className={classes.paper}>
-            <h2 id="simple-modal-title">Menu options</h2>
-            <p id="simple-modal-description">
-                Use the <b>commands</b> below: <br></br>
-                <b>menu</b> to display all available commands<br></br>
-                <b>descr</b> to provide a general weather description<br></br>
-                <b>humidity, cloudy,</b> or <b>wind</b> to provide their respective weather information<br></br>
-            </p>
-            <SimpleModal />
-        </div>
-    );
-
-    // need to only 1 modal possible
     return (
         <div>
-            <button type="button" onClick={handleOpen}>
-                Menu
-            </button>
-            <Modal
+            <Button variant="contained" color="inherit" onClick={handleOpen}> Show Menu</Button>
+
+            <Dialog
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description">
-                {body}
-            </Modal>
+                aria-describedby="simple-modal-description"
+            >
+                <DialogTitle id="alert-dialog-title"> Use the <b>commands</b> below:</DialogTitle>
+                <DialogContent>
+                    <Typography id="alert-dialog-description">
+                        Use the <b>commands</b> below: <br></br>
+                        <b>menu</b> to display all available commands<br></br>
+                        <b>descr</b> to provide a general weather description<br></br>
+                        <b>humidity, cloudy,</b> or <b>wind</b> to provide their respective weather information
+                </Typography>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={handleClose} color="inherit"> Exit Menu </Button>
+                </DialogActions>
+
+            </Dialog>
         </div>
     );
 }
