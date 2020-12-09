@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { DialogContentText, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import DialogContent from '@material-ui/core/DialogContent';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -19,9 +19,9 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function SimpleModal() {
+export default function ChatMenu() {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     const handleOpen = () => {
         setOpen(true);
@@ -29,12 +29,11 @@ export default function SimpleModal() {
 
     const handleClose = () => {
         setOpen(false);
-
     };
 
     return (
         <div>
-            <Button variant="outlined" color="inherit" onClick={handleOpen}> Show Menu</Button>
+            <Button variant="outlined" color="inherit" onClick={handleOpen} data-testid="menu-button"> Show Menu</Button>
 
             <Dialog
                 open={open}
@@ -42,19 +41,20 @@ export default function SimpleModal() {
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description"
             >
-                <DialogTitle id="alert-dialog-title"> Use the <b>commands</b> below:</DialogTitle>
+                <DialogTitle id="alert-dialog-title" data-testid="menu-title"> Use the <b>commands</b> below:</DialogTitle>
                 <DialogContent>
                     <Typography id="alert-dialog-description">
-                        <b>menu</b> to display all available commands<br></br>
-                        <b>descr</b> to provide a general weather description<br></br>
-                        <b>humidity, cloudy,</b> or <b>wind</b> to provide their respective weather information
+                        <b>menu</b> to display all available commands<br/>
+                        <b>descr</b> to provide a general weather description<br/>
+                        <b>humidity, cloudy,</b> or <b>wind</b> to provide their respective weather information<br/>
+                        <b>tornado, earthquake, blizzard, wildfire, hurricane,</b> or <b>flood</b> to obtain some useful tips about each.<br/>
+                        - Find out what to do <b>before, after,</b> or <b>during</b> these natural disasters
                 </Typography>
                 </DialogContent>
 
                 <DialogActions>
                     <Button onClick={handleClose} color="inherit"> Exit Menu </Button>
                 </DialogActions>
-
             </Dialog>
         </div>
     );

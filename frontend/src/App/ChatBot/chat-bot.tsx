@@ -4,7 +4,7 @@ import './chat-bot.css'
 import Axios from 'axios'
 import 'react-html-parser'
 import HtmlParser from 'react-html-parser'
-import SimpleModal from './menu-options'
+import ChatMenu from './chat-menu'
 import { LocationCoords } from '../location-coords'
 
 function ChatBotPage() {
@@ -55,18 +55,17 @@ function ChatBotPage() {
   }, [])
 
   return (
-    <div className="chatbot">
+    <div className="chatbot" data-testid="chat-container">
       <div className="header">
         <img src={cloudLogo} alt="Weathr Logo" />
         <p data-testid='header-text'>Weathr.io Chat is here to enlighten the soul</p>
-        {SimpleModal()}
-
+        <ChatMenu />
       </div>
 
 
       <form className="chat-container" onSubmit={submit}>
         <div className="textbox">
-          {HtmlParser(chatMessages)}
+          { HtmlParser(chatMessages) }
         </div>
         <input value={msg} onChange={changeMsg} />
         <button type="submit">Send</button>
