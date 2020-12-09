@@ -37,6 +37,7 @@ function About() {
                     </div>
 
                     <div className="col-lg-4">
+
                         <img src={tianruiHead} alt="Tianrui Li Headshot"></img>
                         <h2>Tianrui Li</h2>
                         <h5>Software Developer</h5>

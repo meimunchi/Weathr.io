@@ -26,3 +26,4 @@ def sms_general():
         return message
     else:
         return {'success': False}
+    # return formulate_message

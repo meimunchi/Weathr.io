@@ -6,5 +6,6 @@ describe('Chat Bot Page', () => {
     it('renders correctly', () => {
         const { getByTestId } = render(<ChatBotPage />);
         expect(getByTestId('header-text')).toHaveTextContent('Weathr.io Chat is here to enlighten the soul')
+
     })
 })
