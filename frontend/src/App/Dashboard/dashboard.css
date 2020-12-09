@@ -4,6 +4,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    width: 1000px;
 }
 
 #heading
@@ -29,12 +30,21 @@
 }
 
 #hour48forecast {
-
+    width: 80px;
 }
 
+#scrollbar {
+    overflow-x:auto;
+}
+
+/* #table48 {
+    width: 100%;
+    overflow-x:hidden;
+} */
+
 #hour48elements {
-    padding-left: 3px;
-    border-right: 3px;
+    padding-left: 10px;
+    border-right: 10px;
     border: 3px solid black;
     border-radius: 25px;
     background:#99DAF7;

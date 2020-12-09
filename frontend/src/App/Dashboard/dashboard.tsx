@@ -70,6 +70,11 @@ function Dashboard({ user }: DashboardProps) {
     return(
 
       <div>
+          {/* <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+            <TileLayer
+             url="http://tile.openweathermap.org/map/temp_new/0/0/0.png?appid=10d61017ae8b2c417f4655c38368133d"
+            />
+          </MapContainer> */}
         {/*<MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>*/}
         {/*  <TileLayer*/}
         {/*    url="http://tile.openweathermap.org/map/temp_new/0/0/0.png?appid=10d61017ae8b2c417f4655c38368133d"*/}
@@ -77,9 +82,9 @@ function Dashboard({ user }: DashboardProps) {
         {/*  /!*<Marker position={[51.505, -0.09]}>*!/*/}
         {/*  /!*  <Popup>*!/*/}
         {/*  /!*    A pretty CSS3 popup. <br /> Easily customizable.*!/*/}
-        {/*  /!*  </Popup>*!/*/}
-        {/*  /!*</Marker>*!/*/}
-        {/*</MapContainer>*/}
+        {/*  /!*  </Popup>*!/}
+        {  /!*</Marker>*!}
+        {</MapContainer>}
 
         {/*<MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>*/}
         {/*  <TileLayer*/}
@@ -109,17 +114,21 @@ function Dashboard({ user }: DashboardProps) {
             </tr>
         }
         <h2 id = {'heading'}>48 Hour Hourly Forecast</h2>
+        <div id = {'scrollbar'}>
+        {/* <table id = {'table48'}> */}
         {
             weatherData && <tr id='hour48forecast'>
                 {weatherData.hourly.map((hour, index) =>
                     <th id={'hour48elements'}>
-                        <p>Hour {index}:</p>
+                        <p>Hour {index + 1}:</p>
                         <p>Temperature: {(hour.temp).toFixed(1) + 1}F</p>
                         <p>Chance of Rain: {(hour.pop * 100).toFixed(1)}%</p>
                     </th>
                 )}
             </tr>
         }
+        {/* </table> */}
+        </div>
         <h2 id = {'heading'}>Emergency Weather Information</h2>
         {
             weatherData?.alerts ?
