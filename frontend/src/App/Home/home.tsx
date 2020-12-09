@@ -8,7 +8,7 @@ function Home() {
             <h2 data-testid="intro-header">Staying connected <br></br> in all weather!</h2>
             <p data-testid="intro">Text us to receive real-time updates on storms and tips to keep safe</p>
             <p>Keep up to date on local weather and tips on one centralized platform!</p>
-            <img src={bigCloud} alt="Weathr Logo" />
+            <img data-testid="cloud-pic" src={bigCloud} alt="Weathr Logo" />
         </div>
     )
 

@@ -12,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 function About() {
     //Bootstrap used for the secondary div
     return (
-        <div>
+        <div data-testid="about-us">
             <div className="greeting">
                 <h2>About Us : The Golden Eagles</h2>
                 <p>Inspired by the lack of quick access to important weather data,

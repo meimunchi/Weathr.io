@@ -43,6 +43,8 @@ def formulate_message(incoming_message):
     if 'menu' in incoming_message:
         return default_msg
 
+    # TODO: Please enable location
+
     weather_data = one_call({'lat': '29.651634', 'long': '-82.324829'})
     curr_weather_data = weather_data['current']
 
@@ -62,6 +64,8 @@ def formulate_message(incoming_message):
     if not len(response_list) == 0:
         response += ' | '.join(response_list)
         response += "\n"
+    else:
+        response = 'Please come again? That command is not recognized'
 
     # TODO: Figure out
     for disaster in blogData:
