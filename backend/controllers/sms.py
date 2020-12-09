@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 import json
-from providers.sms_provider import send_message, formulate_message
+from providers.sms_provider import send_message, formulate_message, get_location
 
 sms_api = Blueprint('sms', __name__)
 
@@ -19,10 +19,11 @@ def sms_general():
     if message_type == "Notification":
         req_body = request.get_json(force=True)
         pinpoint_message = json.loads(req_body['Message'])
-
+        
         message = formulate_message(pinpoint_message['messageBody'])
 
         send_message(pinpoint_message['originationNumber'], message)
         return message
     else:
         return {'success': False}
+    

@@ -11,11 +11,11 @@ interface LogoutUser {
 
 function Navigation({ user, logoutUser }: LogoutUser) {
     return (
-      <div className="nav-container">
+      <div className="nav-container" data-testid="nav-container">
         <h2>Weathr.io</h2>
         <img src={cloud} alt="Weathr Logo" />
         <Link to='/'>Home</Link>
-        <Link to='/chat'>Chat</Link>
+        <Link to='/chat' data-testid="chat-link">Chat</Link>
         <Link to='/about-us'>About Us</Link>
         <Link to='/blog'>Blogs</Link>
         { user && user.is_admin && <Link to='/blog-edit'>Blog Edit</Link> }

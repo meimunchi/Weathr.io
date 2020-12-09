@@ -7,7 +7,7 @@ from controllers.weather_info import weather_info_api
 from controllers.sms import sms_api
 from controllers.blog_api import blog_api
 
-from providers.sms_provider import formulate_message
+from providers.sms_provider import formulate_message,get_location
 
 
 application = create_app()
@@ -27,8 +27,9 @@ application.register_blueprint(blog_api)
 
 @application.route('/chat', methods=['POST'])
 def reply_chat():
-    sender_msg = request.get_json()['msg']
-    return {'msg': formulate_message(sender_msg)}
+    req_data = request.get_json()
+    # longitude,latitude = get_location(req_data['msg'])
+    return {'msg': formulate_message(req_data['msg'])}
 
 
 # input is ?, output is a list of blogs

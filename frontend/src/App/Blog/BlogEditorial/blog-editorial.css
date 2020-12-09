@@ -1,5 +1,20 @@
-section.blog-editorial > div.blog-list > a {
+section.blog-editorial > div.blog-list > div{
     background: #9ecdec;
+    border: 3px solid black;
+    margin-bottom: 15px;
+    width: 150px;
+    border-radius: 15px;
+    padding: 5px;
+
+}
+
+section.blog-editorial {
+    margin: auto;
+    max-width: 600px;
+}
+
+section.blog-editorial > h1 {
+    margin-right: 100px;
 }
 
 section.blog-editorial > div.blog-list > a:hover {

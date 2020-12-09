@@ -2,9 +2,9 @@
 {
     margin: auto;
     display: flex;
-    align-items: center;
+    /*align-items: center;*/
     flex-direction: column;
-    width: 1000px;
+    width: 1600px;
 }
 
 #heading
@@ -14,19 +14,31 @@
     border: 3px solid black;
     border-radius: 25px;
     text-align: center;
+    margin: auto;
+    margin-bottom: 25px;
 }
 
 .leaflet-container {
-    height: 200px;
-    width: 800px;
+    height: 800px;
+    width: 1600px;
+    /*flex-direction: column;*/
+    margin-bottom: 25px;
 }
 
 #day7elements {
-    padding-left: 3px;
-    padding-right: 3px;
+    padding-left: 9px;
+    padding-right: 9px;
     border: 3px solid black;
     border-radius: 25px;
     background:#99DAF7;
+    border-spacing: 10px;
+    text-align: center;
+}
+
+#day7forecast {
+    margin: auto;
+    margin-bottom: 25px;
+
 }
 
 #hour48forecast {
@@ -35,6 +47,7 @@
 
 #scrollbar {
     overflow-x:auto;
+    margin-bottom: 25px;
 }
 
 /* #table48 {
@@ -49,3 +62,5 @@
     border-radius: 25px;
     background:#99DAF7;
 }
+
+

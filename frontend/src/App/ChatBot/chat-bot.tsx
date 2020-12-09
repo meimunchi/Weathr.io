@@ -4,12 +4,13 @@ import './chat-bot.css'
 import Axios from 'axios'
 import 'react-html-parser'
 import HtmlParser from 'react-html-parser'
-import SimpleModal from './menu-options'
+import ChatMenu from './chat-menu'
+import { LocationCoords } from '../location-coords'
 
 function ChatBotPage() {
   const [msg, setMsg] = useState('')
   const [chatMessages, setChatMessages] = useState('')
-
+  const [locationCoords, setLocationCoords] = useState(null as null | LocationCoords)
 
   useEffect(() => {
     const chatOutput = document.querySelector('.textbox');
@@ -32,14 +33,17 @@ function ChatBotPage() {
       setChatMessages(updatedChatMessages)
       setMsg('')
 
-      const response = await Axios.post(`${process.env.REACT_APP_PROXY}/chat`, { msg })
+      const response = await Axios.post(`${process.env.REACT_APP_PROXY}/chat`, {
+        lat: locationCoords ? locationCoords.lat : null,
+        long: locationCoords ? locationCoords.long : null, msg
+      })
 
       updatedChatMessages += '<div class="msg-container">\n' +
         `<p class="receive">${response.data.msg}</p>\n` +
         '</div>\n'
       setChatMessages(updatedChatMessages)
 
-      localStorage.setItem('chat-messages', updatedChatMessages)
+      sessionStorage.setItem('chat-messages', updatedChatMessages)
     }
   }
 
@@ -50,21 +54,19 @@ function ChatBotPage() {
     }
   }, [])
 
-
-
   return (
-    <div className="chatbot">
+    <div className="chatbot" data-testid="chat-container">
       <div className="header">
         <img src={cloudLogo} alt="Weathr Logo" />
         <p data-testid='header-text'>Weathr.io Chat is here to enlighten the soul</p>
-        {SimpleModal()}
-
+        <p>To try chatting over SMS, text +16204224617 here now!</p>
+        <ChatMenu />
       </div>
 
 
       <form className="chat-container" onSubmit={submit}>
         <div className="textbox">
-          {HtmlParser(chatMessages)}
+          { HtmlParser(chatMessages) }
         </div>
         <input value={msg} onChange={changeMsg} />
         <button type="submit">Send</button>

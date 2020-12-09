@@ -4,11 +4,12 @@ import os
 import requests
 from providers.datagetter import one_call
 import json
+from pathlib import Path
 
 pinpoint = boto3.client('pinpoint', region_name=os.getenv('AWS_REGION'))
 
-# with open('../blog.json') as f:
-#     blogData = json.load(f)
+with open('./blog.json') as f:
+       blogData = json.load(f)
 
 default_msg = 'Welcome to find Weathr.io to find out about the current weather! Includes all sorts of information ' \
               'from temperature to humidity to cloudiness to wind speed to general weather!'
@@ -42,37 +43,81 @@ def formulate_message(incoming_message):
     if 'menu' in incoming_message:
         return default_msg
 
-    weather_data = one_call({'lat': '29.651634', 'long': '-82.324829'})
+    
+    for disaster in blogData:
+        if disaster.casefold() in incoming_message.casefold():
+            response += disaster + " Info: \n"
+            info = blogData.get(disaster)
+            for section in info:
+                if section.casefold() in incoming_message.casefold():
+                    response = response + section.upper() + ":\n"
+                    for tip in info.get(section):
+                        response = response + "- " + tip + "\n"
+    if len(response) > 0:
+        return response
+    (longitude,latitude,valid) = get_location(incoming_message)
+    
+    if longitude == None or latitude == None:
+        if valid:
+            return "Incorrectly formatted zip code. Please enter in the format : zip=xxxxx "
+        return "Please specify your location using a zip code."
+        
+    # weather_data = one_call({'lat': '29.651634', 'long': '-82.324829'})
+    weather_data = one_call({'lat': latitude, 'long': longitude})
     curr_weather_data = weather_data['current']
 
+    
+
     response_list = []
-    if 'descr' in incoming_message:
+    if 'descr'.casefold() in incoming_message.casefold():
         response_list.append(f"Currently in store for {curr_weather_data['weather'][0]['description']}")
-    if 'cloud' in incoming_message:
+    if 'cloud'.casefold() in incoming_message.casefold():
         response_list.append(f"Current cloudiness is at {curr_weather_data['clouds']}%")
-    if 'humidity' in incoming_message:
+    if 'humidity'.casefold() in incoming_message.casefold():
         response_list.append(f"Current humidity is at {curr_weather_data['humidity']}%")
-    if 'temp' in incoming_message:
+    if 'temp'.casefold() in incoming_message.casefold():
         response_list.append(f"Current temperature is at {curr_weather_data['temp']}F, but feels like"
                              f" {curr_weather_data['feels_like']}F")
-    if 'wind' in incoming_message:
+    if 'wind'.casefold() in incoming_message.casefold():
         response_list.append(f"Wind is currently at {curr_weather_data['wind_speed']}mph")
 
     if not len(response_list) == 0:
         response += ' | '.join(response_list)
         response += "\n"
+    else:
+        response += 'Please come again? That command is not recognized'
 
-    # TODO: Figure out
-    # for disaster in blogData:
-    #     if disaster.casefold() in message.casefold():
-    #         response += disaster + " Info: \n"
-    #         info = data.get(disaster)
-    #         for section in info:
-    #             if section.casefold() in message.casefold():
-    #                 response = response + section.upper() + ":\n"
-    #                 for tip in info.get(section):
-    #                     response = response + "- " + tip + "\n"
+   
     return response
+
+
+# -------------- GET LOCATION OF THE USER -------------- #
+def get_location(incoming_message):
+    #find zip=
+    # if "zip=".casefold() in incoming_message.casefold():
+    try:
+        start_index = incoming_message.index("zip=")
+    except ValueError as err:
+        return None,None,False
+
+    try:
+        end_index = incoming_message.index(" ",start_index)
+    except ValueError as err:
+        end_index = len(incoming_message)
+
+
+    zip_msg = incoming_message[start_index + 4 : end_index]
+    api_req =f"https://maps.googleapis.com/maps/api/geocode/json?address={zip_msg}&key={os.getenv('GEOLOCATION_API_KEY')}"
+    try:
+        loc_results = requests.get(api_req).json()["results"]
+        if len(loc_results) == 0:
+            return None,None, True 
+        loc = loc_results[0]["geometry"]["location"]
+        return loc["lat"],loc["lng"], True
+    except:
+        return None, None, True
+    
+    
 
 
 # -------------- SENDING THE MESSAGE -------------- #

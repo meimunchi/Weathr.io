@@ -22,23 +22,145 @@
            "Stay away from downed power lines or puddles (they may electrocute you!).",
             "Avoid broken glass or sharp objects.",
             "Avoid heavily damaged houses or structures, as they may collapse without notice.",
-            "Avoid matches or lighters, as nearby natural gas lines or tanks may be leaking nearby.",
+            "Avoid matches or lifghters, as nearby natural gas lines or tanks may be leaking nearby.",
             "Listen to officials."
         ]
     },
     "Earthquake": {
+        "signs": [
+            "Earthquakes happen suddenly, often without warning."
+        ],
+        "before": [
+            "Collect general safety emergency supplies (water, non-perishable foods, flashlights, radio, etc.) as well as longer term supplies (days to a few weeks) as earthquakes may disrupt the supply chain.",
+            "Secure heavy items and items that hang on walls in your home.",
+            "Store heavy or breakable objects lower on shelves so that they do."
 
+        ],
+        "during": [
+            "Drop to the floor (or lock a walker or wheelchair).",
+            "Cover (get low to the ground or under sturdy cover)!",
+            "Hold on to something strong/sturdy!",
+            "Avoid falling debris.",
+            "Protect vital organs by staying on your knees or bent over.",
+            "Do not move until the shaking stops."
+            
+        ],
+        "after": [
+            "Avoid downed power lines, seriously damaged buildings or structures, or leaking gas and water lines.",
+            "Expect aftershocks- be vigilant.",
+            "Check for injuries and damage.",
+            "If in an area that can experience tsunamis, get to higher ground or inland immediately.",
+            "Listen to local authorities."
+            
+        ]
     },
     "Blizzard": {
+        "signs": [
+            "One should take immediate precaution if any of the following are issues by local weather outlets or authorities:",
+            "Winter Storm Warning",
+            "Blizzard Warning ",
+            "Wind Chill Temperature",
+            "Winter Storm Outlook",
+            "Winter Storm Watch",
+            "Winter Weather Advisory"
 
+        ],
+        "before": [
+            "Prepare an emergency readiness kit (water, non-perishable food, radio, flashlight, first-aid, etc.)",
+            "Winterize your vehicle before winter comes to prevent chances of being stranded.",
+            "Keep your gas tank full.",
+            "Keep a supply of non-clumping kitty litter to keep walkways and steps less wet and slippery.",
+            "Have snow removal tools and extra winter clothing.",
+            "Ensure that heating sources and insulation are functioning properly.",
+            "Bring pets inside.",
+            "Ensure that you have ample heating fuel (wood if you have a fireplace)."
+
+        ],
+        "during": [
+           "Stay indoors and wear warm clothes.",
+           "Eat regularly to provide your body with energy for heat.",
+           "Keep hydrated.",
+           "Conserve fuel.",
+           "Avoid driving at all costs, but if necessary, bring supplies in case you get stranded."
+           
+        ],
+        "after": [
+            "Avoid driving (if possible) until conditions have improved.",
+            "Ensure that no one is suffering from frostbite or hypothermia.",
+            "Help those who require special assistance.",
+            "If using a portable generator, take precautions against carbon monoxide poisoning."
+            
+        ]
     },
     "Wildfires":{
+        "signs": [
+            "Smoke and decreased visibility, with a smell of wood burning.",
+            "Check local fire advisories to keep up to date on fire spread."
 
+        ],
+        "before": [
+            "Clear deadfall and trees located within 20 feet of the household.",
+            "Remove any dying or rotten trees in the immediate area, as these are prime kindling.",
+            "Have a plan to evacuate the area should a fire get too close."
+
+        ],
+        "during": [
+            "Monitor the fire’s spread closely, follow any evacuation orders.",
+            "Secure the household by removing sensitive documents and valuables"
+            
+        ],
+        "after": [
+            "Follow guidelines from the authorities on returning home"
+        ]
     },
     "Hurricane": {
+        "signs": [   
+            "Listen to local radio storm advisories.",
+            "Follow hurricane progress on www.nhc.noaa.gov.",
+            "If nothing else, look for large drop in atmospheric pressure."
 
+        ],
+        "before": [
+            "Fortify the household by ensuring that all storm doors are open, windows are secured (boarded up or shuddered), and vehicles are in a safe location.",
+            "Stockpile at least 3 days worth of food and water.",
+            "Monitor hurricane path and evacuate."
+
+        ],
+        "during": [
+            "If you have not decided to evacuate, take shelter in your household, or move to the nearest evacuation shelter.",
+            "Stay in the center of the building, away from windows and collapsible structures.",
+            "Keep lights and food handy in case you are not able to leave following the hurricane."
+            
+        ],
+        "after": [
+            "Check any damage that could have occurred to the building, listen to radio advisories and notices from the local government regarding closures and possible hazards.",
+            "If you cannot leave your house due to flooding, try to find a way to signal to search teams. This can involve waving a shirt out of the window or finding a way to stand on the roof of the building."
+            
+        ]
     },
     "Flood":{
+        "signs": [
+            "Large amounts of water",
+            "Look to see if your house has become an island"
 
+        ],
+        "before": [
+            "Ensure that all valuables are safe from ground level.",
+            "Pay attention to local flood advisories. If flooding is expected, procure sandbags or similar structures and attempt to seal all doorways and possible entrances for water.",
+            "Stockpile 1-3 days of food and water in case flooding does not subside rapidly."
+            
+        ],
+        "during": [
+            "Listen to local radio and Weathr for updates on when the flooding is expected to die down. If possible, evacuate if necessary.",
+            "Do not drive or leave the house if flooding is imminent, this is far more dangerous than staying inside.",
+            "Fight to keep water out of the household with buckets, barriers, or any object that can be used to block or absorb water."
+
+        ],
+        "after": [
+            "When flooding has subsided, work on removing as much water from the vicinity as possible. Common options are air-vacuums and leaf blowers.",
+            "Inspect any water damage to property and environment surrounding property for possible hazards.",
+            "Do not begin to travel unless local authorities have advised you to do so."
+
+        ]
     }
 }

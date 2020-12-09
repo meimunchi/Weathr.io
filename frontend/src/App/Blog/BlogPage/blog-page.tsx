@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router'
 import Axios from 'axios'
 import { Blog } from '../blog'
+import ReactHtmlParser from 'react-html-parser'
+import './blog-page.css'
 
 interface BlogParams {
   id: string
@@ -25,7 +27,9 @@ function BlogPage({ match }: BlogPageProps) {
   console.log(blog)
 
   return (
-    <div>{ match.params.id }</div>
+      <div className={"page"}>
+        <div>{ blog && ReactHtmlParser(blog.content) }</div>
+      </div>
   )
 }
 
