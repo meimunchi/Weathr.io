@@ -6,6 +6,7 @@ import { WeatherData } from './weather-data.interface'
 // import { MapContainer, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 
+
 interface DashboardProps {
     user: User | null
 }
@@ -69,7 +70,7 @@ function Dashboard({ user }: DashboardProps) {
 
     return(
 
-      <div>
+      <div className={'dash'}>
           {/* <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
             <TileLayer
              url="http://tile.openweathermap.org/map/temp_new/0/0/0.png?appid=10d61017ae8b2c417f4655c38368133d"
@@ -97,6 +98,7 @@ function Dashboard({ user }: DashboardProps) {
         <h2 id = {'heading'}>Welcome Back, { user ? user.name : 'Guest'}</h2>
         <h2 id = {'heading'}>7-Day Forecast</h2>
         {
+
             weatherData && <tr id={'day7forecast'}>
                 { weatherData.daily.map((day, index) =>
                         <th id={'day7elements'}>
@@ -112,7 +114,9 @@ function Dashboard({ user }: DashboardProps) {
                         </th>
                     )}
             </tr>
+
         }
+
         <h2 id = {'heading'}>48 Hour Hourly Forecast</h2>
         <div id = {'scrollbar'}>
         {/* <table id = {'table48'}> */}

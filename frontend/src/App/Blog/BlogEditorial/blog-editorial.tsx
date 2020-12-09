@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router'
 import { v4 as uuidv4 } from 'uuid';
 import { User } from '../../user.interface'
+import './blog-editorial.css'
 
 interface BlogEditorialProps {
   user: User
@@ -42,10 +43,11 @@ function BlogEditorial({ user }: BlogEditorialProps) {
 
   return (
     <section className="blog-editorial">
-      <h2>Published blogs</h2>
+      <h1>Published Blogs</h1>
       { blogList && <div className="blog-list">
         { blogList.blogs.length > 0 ?
           (blogList.blogs.map((blog) => (
+              <div>
           <Link
             to={`/blog-edit/${blog.uid}`}
             // className="blog-container"
@@ -55,6 +57,7 @@ function BlogEditorial({ user }: BlogEditorialProps) {
             <p>{ blog.author }</p>
             <p> { blog.date }</p>
           </Link>
+              </div>
         ))) : <p>No blogs yet...</p> }
         <button onClick={addBlog}>Add Blog</button>
       </div>}

@@ -25,12 +25,28 @@ h1, h2, h3, h4, h5, h6 {
 
 .blog-post {
   margin-bottom: 4rem;
+  background: #99DAF7;
+  border: 3px solid black;
+  border-radius: 15px;
+  padding:3px;
 }
 .blog-post-title {
+  text-align: left;
   margin-bottom: .25rem;
   font-size: 2.5rem;
 }
 .blog-post-meta {
   margin-bottom: 1.25rem;
   color: #999;
+}
+
+#jumbotron {
+  background-color: #99DAF7;
+  border: 3px solid black;
+  border-radius: 50px;
+  margin-top: 10px;
+}
+
+#featured {
+  background: #99DAF7;
 }
