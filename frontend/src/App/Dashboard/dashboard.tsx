@@ -152,7 +152,7 @@ function Dashboard({ user }: DashboardProps) {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <TileLayer
-            url="http://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=10d61017ae8b2c417f4655c38368133d"
+            url="http://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=709f1c4fde6f2109253c9ebb0d7c136b"
           />
           <Marker position={[locationCoords.lat as number, locationCoords.long as number]}>
             <Popup>
@@ -167,7 +167,7 @@ function Dashboard({ user }: DashboardProps) {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
               <TileLayer
-                url="http://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=10d61017ae8b2c417f4655c38368133d"
+                url="http://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=709f1c4fde6f2109253c9ebb0d7c136b"
               />
               <Marker position={[locationCoords.lat as number, locationCoords.long as number]}>
                 <Popup>
