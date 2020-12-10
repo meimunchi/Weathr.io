@@ -49,7 +49,6 @@ def one_call(ip_info):
     # key = config_data['APIKEY']
     key = os.getenv('WEATHER_APIKEY') #get through env variable
     # print('key: '+ key )
-
     owm_response = requests.get('http://api.openweathermap.org/data/2.5/onecall?lat=' + str(ip_info['lat'])
                                 + '&lon=' + str(ip_info['long']) + '&appid=' + key + '&units=imperial')
 
