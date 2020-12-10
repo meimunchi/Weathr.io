@@ -45,6 +45,31 @@ class TestEndpoints(unittest.TestCase):
         response = requests.get('http://localhost:5000/logout')
         self.assertEqual(response.status_code, 200)
     
-    
+ # weather tests
+    def test_weathr_info(self):
+        response = requests.post('http://localhost:5000/info')
+        self.assertEqual(response.status_code, 200)
+
+    def test_weathr_precip(self):
+        response = requests.get('http://localhost:5000/precip')
+        self.assertEqual(response.status_code, 200)
+
+    def test_general(self):
+        response = requests.get('http://localhost:5000/general')
+        self.assertEqual(response.status_code, 200)
+
+    def test_disaster(self):
+        response = requests.get('http://localhost:5000/disaster')
+        self.assertEqual(response.status_code, 200)
+
+    def test_news(self):
+        response = requests.get('http://localhost:5000/news')
+        self.assertEqual(response.status_code, 200)
+
+# sms test
+    def test_sms_general(self):
+        response = requests.post('http://localhost:5000/general')
+        self.assertEqual(response.status_code, 200)
+
 if __name__ == '__main__':
     unittest.main()
