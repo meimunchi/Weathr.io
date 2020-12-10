@@ -61,6 +61,13 @@ function Dashboard({ user }: DashboardProps) {
     })
   }
 
+  if (!locationCoords) {
+    const storedLocationCoord = localStorage.getItem('location-coord')
+    if (storedLocationCoord) {
+      setLocationCoords(JSON.parse(storedLocationCoord))
+    }
+  }
+
   useEffect(() => {
     async function getWeatherData() {
       if (locationCoords) {
@@ -71,14 +78,14 @@ function Dashboard({ user }: DashboardProps) {
         const resWeatherData = response.data
         //const res = await Axios.get(`${process.env.REACT_APP_PROXY}/precip`, body);
         //const precipmap = res;
-        sessionStorage.setItem('weather-data', JSON.stringify(resWeatherData))
+        localStorage.setItem('weather-data', JSON.stringify(resWeatherData))
         setWeatherData(response.data)
 
-        sessionStorage.setItem('next-update-time', nextUpdateTime())
+        localStorage.setItem('next-update-time', nextUpdateTime())
       }
     }
 
-    const storedWeatherData = sessionStorage.getItem('weather-data')
+    const storedWeatherData = localStorage.getItem('weather-data')
     if (storedWeatherData && !isPastTime()) {
       setWeatherData(JSON.parse(storedWeatherData))
     } else {
@@ -93,19 +100,19 @@ function Dashboard({ user }: DashboardProps) {
         ...fillLocationCoords, [e.target.name]: locNum
       })
     }
-    else if (e.target.value === '') {
+    if (e.target.value === '') {
       setFillLocationCoords({
         ...fillLocationCoords, [e.target.name]: null
       })
     }
-    else if (e.target.value === '-') {
+    if (e.target.value === '-') {
       setFillLocationCoords({
         ...fillLocationCoords, [e.target.name]: '-'
       })
     }
-    else if (e.target.value === '.') {
+    if (e.target.value.includes('.')) {
       setFillLocationCoords({
-        ...fillLocationCoords, [e.target.name]: '.'
+        ...fillLocationCoords, [e.target.name]: e.target.value
       })
     }
   }
@@ -116,6 +123,7 @@ function Dashboard({ user }: DashboardProps) {
     if (fillLocationCoords.lat && fillLocationCoords.long) {
       if (-90 <= fillLocationCoords.lat && fillLocationCoords.lat <= 90 && -180 <= fillLocationCoords.long && fillLocationCoords.long <= 180) {
         setLocationCoords(fillLocationCoords)
+        localStorage.setItem('location-coord', JSON.stringify(fillLocationCoords))
       }
     }
   }
