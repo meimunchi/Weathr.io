@@ -103,6 +103,11 @@ function Dashboard({ user }: DashboardProps) {
         ...fillLocationCoords, [e.target.name]: '-'
       })
     }
+    else if (e.target.value === '.') {
+      setFillLocationCoords({
+        ...fillLocationCoords, [e.target.name]: '.'
+      })
+    }
   }
 
   const onLatLongSubmit = (e: any) => {
