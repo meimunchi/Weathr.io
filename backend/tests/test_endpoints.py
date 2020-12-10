@@ -28,5 +28,23 @@ class TestEndpoints(unittest.TestCase):
         response = requests.post('http://localhost:5000/add-blog')
         self.assertEqual(response.status_code, 200)
     
+# login tests
+    def test_login(self):
+        response = requests.post('http://localhost:5000/login')
+        self.assertEqual(response.status_code, 200)
+
+    def test_signup_user(self):
+        response = requests.post('http://localhost:5000/signup')
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_user(self):
+        response = requests.get('http://localhost:5000/user')
+        self.assertEqual(response.status_code, 200)
+
+    def test_logout(self):
+        response = requests.get('http://localhost:5000/logout')
+        self.assertEqual(response.status_code, 200)
+    
+    
 if __name__ == '__main__':
     unittest.main()
