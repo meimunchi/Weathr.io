@@ -1,6 +1,5 @@
 # Weathr.io
 
-(Insert project description here)
 
 ## Building and installing
 
@@ -11,3 +10,10 @@ Run `git checkout dev` so that you're working on the developer branch. From ther
 Run `npm run start:dev-venv` or `npm run start:dev-global` to start the local servers for both frontend and backend to begin development! Use the global version if you don't have a virtual environment set up.
 
 If you only need to work on the backend, just run `npm run start:backend`. If you only need to work on the frontend, just run `npm run start:frontend`. 
+
+# AWS Notes
+
+You will need an Amazon Web Services Account. 
+
+Install the AWS CLI and link your account by running `aws configure` and entering in your AWS credentials.
+Your AWS Account will host the resources (DynamoDB tables, ElasticBeanstalk Applications, CodePipeline pipelines) necessary to develop and deploy the application.
