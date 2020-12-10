@@ -98,15 +98,18 @@ function Dashboard({ user }: DashboardProps) {
         ...fillLocationCoords, [e.target.name]: null
       })
     }
+    else if (e.target.value === '-') {
+      setFillLocationCoords({
+        ...fillLocationCoords, [e.target.name]: '-'
+      })
+    }
   }
 
   const onLatLongSubmit = (e: any) => {
     e.preventDefault()
 
     if (fillLocationCoords.lat && fillLocationCoords.long) {
-      console.log(fillLocationCoords)
       if (-90 <= fillLocationCoords.lat && fillLocationCoords.lat <= 90 && -180 <= fillLocationCoords.long && fillLocationCoords.long <= 180) {
-        console.log(fillLocationCoords)
         setLocationCoords(fillLocationCoords)
       }
     }
@@ -118,7 +121,8 @@ function Dashboard({ user }: DashboardProps) {
       <h1 id={'heading'}>Weather Dashboard</h1>
       <h2 id={'heading'}>Welcome Back, {user ? user.name : 'Guest'}</h2>
       { !locationCoords && <form onSubmit={onLatLongSubmit}>
-        <p>Please enable location in browser so we can provide you the best tailored information</p>
+        <p>Please enable location in browser so we can provide you the best tailored information.
+        If not, feel free free to enter here. Note that latitude ranges from -90 to 90 and longitude ranges from -180 to 180</p>
         <label>
           Latitude: <input name="lat" onChange={onChangeLocationCoords} value={fillLocationCoords.lat ? fillLocationCoords.lat.toString() : ''}/>
         </label>

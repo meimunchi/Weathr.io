@@ -1,5 +1,5 @@
 import React from 'react'
-import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap/dist/css/bootstrap.css'
 import './blog-main.css'
 import { Link } from 'react-router-dom'
 import seis from "../../../assets/seis.jpg"
