@@ -2,7 +2,6 @@ import React from 'react';
 import { render, fireEvent, cleanup, screen } from '@testing-library/react'
 import ChatBotPage from './chat-bot'
 import App from '../App'
-import ChatMenu from './chat-menu'
 import { MemoryRouter } from 'react-router'
 
 describe('Chat Bot Page', () => {

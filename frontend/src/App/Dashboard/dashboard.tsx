@@ -48,12 +48,17 @@ function Dashboard({ user }: DashboardProps) {
     return nextUpdateTime.toString()
   }
 
+  navigator.geolocation.getCurrentPosition((location) => {
+    setLocationCoords({
+      lat: location.coords.latitude,
+      long: location.coords.longitude
+    })
+  })
+
   if (!locationCoords) {
-    navigator.geolocation.getCurrentPosition((location) => {
-      setLocationCoords({
-        lat: location.coords.latitude,
-        long: location.coords.longitude
-      })
+    setLocationCoords({
+      lat: 29.6516,
+      long: -82.3248
     })
   }
 
@@ -87,7 +92,7 @@ function Dashboard({ user }: DashboardProps) {
     <div className='dash'>
       <h1 id={'heading'}>Weather Dashboard</h1>
       <h2 id={'heading'}>Welcome Back, {user ? user.name : 'Guest'}</h2>
-      { !weatherData && <p>Please enable location in browser so we can provide you the best tailored information</p>}
+      { !locationCoords && <p>Please enable location in browser so we can provide you the best tailored information</p>}
       { locationCoords && weatherData && <div>
         <h2 id={'heading'}>Precipitation Map</h2>
         <MapContainer center={[locationCoords.lat, locationCoords.long]} zoom={6} scrollWheelZoom={false}>
@@ -103,7 +108,6 @@ function Dashboard({ user }: DashboardProps) {
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
           </Marker>
-<<<<<<< Updated upstream
           </MapContainer>
             <h2 id={'heading'}>Temperature Map</h2>
             <MapContainer center={[locationCoords.lat, locationCoords.long]} zoom={6} scrollWheelZoom={false}>
@@ -120,13 +124,6 @@ function Dashboard({ user }: DashboardProps) {
                 </Popup>
               </Marker>
           </MapContainer>
-=======
-          {/*<Marker position={[locationCoords.lat, locationCoords.long]}>*/}
-          {/*  <Popup>*/}
-          {/*    A pretty CSS3 popup. <br /> Easily customizable.*/}
-          {/*  </Popup>*/}
-          {/*</Marker>*/}
-        </MapContainer>
         <h2 id={'heading'}>Temperature Map</h2>
         <MapContainer center={[locationCoords.lat, locationCoords.long]} zoom={6} scrollWheelZoom={false}>
           <TileLayer
@@ -141,13 +138,7 @@ function Dashboard({ user }: DashboardProps) {
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
           </Marker>
-          {/*<Marker position={[locationCoords.lat, locationCoords.long]}>*/}
-          {/*  <Popup>*/}
-          {/*    A pretty CSS3 popup. <br /> Easily customizable.*/}
-          {/*  </Popup>*/}
-          {/*</Marker>*/}
         </MapContainer>
->>>>>>> Stashed changes
         <h2 id={'heading'}>7-Day Forecast</h2>
         <div id={'day7forecast'}>
           <tr >
