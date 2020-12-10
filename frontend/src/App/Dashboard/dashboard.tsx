@@ -14,8 +14,8 @@ import icon from 'leaflet/dist/images/marker-icon.png'
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 let DefaultIcon = L.icon({
-  iconUrl: icon,
-  shadowUrl: iconShadow
+    iconUrl: icon,
+    shadowUrl: iconShadow
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
@@ -28,6 +28,10 @@ interface DashboardProps {
 function Dashboard({ user }: DashboardProps) {
   const [weatherData, setWeatherData] = useState(null as null | WeatherData)
   const [locationCoords, setLocationCoords] = useState(null as null | LocationCoords)
+  const [fillLocationCoords, setFillLocationCoords] = useState({
+    lat: null,
+    long: null
+  } as LocationCoords)
 
   const isPastTime = () => {
     const strNextUpdateTime = sessionStorage.getItem('next-update-time')
@@ -48,17 +52,12 @@ function Dashboard({ user }: DashboardProps) {
     return nextUpdateTime.toString()
   }
 
-  navigator.geolocation.getCurrentPosition((location) => {
-    setLocationCoords({
-      lat: location.coords.latitude,
-      long: location.coords.longitude
-    })
-  })
-
   if (!locationCoords) {
-    setLocationCoords({
-      lat: 29.6516,
-      long: -82.3248
+    navigator.geolocation.getCurrentPosition((location) => {
+      setLocationCoords({
+        lat: location.coords.latitude,
+        long: location.coords.longitude
+      })
     })
   }
 
@@ -87,15 +86,54 @@ function Dashboard({ user }: DashboardProps) {
     }
   }, [locationCoords])
 
+  const onChangeLocationCoords = (e: any) => {
+    const locNum = parseInt(e.target.value)
+    if (!isNaN(locNum)) {
+      setFillLocationCoords({
+        ...fillLocationCoords, [e.target.name]: locNum
+      })
+    }
+    else if (e.target.value === '') {
+      setFillLocationCoords({
+        ...fillLocationCoords, [e.target.name]: null
+      })
+    }
+    else if (e.target.value === '-') {
+      setFillLocationCoords({
+        ...fillLocationCoords, [e.target.name]: '-'
+      })
+    }
+  }
+
+  const onLatLongSubmit = (e: any) => {
+    e.preventDefault()
+
+    if (fillLocationCoords.lat && fillLocationCoords.long) {
+      if (-90 <= fillLocationCoords.lat && fillLocationCoords.lat <= 90 && -180 <= fillLocationCoords.long && fillLocationCoords.long <= 180) {
+        setLocationCoords(fillLocationCoords)
+      }
+    }
+  }
+
   return (
 
     <div className='dash'>
       <h1 id={'heading'}>Weather Dashboard</h1>
       <h2 id={'heading'}>Welcome Back, {user ? user.name : 'Guest'}</h2>
-      { !locationCoords && <p>Please enable location in browser so we can provide you the best tailored information</p>}
+      { !locationCoords && <form onSubmit={onLatLongSubmit}>
+        <p>Please enable location in browser so we can provide you the best tailored information.
+        If not, feel free free to enter here. Note that latitude ranges from -90 to 90 and longitude ranges from -180 to 180</p>
+        <label>
+          Latitude: <input name="lat" onChange={onChangeLocationCoords} value={fillLocationCoords.lat ? fillLocationCoords.lat.toString() : ''}/>
+        </label>
+        <label>
+          Longitude: <input name="long" onChange={onChangeLocationCoords} value={fillLocationCoords.long ? fillLocationCoords.long.toString() : ''}/>
+        </label>
+        <button type="submit">Submit</button>
+      </form> }
       { locationCoords && weatherData && <div>
         <h2 id={'heading'}>Precipitation Map</h2>
-        <MapContainer center={[locationCoords.lat, locationCoords.long]} zoom={6} scrollWheelZoom={false}>
+        <MapContainer center={[locationCoords.lat as number, locationCoords.long as number]} zoom={6} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -103,14 +141,14 @@ function Dashboard({ user }: DashboardProps) {
           <TileLayer
             url="http://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=10d61017ae8b2c417f4655c38368133d"
           />
-          <Marker position={[locationCoords.lat, locationCoords.long]}>
+          <Marker position={[locationCoords.lat as number, locationCoords.long as number]}>
             <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
           </Marker>
           </MapContainer>
             <h2 id={'heading'}>Temperature Map</h2>
-            <MapContainer center={[locationCoords.lat, locationCoords.long]} zoom={6} scrollWheelZoom={false}>
+            <MapContainer center={[locationCoords.lat as number, locationCoords.long as number]} zoom={6} scrollWheelZoom={false}>
               <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -118,57 +156,42 @@ function Dashboard({ user }: DashboardProps) {
               <TileLayer
                 url="http://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=10d61017ae8b2c417f4655c38368133d"
               />
-              <Marker position={[locationCoords.lat, locationCoords.long]}>
+              <Marker position={[locationCoords.lat as number, locationCoords.long as number]}>
                 <Popup>
                   A pretty CSS3 popup. <br /> Easily customizable.
                 </Popup>
               </Marker>
           </MapContainer>
-        <h2 id={'heading'}>Temperature Map</h2>
-        <MapContainer center={[locationCoords.lat, locationCoords.long]} zoom={6} scrollWheelZoom={false}>
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <TileLayer
-            url="http://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=10d61017ae8b2c417f4655c38368133d"
-          />
-          <Marker position={[locationCoords.lat, locationCoords.long]}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
-        </MapContainer>
         <h2 id={'heading'}>7-Day Forecast</h2>
         <div id={'day7forecast'}>
-          <tr >
-            {weatherData.daily.map((day, index) =>
-              <th id='day7elements' key={`${day}-${index}`}>
-                <h3>Day {index + 1}</h3>
-                <p>Max Temp: {(day.temp.max).toFixed(1)}F</p>
-                <p>Min Temp: {(day.temp.min).toFixed(1)}F</p>
-                <p>Chance of Rain: {(day.pop * 100).toFixed(1)}%</p>
-                <p>Humidity: {(day.humidity).toFixed(1)}%</p>
-                <p>Cloud Cover: {(day.clouds).toFixed(1)}%</p>
-                <p>UV Index: {(day.uvi).toFixed(1)} out of 10.0</p>
-                <p>Sunrise: {(day.sunrise)}</p>
-                <p>Sunset: {(day.sunset)}</p>
-              </th>
-            )}
-          </tr>
-        </div>
+        <tr >
+          {weatherData.daily.map((day, index) =>
+            <th id='day7elements' key={`${day}-${index}`}>
+              <h3>Day {index + 1}</h3>
+              <p>Max Temp: {(day.temp.max).toFixed(1)}F</p>
+              <p>Min Temp: {(day.temp.min).toFixed(1)}F</p>
+              <p>Chance of Rain: {(day.pop * 100).toFixed(1)}%</p>
+              <p>Humidity: {(day.humidity).toFixed(1)}%</p>
+              <p>Cloud Cover: {(day.clouds).toFixed(1)}%</p>
+              <p>UV Index: {(day.uvi).toFixed(1)} out of 10.0</p>
+              <p>Sunrise: {(day.sunrise)}</p>
+              <p>Sunset: {(day.sunset)}</p>
+            </th>
+          )}
+        </tr>
+          </div>
 
         <h2 id={'heading'}>48 Hour Hourly Forecast</h2>
         <div id={'scrollbar'}>
-          <tr id='hour48forecast'>
-            {weatherData.hourly.map((hour, index) =>
-              <th id='hour48elements' key={`${hour}-${index}`}>
-                <p>Hour {index + 1}:</p>
-                <p>Temperature: {(hour.temp).toFixed(1) + 1}F</p>
-                <p>Chance of Rain: {(hour.pop * 100).toFixed(1)}%</p>
-              </th>
-            )}
-          </tr>
+            <tr id='hour48forecast'>
+              {weatherData.hourly.map((hour, index) =>
+                <th id='hour48elements' key={`${hour}-${index}`}>
+                  <p>Hour {index + 1}:</p>
+                  <p>Temperature: {(hour.temp).toFixed(1) + 1}F</p>
+                  <p>Chance of Rain: {(hour.pop * 100).toFixed(1)}%</p>
+                </th>
+              )}
+            </tr>
         </div>
         <h2 id={'heading'}>Emergency Weather Information</h2>
         {
@@ -176,7 +199,7 @@ function Dashboard({ user }: DashboardProps) {
             <p>Description: {weatherData.alerts.description}</p> :
             <p>Alerts are not here.</p>
         }
-      </div>}
+      </div> }
 
     </div>
   )

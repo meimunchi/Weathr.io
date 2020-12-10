@@ -33,7 +33,7 @@ def reply_chat():
 
 
 # input is ?, output is a list of blogs
-@application.route('/educational-blogs', methods=['POST'])
+@application.route('/educational-blogs', methods=['GET'])
 def edu_blogs():
     return 'This is the educational-blogs route!'
 
