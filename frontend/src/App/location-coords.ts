@@ -1,4 +1,4 @@
 export interface LocationCoords {
-  lat: number,
-  long: number
+  lat: number | null,
+  long: number | null
 }

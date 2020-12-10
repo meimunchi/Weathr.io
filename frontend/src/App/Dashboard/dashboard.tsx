@@ -28,6 +28,10 @@ interface DashboardProps {
 function Dashboard({ user }: DashboardProps) {
   const [weatherData, setWeatherData] = useState(null as null | WeatherData)
   const [locationCoords, setLocationCoords] = useState(null as null | LocationCoords)
+  const [fillLocationCoords, setFillLocationCoords] = useState({
+    lat: null,
+    long: null
+  } as LocationCoords)
 
   const isPastTime = () => {
     const strNextUpdateTime = sessionStorage.getItem('next-update-time')
@@ -82,15 +86,50 @@ function Dashboard({ user }: DashboardProps) {
     }
   }, [locationCoords])
 
+  const onChangeLocationCoords = (e: any) => {
+    const locNum = parseInt(e.target.value)
+    if (!isNaN(locNum)) {
+      setFillLocationCoords({
+        ...fillLocationCoords, [e.target.name]: locNum
+      })
+    }
+    else if (e.target.value === '') {
+      setFillLocationCoords({
+        ...fillLocationCoords, [e.target.name]: null
+      })
+    }
+  }
+
+  const onLatLongSubmit = (e: any) => {
+    e.preventDefault()
+
+    if (fillLocationCoords.lat && fillLocationCoords.long) {
+      console.log(fillLocationCoords)
+      if (-90 <= fillLocationCoords.lat && fillLocationCoords.lat <= 90 && -180 <= fillLocationCoords.long && fillLocationCoords.long <= 180) {
+        console.log(fillLocationCoords)
+        setLocationCoords(fillLocationCoords)
+      }
+    }
+  }
+
   return (
 
     <div className='dash'>
       <h1 id={'heading'}>Weather Dashboard</h1>
       <h2 id={'heading'}>Welcome Back, {user ? user.name : 'Guest'}</h2>
-      { !weatherData && <p>Please enable location in browser so we can provide you the best tailored information</p>}
+      { !locationCoords && <form onSubmit={onLatLongSubmit}>
+        <p>Please enable location in browser so we can provide you the best tailored information</p>
+        <label>
+          Latitude: <input name="lat" onChange={onChangeLocationCoords} value={fillLocationCoords.lat ? fillLocationCoords.lat.toString() : ''}/>
+        </label>
+        <label>
+          Longitude: <input name="long" onChange={onChangeLocationCoords} value={fillLocationCoords.long ? fillLocationCoords.long.toString() : ''}/>
+        </label>
+        <button type="submit">Submit</button>
+      </form> }
       { locationCoords && weatherData && <div>
         <h2 id={'heading'}>Precipitation Map</h2>
-        <MapContainer center={[locationCoords.lat, locationCoords.long]} zoom={6} scrollWheelZoom={false}>
+        <MapContainer center={[locationCoords.lat as number, locationCoords.long as number]} zoom={6} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -98,14 +137,14 @@ function Dashboard({ user }: DashboardProps) {
           <TileLayer
             url="http://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=10d61017ae8b2c417f4655c38368133d"
           />
-          <Marker position={[locationCoords.lat, locationCoords.long]}>
+          <Marker position={[locationCoords.lat as number, locationCoords.long as number]}>
             <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
           </Marker>
           </MapContainer>
             <h2 id={'heading'}>Temperature Map</h2>
-            <MapContainer center={[locationCoords.lat, locationCoords.long]} zoom={6} scrollWheelZoom={false}>
+            <MapContainer center={[locationCoords.lat as number, locationCoords.long as number]} zoom={6} scrollWheelZoom={false}>
               <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -113,7 +152,7 @@ function Dashboard({ user }: DashboardProps) {
               <TileLayer
                 url="http://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=10d61017ae8b2c417f4655c38368133d"
               />
-              <Marker position={[locationCoords.lat, locationCoords.long]}>
+              <Marker position={[locationCoords.lat as number, locationCoords.long as number]}>
                 <Popup>
                   A pretty CSS3 popup. <br /> Easily customizable.
                 </Popup>
